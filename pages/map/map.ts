@@ -177,7 +177,7 @@ export class MapPage {
 
             this.map.addTileOverlay({
                 // <x>,<y> and <zoom> are replaced with values
-                tileUrlFormat: stamen,
+                tileUrlFormat: openm,
                 tileSize: 512
             }).then((tileOverlay) => {
                 this.overlay = tileOverlay;
