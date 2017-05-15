@@ -1,0 +1,20 @@
+<ion-header>
+
+</ion-header>
+
+<ion-content padding style="text-align:center; color: #222;">
+  <br><br><br><br>
+  <h2>{{languages.welcome}}</h2>
+  <p [innerHTML]="languages.start1"></p>
+  <button ion-button outline (click)="presentSignUp($event)">{{languages.register}}</button>
+
+  <p>
+  <small>{{languages.start2}}</small>
+  </p>
+  <button ion-button (click)="presentLogin($event)">{{languages.login}}</button>
+
+  <br><br><br>
+  <p>
+    {{languages.start3}} <small><a href="mailto:frankie@hackweb.it">frankie@hackweb.it</a></small>
+  </p>
+</ion-content>

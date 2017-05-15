@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>{{languages.register}}</ion-title>
+
+    <ion-buttons end>
+      <button ion-button (click)="close()">
+        {{languages.cancel}}
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding style="text-align:center;">
+
+  <ion-list>
+    <ion-item>
+      <ion-label stacked>Username</ion-label>
+      <ion-input type="text" [(ngModel)]="user.username" (keypress)="keyP($event.keyCode)"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Password</ion-label>
+      <ion-input type="password" [(ngModel)]="user.password" (keypress)="keyP($event.keyCode)"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Repeat password</ion-label>
+      <ion-input type="password" [(ngModel)]="user.password2" (keypress)="keyP($event.keyCode)"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Email</ion-label>
+      <ion-input type="email" [(ngModel)]="user.mail" (keypress)="keyP($event.keyCode)"></ion-input>
+    </ion-item>
+  </ion-list>
+
+  <button ion-button (click)="signUp()">{{languages.register}}</button>
+
+  <br><br><br>
+  <p>
+    {{languages.problems}} <small><a href="mailto:frankie@hackweb.it">frankie@hackweb.it</a></small>
+  </p>
+</ion-content>

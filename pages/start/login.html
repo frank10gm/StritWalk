@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>{{languages.login}}</ion-title>
+
+    <ion-buttons end>
+      <button ion-button (click)="closeLogin()">
+        {{languages.cancel}}
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding style="text-align:center;">
+
+  <ion-list>
+    <ion-item>
+      <ion-label stacked>Username</ion-label>
+      <ion-input type="text" [(ngModel)]="user.name"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Password</ion-label>
+      <ion-input type="password" [(ngModel)]="user.password"></ion-input>
+    </ion-item>
+  </ion-list>
+
+  <button ion-button (click)="login()">{{languages.login}}</button>
+
+  <br><br><br>
+  <p>
+    {{languages.lost_password}} <a (click)="lostPassword()">{{languages.click_here}}</a>
+  </p>
+</ion-content>

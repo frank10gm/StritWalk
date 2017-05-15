@@ -1,0 +1,17 @@
+ion-app._gmaps_cdv_ .nav-decor{
+  background-color: transparent!important;
+  display:none!important;
+}
+
+page-map {
+  #map {
+      height: 100%;
+      width: 100%;
+      z-index: 100 !important;
+  }
+  #map-over{
+    height: 100%;
+    background-color: rgba(0,0,0,0.4);
+    z-index: 999999;
+  }
+}
