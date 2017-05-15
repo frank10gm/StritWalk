@@ -14,7 +14,7 @@ import { AboutPage } from '../pages/about/about';
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage = MapPage;
+  rootPage = TabsPage;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
     platform.ready().then(() => {

@@ -634,32 +634,6 @@ export class MapPage {
         });
     }
 
-    moveMe(me, coords){
-        // this.me.setRadius(coords.accuracy);
-        this.accuracy = coords.accuracy;
-        this.i = 0;
-        this.deltaLat = (coords.latitude - this.lat)/this.delta;
-        this.deltaLng = (coords.longitude - this.lng)/this.delta;
-        // this.moveSmooth();
-        this.me2.setPosition(me)
-        this.me.setCenter(me);
-        //dev10n
-    }
-
-    moveSmooth(){
-        this.lat += this.deltaLat;
-        this.lng += this.deltaLng;
-        var me = new LatLng(this.lat, this.lng);
-        this.me2.setPosition(me)
-        this.me.setCenter(me);
-        if(this.i!=this.delta){
-            this.i++;
-            setTimeout(()=>{
-                this.moveSmooth();
-            },this.delay);
-        }
-    }
-
     peopleMoveSmooth(p, lat, lng, deltaLat, deltaLng, i){
         lat = Number(lat);
         lng = Number(lng);
@@ -717,6 +691,32 @@ export class MapPage {
         setTimeout(()=>{
             this.myMovement();
         }, 1000);
+    }
+
+    moveMe(me, coords){
+        // this.me.setRadius(coords.accuracy);
+        this.accuracy = coords.accuracy;
+        this.i = 0;
+        this.deltaLat = (coords.latitude - this.lat)/this.delta;
+        this.deltaLng = (coords.longitude - this.lng)/this.delta;
+        this.moveSmooth();
+        // this.me2.setPosition(me)
+        // this.me.setCenter(me);
+        //dev10n
+    }
+
+    moveSmooth(){
+        this.lat += this.deltaLat;
+        this.lng += this.deltaLng;
+        var me = new LatLng(this.lat, this.lng);
+        this.me2.setPosition(me)
+        this.me.setCenter(me);
+        if(this.i!=this.delta){
+            this.i++;
+            setTimeout(()=>{
+                this.moveSmooth();
+            },this.delay);
+        }
     }
 
 }
