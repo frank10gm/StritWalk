@@ -47,7 +47,7 @@ export class MapPage {
     overlay: any;
     dark: string;
     moon: string;
-    zoom: number = 16;
+    zoom: number = 13;
     people_markers: any[] = [];
     interval_upd: any;
     interval_people: any;
