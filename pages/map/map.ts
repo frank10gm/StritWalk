@@ -342,9 +342,9 @@ export class MapPage {
                 //my position to global
                 this.globals.user_position = me;
                 this.watchAgain();
-                // this.getPeople();
-                // this.getPeopleMarker();
-                // this.savePosition();
+                this.getPeople();
+                this.getPeopleMarker();
+                this.savePosition();
                 this.myMovement();
             });
 
