@@ -25,11 +25,6 @@ import { Insomnia } from '@ionic-native/insomnia';
 import { CitiesPage } from '../cities/cities';
 import { Keyboard } from '@ionic-native/keyboard';
 
-/*
-  Generated class for the Map page.
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
 
 @Component({
     selector: 'page-map',
@@ -184,7 +179,7 @@ export class MapPage {
             });
 
             //aggiunta marker già creati dall'utente
-            /*this.account.getUserMarkers(this.id).then(data => {
+            this.account.getUserMarkers(this.id).then(data => {
                 for (let marker of data) {
                     // alert(JSON.stringify(marker));
                     if (marker.name == null) {
@@ -232,7 +227,6 @@ export class MapPage {
                     });
                 }
             });
-            */
 
             //map position change
             this.map.on(GoogleMapsEvent.MAP_CLICK).subscribe((pos) => {
