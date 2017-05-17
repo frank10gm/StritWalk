@@ -72,7 +72,8 @@ import {
     IonicModule.forRoot(MyApp,{
       platforms: {
         android: {
-          activator: 'none'
+          activator: 'none',
+          tabsPlacement: 'top'
         }
       }
     })
