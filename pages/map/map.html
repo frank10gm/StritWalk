@@ -5,7 +5,7 @@
         <ion-icon name="md-search" color="primary"></ion-icon>
       </button>
     </ion-buttons>
-    <ion-title>Map</ion-title>
+    <ion-title [hidden]="!searchBar">Map</ion-title>
     <ion-buttons end>
       <!-- <button ion-button icon-only (click)="openMessages()">
         <ion-icon name="md-mail-open" color="light"></ion-icon>
