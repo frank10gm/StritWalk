@@ -335,11 +335,12 @@ export class MapPage {
                 this.last_coords = resp.coords;
                 //my position to global
                 this.globals.user_position = me;
+                //dev10n
                 this.watchAgain();
-                this.getPeople();
-                this.getPeopleMarker();
+                // this.getPeople();
+                // this.getPeopleMarker();
                 this.savePosition();
-                this.myMovement();
+                // this.myMovement();
             });
 
         }).catch((error) => {
@@ -416,6 +417,7 @@ export class MapPage {
             });
         }
         this.account.getPeople(this.id).then(data => {
+            console.log(JSON.stringify(data));
             var cur_set = [];
             var cur_set_circle = [];
             for (let marker of data) {

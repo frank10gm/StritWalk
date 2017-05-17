@@ -13,7 +13,7 @@
     </ion-buttons>
   </ion-navbar>
 
-  <ion-toolbar color="light" [hidden]="searchBar" >
+  <ion-toolbar color="" [hidden]="searchBar" >
     <ion-searchbar #searchBarId (input)="search($event)" (search)="searchBarOpen()" [(ngModel)]="searchBarModel"></ion-searchbar>
   </ion-toolbar>
 </ion-header>
