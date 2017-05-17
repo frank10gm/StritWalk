@@ -10,7 +10,7 @@ import { Http } from '@angular/http';
 @Injectable()
 export class GlobalProvider {
 
-  public api_url:string = "http://www.hackweb.it/api/safeproject/index.php"
+  public api_url:string = "http://www.hackweb.it/api/stritwalk/index.php"
   public user_position: any;
   public languages: any = [];
   public language: string = 'ww';
