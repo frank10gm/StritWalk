@@ -28,6 +28,26 @@ export class GlobalProvider {
       }
     };
 
+    this.translate['profile'] = {
+      '1': {
+        'ww': "(if you want to edit your profile click here)",
+        'it': ""
+      },
+      '2': {
+        'ww': "Log in",
+        'it': "gino"
+      },
+    };
+
+    for (var key in this.translate) {
+        for(var key2 in this.translate[key]){
+          console.log(this.translate[key][key2]['it']);
+          if(this.translate[key][key2]['it'] == ""){
+            this.translate[key][key2]['it'] = this.translate[key][key2]['ww'];
+          }
+        }
+    }
+
     this.languages['ww'] = {
       login: "Log in",
       register: "Register",

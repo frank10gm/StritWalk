@@ -25,7 +25,7 @@ export class Login {
         public alertCtrl: AlertController ){
         console.log('event: ', params.get('event'));
         for (var key in globals.translate['start-login']) {
-            this.trans[key] = (globals.translate['start-login'][key][globals.language])
+            this.trans[key] = (globals.translate['start-login'][key][globals.language]);
         }
         this.languages = globals.languages[globals.language];
     }
