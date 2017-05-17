@@ -14,8 +14,20 @@ export class GlobalProvider {
   public user_position: any;
   public languages: any = [];
   public language: string = 'ww';
+  public translate: any = [];
 
   constructor(public http: Http) {
+    this.translate['start-login'] = {
+      '1': {
+        'ww': "stoca",
+        'it': "vaffa"
+      },
+      '2': {
+        'ww': "fro",
+        'it': 'ci'
+      }
+    };
+
     this.languages['ww'] = {
       login: "Log in",
       register: "Register",
