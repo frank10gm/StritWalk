@@ -337,10 +337,10 @@ export class MapPage {
                 this.globals.user_position = me;
                 //dev10n
                 this.watchAgain();
-                // this.getPeople();
-                // this.getPeopleMarker();
+                this.getPeople();
+                this.getPeopleMarker();
                 this.savePosition();
-                // this.myMovement();
+                this.myMovement();
             });
 
         }).catch((error) => {
