@@ -19,8 +19,8 @@ export class GlobalProvider {
   constructor(public http: Http) {
     this.translate['start-login'] = {
       '1': {
-        'ww': "stoca",
-        'it': "vaffa"
+        'ww': "Log in",
+        'it': "Accedi"
       },
       '2': {
         'ww': "fro",

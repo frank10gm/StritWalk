@@ -14,9 +14,8 @@ export class Login {
     //variables
     user: any = {};
     languages: any;
-    translate: any;
     language: string;
-    trans: any[] = [];
+    trans: any = [];
 
     constructor( params: NavParams,
         public viewCtrl: ViewController,
@@ -28,11 +27,7 @@ export class Login {
         for (var key in globals.translate['start-login']) {
             this.trans[key] = (globals.translate['start-login'][key][globals.language])
         }
-        console.log(JSON.stringify(this.trans));
         this.languages = globals.languages[globals.language];
-        this.language = globals.language;
-        this.translate = globals.translate['start-login'];
-        // console.log(globals.translate['start-login']['1']['ww']);
     }
 
     login() {
