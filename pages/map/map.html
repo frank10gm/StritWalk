@@ -11,10 +11,12 @@
         <ion-icon name="md-mail-open" color="light"></ion-icon>
       </button> -->
     </ion-buttons>
+  </ion-navbar>
+  <ion-toolbar>
     <form>
       <ion-searchbar #searchBarId [hidden]="searchBar"  (input)="search($event)" (search)="searchBarOpen()" [(ngModel)]="searchBarModel"></ion-searchbar>
     </form>
-  </ion-navbar>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content>
