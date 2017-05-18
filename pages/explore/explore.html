@@ -6,7 +6,9 @@ Ionic pages and navigation.
 -->
 <ion-header>
   <ion-navbar color="primary">
-    <ion-searchbar (input)="search($event)"></ion-searchbar>
+    <form>
+      <ion-searchbar (input)="search($event)" (search)="searchClick($event)"></ion-searchbar>
+    </form>
   </ion-navbar>
   <ion-toolbar color="primary">
     <ion-segment [(ngModel)]="search_group" color="light">

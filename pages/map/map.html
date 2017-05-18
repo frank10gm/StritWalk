@@ -11,7 +11,9 @@
         <ion-icon name="md-mail-open" color="light"></ion-icon>
       </button> -->
     </ion-buttons>
-    <ion-searchbar #searchBarId [hidden]="searchBar"  (input)="search($event)" (search)="searchBarOpen()" [(ngModel)]="searchBarModel"></ion-searchbar>
+    <form>
+      <ion-searchbar #searchBarId [hidden]="searchBar"  (input)="search($event)" (search)="searchBarOpen()" [(ngModel)]="searchBarModel"></ion-searchbar>
+    </form>
   </ion-navbar>
 </ion-header>
 

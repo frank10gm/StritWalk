@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { Keyboard } from '@ionic-native/keyboard';
 
 /*
   Generated class for the Explore page.
@@ -14,10 +15,21 @@ import { NavController, NavParams } from 'ionic-angular';
 export class ExplorePage {
   search_group: string = "all";
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {}
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+  private keyboard: Keyboard) {
+
+  }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ExplorePage');
+  }
+
+  search(e){
+
+  }
+
+  searchClick(e){
+    this.keyboard.close();
   }
 
 }

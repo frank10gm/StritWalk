@@ -337,10 +337,10 @@ export class MapPage {
                 this.globals.user_position = me;
                 //dev10n
                 this.watchAgain();
-                this.getPeople();
+                // this.getPeople();
                 this.getPeopleMarker();
                 this.savePosition();
-                this.myMovement();
+                // this.myMovement();
             });
 
         }).catch((error) => {
@@ -614,7 +614,10 @@ export class MapPage {
             this.searchBarOpen();
         }
         this.map.getCameraPosition().then((data) => {
-            if(data.zoom >= 14){
+            if(data.zoom == 13){
+                this.map.setZoom(16);
+                this.zoom = 16;
+            }else if(data.zoom >= 14){
                 this.map.setZoom(3);
                 this.zoom = 3;
             }else{
