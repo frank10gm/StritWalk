@@ -2,7 +2,7 @@
   <ion-navbar color="primary">
     <!-- <ion-searchbar #searchBarId [hidden]="searchBar"  (input)="search($event)" (search)="searchBarOpen()" [(ngModel)]="searchBarModel"></ion-searchbar> -->
     <form>
-      <ion-searchbar #searchBarId [hidden]="searchBar" (input)="search($event)" (search)="searchBarOpen()" name="searchBarModel" ngModel></ion-searchbar>
+      <ion-searchbar #searchBarId [hidden]="searchBar" (input)="search($event)" (search)="searchBarOpen()" [(ngModel)]="searchBarModel" name="searchBarModel"></ion-searchbar>
     </form>
     <ion-buttons start>
       <button [hidden]="false" ion-button icon-only (click)="searchBarOpen()">

@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar color="primary">
     <form>
-      <ion-searchbar (input)="search($event)" (search)="searchClick($event)"></ion-searchbar>
+      <ion-searchbar (input)="search($event)" (search)="searchClick($event)" [(ngModel)]="searchBarModel" name="searchBarModel"></ion-searchbar>
     </form>
   </ion-navbar>
   <ion-toolbar color="primary">
