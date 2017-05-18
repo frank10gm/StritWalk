@@ -1,5 +1,8 @@
  <ion-header>
   <ion-navbar color="primary">
+    <form [hidden]="searchBar">
+      <ion-searchbar #searchBarId [hidden]="searchBar"  (input)="search($event)" (search)="searchBarOpen()" [(ngModel)]="searchBarModel"></ion-searchbar>
+    </form>
     <ion-buttons start>
       <button [hidden]="false" ion-button icon-only (click)="searchBarOpen()">
         <ion-icon name="md-search" color="light"></ion-icon>
@@ -12,11 +15,6 @@
       </button> -->
     </ion-buttons>
   </ion-navbar>
-  <ion-toolbar>
-    <form>
-      <ion-searchbar #searchBarId [hidden]="searchBar"  (input)="search($event)" (search)="searchBarOpen()" [(ngModel)]="searchBarModel"></ion-searchbar>
-    </form>
-  </ion-toolbar>
 </ion-header>
 
 <ion-content>
