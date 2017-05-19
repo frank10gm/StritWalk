@@ -4,7 +4,7 @@
     <form>
       <ion-searchbar #searchBarId [hidden]="searchBar" (input)="search($event)" (search)="searchBarOpen()" [(ngModel)]="searchBarModel" name="searchBarModel"></ion-searchbar>
     </form>
-    <ion-buttons start>
+    <ion-buttons end>
       <button [hidden]="false" ion-button icon-only (click)="searchBarOpen()">
         <ion-icon name="md-search" color="light"></ion-icon>
       </button>

@@ -562,7 +562,7 @@ export class MapPage {
         if(!this.searchBar){
             setTimeout(() => {
                 this.searchBarId.setFocus();
-                //this.keyboard.show(); // for android
+                // this.keyboard.show(); // for android
             },500); //a least 150ms.
         }else{
             this.keyboard.close();
