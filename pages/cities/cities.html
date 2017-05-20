@@ -25,11 +25,9 @@
 
 </ion-header>
 
-
-<ion-content padding>
+<ion-content>
 
   <ion-card>
-
     <ion-item style="">
       <ion-avatar item-left>
         <img class="" src="./assets/images/pingu2.jpg">
@@ -49,9 +47,27 @@
     </ion-card-header>
     <ion-list>
       <button ion-item (click)="fastRec()">
-        <ion-icon name="md-add" item-left></ion-icon>
-        Add sound
+        <ion-icon name="musical-notes" item-left></ion-icon>
+        Record riff
+        <p>10 seconds riff</p>
       </button>
+
+      <ion-item [hidden]="!isFastRiff" id="wavecontainer">
+        <div id="waveform"></div>
+      </ion-item>
+
+      <!-- <ion-item>
+        <ion-range [(ngModel)]="brightness">
+          <ion-icon range-left small name="sunny"></ion-icon>
+          <ion-icon range-right name="sunny"></ion-icon>
+        </ion-range>
+      </ion-item> -->
+
+      <button ion-item (click)="fastPlay()">
+        <ion-icon name="play" item-left></ion-icon>
+        Play riff
+      </button>
+
     </ion-list>
   </ion-card>
 

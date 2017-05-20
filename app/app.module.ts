@@ -42,6 +42,8 @@ import {
   MarkerOptions,
   Marker
 } from '@ionic-native/google-maps';
+import { MediaPlugin, MediaObject } from '@ionic-native/media';
+import { File } from '@ionic-native/file';
 
 @NgModule({
   declarations: [
@@ -112,7 +114,9 @@ import {
     NativeStorage,
     Insomnia,
     Geolocation,
-    Keyboard
+    Keyboard,
+    File,
+    MediaPlugin
   ]
 })
 export class AppModule {}
