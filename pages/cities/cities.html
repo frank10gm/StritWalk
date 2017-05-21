@@ -46,14 +46,23 @@
       Riff
     </ion-card-header>
     <ion-list>
-      <button ion-item (click)="fastRec()">
+
+      <button ion-item [disabled]="!isFastRiff" (click)="fastPlay()">
+        <ion-icon name="play" item-left></ion-icon>
+        Play riff
+      </button>
+
+      <button ion-item (click)="fastRec()" [disabled]="rec" id="recContainer">
         <ion-icon name="musical-notes" item-left></ion-icon>
         Record riff
         <p>10 seconds riff</p>
       </button>
 
-      <ion-item [hidden]="!isFastRiff" id="wavecontainer">
-        <div id="waveform"></div>
+      <ion-item >
+        <div id="waveform" style="">
+          <!-- <div class="wave"></div><div class="wave-down"></div> -->
+          <!-- <div class="wave-current"></div>  -->
+        </div>
       </ion-item>
 
       <!-- <ion-item>
@@ -63,10 +72,7 @@
         </ion-range>
       </ion-item> -->
 
-      <button ion-item (click)="fastPlay()">
-        <ion-icon name="play" item-left></ion-icon>
-        Play riff
-      </button>
+
 
     </ion-list>
   </ion-card>

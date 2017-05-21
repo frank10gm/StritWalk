@@ -5,4 +5,34 @@ page-cities {
         max-width: 100px !important;  //any size
         max-height: 100px !important; //any size
     }
+    #waveform{
+        height:50px;
+        position: relative;
+    }
+    .wave{
+        width: 0.5px;
+        height: 20px;
+        background-color: #387ef5;
+        position: absolute;
+        bottom: 25px;
+        float: left;
+        min-height: 1px;
+    }
+    .wave-down{
+        width: 0.5px;
+        height: 12px;
+        min-height: 1px;
+        background-color: #387ef5;
+        position: absolute;
+        top: 24px;
+        float: left;
+    }
+    .wave-current{
+        width: 0.5px;
+        height: 50px;
+        min-height: 1px;
+        background-color: #222;
+        position: absolute;
+        bottom: 0px;
+    }
 }
