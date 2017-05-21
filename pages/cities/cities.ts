@@ -124,19 +124,20 @@ export class CitiesPage {
     var waveform = document.getElementById("waveform")
     var totalw = document.getElementById("waveform").offsetWidth
     waveform.style.left = totalw+'px'
-    this.fast_rec.play();
     let duration = (this.duration *10)+2000
-    var node = document.createElement("div")
-    node.className = "wave-current"
-    node.style.left = 0 + 'px'
+    // var node = document.createElement("div")
+    // node.className = "wave-current"
+    // node.style.left = 0 + 'px'
     // waveform.appendChild(node);
     var last_left = 0
     var scroll = 0;
     var i = 0
     var scroll2 = totalw
 
+    this.fast_rec.play();
+
     var inter = window.setInterval(()=>{
-      this.fast_rec.getCurrentPosition().then((data)=>{
+      // this.fast_rec.getCurrentPosition().then((data)=>{
         if(i < this.duration){
           if(last_left>(totalw)){
             scroll -= (1.5)
@@ -151,12 +152,12 @@ export class CitiesPage {
           // node.style.left = left
           i++
         }
-      })
+      // })
     },10)
 
     window.setTimeout(() => {
       window.clearInterval(inter);
-      waveform.removeChild(node)
+      // waveform.removeChild(node)
     },duration); //fast riff of 5 secons
   }
 
