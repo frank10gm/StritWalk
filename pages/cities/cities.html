@@ -28,7 +28,7 @@
 <ion-content>
 
   <ion-card>
-    <ion-item style="">
+    <ion-item style="" id="recContainer">
       <ion-avatar item-left>
         <img class="" src="./assets/images/pingu2.jpg">
       </ion-avatar>
@@ -41,7 +41,7 @@
     </ion-card-content>
   </ion-card>
 
-  <ion-card>
+  <!-- <ion-card>
     <ion-card-header color="primary">
       Riff
     </ion-card-header>
@@ -60,22 +60,45 @@
 
       <ion-item >
         <div id="waveform" style="">
-          <!-- <div class="wave"></div><div class="wave-down"></div> -->
-          <!-- <div class="wave-current"></div>  -->
         </div>
       </ion-item>
 
-      <!-- <ion-item>
-        <ion-range [(ngModel)]="brightness">
-          <ion-icon range-left small name="sunny"></ion-icon>
-          <ion-icon range-right name="sunny"></ion-icon>
-        </ion-range>
-      </ion-item> -->
-
-
-
     </ion-list>
-  </ion-card>
+  </ion-card> -->
 
+  <ion-card>
+    <ion-card-header color="primary">
+      Riff
+    </ion-card-header>
+    <ion-card-content>
+      <p>
+        Record your fast Riff now
+      </p>
+    </ion-card-content>
+    <ion-item>
+      <div id="waveform" style="">
+      </div>
+    </ion-item>
+    <ion-row>
+      <ion-col>
+        <button ion-button icon-left clear small (click)="fastRec()" [disabled]="rec">
+          <ion-icon name="md-microphone"></ion-icon>
+          <div>Record riff</div>
+        </button>
+      </ion-col>
+      <ion-col>
+        <button ion-button icon-left clear small [disabled]="!isFastRiff" (click)="fastPlay()">
+          <ion-icon name="play"></ion-icon>
+          <div>Play riff</div>
+        </button>
+      </ion-col>
+      <ion-col center text-center>
+        <ion-note (click)="getWave()">
+            wave
+        </ion-note>
+      </ion-col>
+    </ion-row>
+
+  </ion-card>
 
 </ion-content>

@@ -62,6 +62,7 @@ export class CitiesPage {
     this.rec = true
     // this.fast_rec.release();
     document.getElementById("waveform").innerHTML = "";
+    // this.waveContext()
     this.file.createFile('cdvfile://localhost/persistent/', 'record.m4a', true).then(() => {
       let file = this.media.create('cdvfile://localhost/persistent/record.m4a');
       file.startRecord();
@@ -232,7 +233,7 @@ export class CitiesPage {
               this.displayBuffer(buffer);
             },this.onDecodeError);
           }else{
-            this.dialogs.alert('error during the load.Wrong url or cross origin issue');
+            this.dialogs.alert('error during the load. Wrong url or cross origin issue');
           }
         }
       }
@@ -367,6 +368,14 @@ export class CitiesPage {
       newCanvas.width  = w;
       newCanvas.height = h;
       return newCanvas;
+    }
+
+
+    getWave(){
+      var waveform = document.getElementById("waveform")
+      waveform.style.left = 0+'px'
+      waveform.innerHTML = "";
+      this.waveContext()
     }
 
 }
