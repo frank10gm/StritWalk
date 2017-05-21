@@ -133,27 +133,31 @@ export class CitiesPage {
     var scroll = 0;
     var i = 0
     var scroll2 = totalw
+    var inter = null
 
-    this.fast_rec.play();
-
-    var inter = window.setInterval(()=>{
-      // this.fast_rec.getCurrentPosition().then((data)=>{
-        if(i < this.duration){
-          if(last_left>(totalw)){
-            scroll -= (1.5)
-            // console.log(scroll)
-            waveform.style.left = scroll + 'px'
-          }else{
-            scroll2 -= 1.5
-            waveform.style.left = scroll2 + 'px'
+    this.fast_rec.play()
+    // window.setTimeout(()=>{
+      inter = window.setInterval(()=>{
+        this.fast_rec.getCurrentPosition().then((data)=>{
+          if(i < this.duration){
+            if(last_left>(totalw)){
+              scroll -= (1.5)
+              // console.log(scroll)
+              waveform.style.left = scroll + 'px'
+            }else{
+              scroll2 -= 1.5
+              waveform.style.left = scroll2 + 'px'
+            }
+            var left = last_left+'px'
+            last_left+=1.5
+            // node.style.left = left
+            i++
           }
-          var left = last_left+'px'
-          last_left+=1.5
-          // node.style.left = left
-          i++
-        }
-      // })
-    },10)
+        })
+      },10)
+    // },100)
+
+
 
     window.setTimeout(() => {
       window.clearInterval(inter);
