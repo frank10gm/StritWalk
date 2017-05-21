@@ -123,7 +123,7 @@ export class CitiesPage {
     // wavesurfer.play();
     var waveform = document.getElementById("waveform")
     var totalw = document.getElementById("waveform").offsetWidth
-    waveform.style.left = 0+'px'
+    waveform.style.left = totalw+'px'
     this.fast_rec.play();
     let duration = (this.duration *10)+2000
     var node = document.createElement("div")
@@ -133,18 +133,24 @@ export class CitiesPage {
     var last_left = 0
     var scroll = 0;
     var i = 0
+    var scroll2 = totalw
 
     var inter = window.setInterval(()=>{
       this.fast_rec.getCurrentPosition().then((data)=>{
-        if(last_left>(totalw) && i < this.duration){
-          scroll -= (1.5)
-          // console.log(scroll)
-          waveform.style.left = scroll + 'px'
+        if(i < this.duration){
+          if(last_left>(totalw)){
+            scroll -= (1.5)
+            // console.log(scroll)
+            waveform.style.left = scroll + 'px'
+          }else{
+            scroll2 -= 1.5
+            waveform.style.left = scroll2 + 'px'
+          }
+          var left = last_left+'px'
+          last_left+=1.5
+          // node.style.left = left
+          i++
         }
-        var left = last_left+'px'
-        last_left+=1.5
-        // node.style.left = left
-        i++
       })
     },10)
 
