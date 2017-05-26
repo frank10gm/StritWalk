@@ -88,7 +88,7 @@ export class CitiesPage {
           last_left+=(elw+1)
           var node = document.createElement("div")
           node.className = "wave"
-          node.style.height = (data * 50) + 'px'
+          node.style.height = (data * 40) + 'px'
           node.style.left = left
           node.style.width = elw + 'px'
           document.getElementById('waveform').appendChild(node);
