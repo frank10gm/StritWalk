@@ -27,6 +27,7 @@ export class CitiesPage {
   isFastRiff: boolean = false;
   rec: boolean = false;
   duration: number;
+  hideStart: boolean;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -60,6 +61,7 @@ export class CitiesPage {
     // });
     this.isFastRiff = false;
     this.rec = true
+    this.hideStart = true
     // this.fast_rec.release();
     document.getElementById("waveform").innerHTML = "";
     // this.waveContext()
@@ -68,7 +70,7 @@ export class CitiesPage {
       file.startRecord();
       var i = 0;
       var last_left = 0;
-      var elw = (0.5)
+      var elw = (1)
       var totalw = document.getElementById("waveform").offsetWidth
       var waveform = document.getElementById("waveform")
       waveform.style.left = 0+'px'
@@ -82,17 +84,18 @@ export class CitiesPage {
             waveform.style.left = scroll + 'px'
           }
           var left = (last_left) + 'px'
+          // console.log(left)
           last_left+=(elw+1)
           var node = document.createElement("div")
           node.className = "wave"
-          node.style.height = (data * 25) + 'px'
+          node.style.height = (data * 50) + 'px'
           node.style.left = left
           node.style.width = elw + 'px'
           document.getElementById('waveform').appendChild(node);
           //onda inferiore
           node = document.createElement("div")
           node.className = "wave-down"
-          node.style.height = (data * 25) + 'px'
+          node.style.height = (data * 20) + 'px'
           node.style.left = left
           node.style.width = elw + 'px'
           document.getElementById('waveform').appendChild(node);

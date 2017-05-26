@@ -1,12 +1,12 @@
  <ion-header>
-  <ion-navbar color="primary">
+  <ion-navbar color="danger">
     <!-- <ion-searchbar #searchBarId [hidden]="searchBar"  (input)="search($event)" (search)="searchBarOpen()" [(ngModel)]="searchBarModel"></ion-searchbar> -->
     <form>
       <ion-searchbar #searchBarId [hidden]="searchBar" (input)="search($event)" (search)="searchBarOpen()" [(ngModel)]="searchBarModel" name="searchBarModel"></ion-searchbar>
     </form>
     <ion-buttons end>
       <button [hidden]="false" ion-button icon-only (click)="searchBarOpen()">
-        <ion-icon name="md-search" color="light"></ion-icon>
+        <ion-icon name="md-search" color="dark"></ion-icon>
       </button>
     </ion-buttons>
     <ion-title [hidden]="!searchBar">Map</ion-title>

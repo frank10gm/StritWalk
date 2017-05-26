@@ -1,19 +1,19 @@
 
 <ion-header>
 
-  <ion-navbar color="primary">
+  <ion-navbar color="danger">
     <ion-buttons start>
       <!-- <button ion-button icon-only (click)="openCart()">
       <ion-icon name="cart" color="lightmary"></ion-icon>
     </button> -->
     <button ion-button icon-only (click)="openSettings()">
-      <ion-icon name="settings" color="light"></ion-icon>
+      <ion-icon name="settings" color="dark"></ion-icon>
     </button>
   </ion-buttons>
-  <ion-title>{{username}}</ion-title>
+  <ion-title><span style="color:f53d3d !important;">StritWalk</span></ion-title>
   <ion-buttons end>
     <button ion-button icon-only (click)="openMessages()">
-      <ion-icon name="md-mail-open" color="light"></ion-icon>
+      <ion-icon name="md-mail-open" color="dark"></ion-icon>
     </button>
 
   </ion-buttons>
@@ -25,55 +25,188 @@
 
 </ion-header>
 
-<ion-content>
-
-  <ion-card>
-    <ion-item style="" id="recContainer">
-      <ion-avatar item-left>
-        <img class="" src="./assets/images/pingu2.jpg">
-      </ion-avatar>
-      <h2 color="primary">{{username}}</h2>
-      <p style="font-size: 11px;">You're wonderful! :)</p>
-    </ion-item>
-    <ion-card-content>
-      If I could describe you I would do it.<br>
-      <p style="font-size:12px;">(if you want to edit your profile click here)</p>
-    </ion-card-content>
-  </ion-card>
-
-  <!-- <ion-card>
-    <ion-card-header color="primary">
-      Riff
-    </ion-card-header>
-    <ion-list>
-
-      <button ion-item [disabled]="!isFastRiff" (click)="fastPlay()">
-        <ion-icon name="play" item-left></ion-icon>
-        Play riff
-      </button>
-
-      <button ion-item (click)="fastRec()" [disabled]="rec" id="recContainer">
-        <ion-icon name="musical-notes" item-left></ion-icon>
-        Record riff
-        <p>10 seconds riff</p>
-      </button>
-
-      <ion-item >
-        <div id="waveform" style="">
-        </div>
+<ion-content  class="content-bg">
+  <div>
+    <ion-card color="grey3">
+      <ion-item style="" id="recContainer" color="grey3">
+        <ion-avatar item-left>
+          <img class="" src="./assets/images/pingu2.jpg">
+        </ion-avatar>
+        <h2 color="danger"><strong><span style="color:#f53d3d;">{{username}}</span> <span>&nbsp;<ion-icon name="ios-checkmark"></ion-icon></span><sup><span class="followers">&nbsp;&nbsp;997</span></sup></strong></h2>
+        <p style="font-size: 12px;">If I could describe you I would do it.</p>
       </ion-item>
 
-    </ion-list>
-  </ion-card> -->
+        <div style="margin-top: -10px;">
+          <ion-grid>
+            <ion-row>
+              <ion-col col-3 class="color-white col-center">
+                <div style="margin-top:5px;">
+                  <ion-icon name="ios-cog" color="danger"></ion-icon>
+                  <span class="">&nbsp;Edit </span>
+                </div>
+              </ion-col>
+              <ion-col col-3 class="col-center stats color-white"><strong>Riffs</strong><br><span class="color-red"><strong>191</strong></span></ion-col>
+              <ion-col col-3 class="col-center stats color-white"><strong>Friends</strong><br><span class="color-red"><strong>225</strong></span></ion-col>
+              <ion-col col-3 class="col-center stats color-white"><strong>Likes</strong><br><span class="color-red"><strong>441</strong></span></ion-col>
+              <!-- <ion-col col-4></ion-col>
+              <ion-col col-4></ion-col>
+              <ion-col col-4>
+              </ion-col> -->
+            </ion-row>
+          </ion-grid>
+        </div>
 
-  <ion-card>
-    <ion-card-header color="primary">
+      <div style="margin-top:-5px;">
+
+          <ion-card-header color="danger">
+            Create Riff
+            <p>Record a riff and share</p>
+          </ion-card-header>
+
+
+        <div style="margin-top:-22px;">
+          <ion-item id="recContainer" style="" color="grey3">
+            <button [hidden]="hideStart" color="light" ion-button clear item-left icon-left >
+              Record Wave -->
+            </button>
+            <!-- <ion-icon name="md-microphone" item-left color="danger"></ion-icon> -->
+            <button [hidden]="!isFastRiff" (click)="fastPlay()" color="danger" ion-button  item-right round icon-left>
+              <!-- <ion-icon name="play"></ion-icon> -->
+              Play
+            </button>
+            <button [hidden]="isFastRiff" [disabled]="rec" color="danger" (click)="fastRec()" ion-button round item-right icon-left>
+              <!-- <ion-icon name="md-microphone"></ion-icon> -->
+              Rec
+            </button>
+            <div id="waveform" style=""></div>
+          </ion-item>
+
+          <div [hidden]="!isFastRiff" style="margin-top:-18px;">
+            <ion-item color="grey3">
+              <ion-label stacked>Riff name</ion-label>
+              <ion-input type="text" placeholder="Your Riff"></ion-input>
+            </ion-item>
+            <!-- <ion-item>
+            <ion-label>Geolocate</ion-label>
+            <ion-checkbox color="primary" checked="true"></ion-checkbox>
+          </ion-item> -->
+          <ion-item color="grey3">
+            <button color="danger" ion-button clear item-left icon-only>
+              <ion-icon name="md-trash"></ion-icon>
+              <!-- Delete -->
+            </button>
+            <button color="light" ion-button clear item-right icon-only>
+              <ion-icon name="md-share"></ion-icon>
+            </button>
+            <button color="danger" ion-button outline item-right icon-left>
+              <ion-icon name="md-arrow-round-up"></ion-icon>
+              Post
+            </button>
+          </ion-item>
+        </div>
+      </div>
+    </div>
+  </ion-card>
+
+  <ion-card color="grey3">
+    <div>
+      <ion-grid>
+        <ion-row>
+          <ion-col col-4 class="col-center">My</ion-col>
+          <ion-col col-4 class="col-center">Friends</ion-col>
+          <ion-col col-4 class="col-center">Likes</ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+
+    <ion-card color="grey3">
+      <ion-item color="grey3">
+        <ion-avatar item-left>
+          <img src="./assets/images/pingu2.jpg">
+        </ion-avatar>
+        <h2><span style="color:#f53d3d;"><strong>Marty McFly</strong></span></h2>
+        <p>November 5, 1955</p>
+      </ion-item>
+      <!-- <img src="./assets/images/pingu2.jpg"/> -->
+      <ion-card-content>
+        <ion-card-title>
+          Nine Inch Nails Live
+        </ion-card-title>
+        <p>
+          The most popular industrial group ever, and largely
+          responsible for bringing the music to a mass audience.
+        </p>
+      </ion-card-content>
+      <ion-row>
+        <ion-col>
+          <button ion-button icon-left clear small color="danger">
+            <ion-icon name="thumbs-up"></ion-icon>
+            <div>12 Likes</div>
+          </button>
+        </ion-col>
+        <ion-col>
+          <button ion-button icon-left clear small color="danger">
+            <ion-icon name="text"></ion-icon>
+            <div>4 Comments</div>
+          </button>
+        </ion-col>
+        <ion-col center text-center>
+          <ion-note>
+            11h ago
+          </ion-note>
+        </ion-col>
+      </ion-row>
+    </ion-card>
+    <div style="width:100%;overflow:hidden;"><div style="width:1000%;"> ---------------------------------------------------------------</div></div>
+    <ion-card color="grey3">
+      <ion-item color="grey3">
+        <ion-avatar item-left>
+          <img src="./assets/images/pingu2.jpg">
+        </ion-avatar>
+        <h2><span style="color:#f53d3d;"><strong>Marty McFly</strong></span></h2>
+        <p>November 5, 1955</p>
+      </ion-item>
+      <!-- <img src="./assets/images/pingu2.jpg"/> -->
+      <ion-card-content>
+        <ion-card-title>
+          Nine Inch Nails Live
+        </ion-card-title>
+        <p>
+          The most popular industrial group ever, and largely
+          responsible for bringing the music to a mass audience.
+        </p>
+      </ion-card-content>
+      <ion-row>
+        <ion-col>
+          <button ion-button icon-left clear small color="danger">
+            <ion-icon name="thumbs-up"></ion-icon>
+            <div>12 Likes</div>
+          </button>
+        </ion-col>
+        <ion-col>
+          <button ion-button icon-left clear small color="danger">
+            <ion-icon name="text"></ion-icon>
+            <div>4 Comments</div>
+          </button>
+        </ion-col>
+        <ion-col center text-center>
+          <ion-note>
+            11h ago
+          </ion-note>
+        </ion-col>
+      </ion-row>
+    </ion-card>
+
+  </ion-card>
+
+</div>
+
+  <!-- <ion-card>
+    <ion-card-header color="">
       Riff
     </ion-card-header>
     <ion-card-content>
-      <p>
-        Record your fast Riff now
-      </p>
+      Record your fast Riff now
     </ion-card-content>
     <ion-item>
       <div id="waveform" style="">
@@ -86,19 +219,14 @@
           <div>Record riff</div>
         </button>
       </ion-col>
-      <ion-col>
+      <ion-col text-right>
         <button ion-button icon-left clear small [disabled]="!isFastRiff" (click)="fastPlay()">
           <ion-icon name="play"></ion-icon>
           <div>Play riff</div>
         </button>
       </ion-col>
-      <ion-col center text-center>
-        <ion-note (click)="getWave()">
-            wave
-        </ion-note>
-      </ion-col>
     </ion-row>
 
-  </ion-card>
+  </ion-card> -->
 
 </ion-content>
