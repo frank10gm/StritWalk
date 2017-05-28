@@ -20,34 +20,55 @@
   top:54px !important;
 }
 .color-white{
-  color: #fff;
+  color: #222;
 }
 .color-red{
-  color: #f53d3d;
+  color: #222;
+}
+.color-primary{
+  color: #4885ed;
 }
 .content-bg{
-  background-color: #000;
+  background-color: #efefef;
 }
 .col-center{
   text-align: center;
+}
+.col-right{
+  text-align: right;
+}
+.col-left{
+  text-align: left;
 }
 .followers{
   font-size: 8px;
 }
 .stats{
-  font-size: 10px;
+  font-size: 12px;
 }
 .stats2{
   font-size: 8px;
 }
+.card-margin-top{
+  margin-top: 12px !important;
+}
 .card-no-padding{
-  margin: 0px;
+  // margin: 0px;
+  // border-radius: 0px;
+  // width: auto;
+  // margin-bottom: 12px;
+  // box-shadow: none;
+}
+.card-no-padding2{
+  margin: 20px;
   border-radius: 0px;
   width: auto;
   margin-bottom: 12px;
+  margin-top: 12px;
+  box-shadow: none;
 }
 .card-no-margin{
-  margin-bottom: 0px;
+  // margin-bottom: 0px;
 }
 .bottom-dashed{
   border-bottom: 1px dashed #fff; padding-bottom:2px;
@@ -57,4 +78,10 @@
 }
 .top-padding{
   padding-top: 20px;
+}
+.bold1{
+  font-weight: bold;
+}
+.font-normal{
+  font-weight: normal;
 }

@@ -101,7 +101,7 @@ export class MapPage {
                 )
             });
         this.dark = "light";
-        this.moon = "md-sunny";
+        this.moon = "md-moon";
         this.keyboard.onKeyboardHide().subscribe((e) => {
             if(!this.searchBar){
                 this.searchBarOpen();
@@ -168,7 +168,7 @@ export class MapPage {
             this.map.setMapTypeId(mapType);
 
             var stamen = "http://tile.stamen.com/toner/<zoom>/<x>/<y>@2x.png";
-            var openm = 'http://cartodb-basemaps-a.global.ssl.fastly.net/dark_all/<zoom>/<x>/<y>@2x.png';
+            var openm = 'http://cartodb-basemaps-a.global.ssl.fastly.net/light_all/<zoom>/<x>/<y>@2x.png';
 
             this.map.addTileOverlay({
                 // <x>,<y> and <zoom> are replaced with values

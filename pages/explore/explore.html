@@ -1,12 +1,12 @@
 <ion-header>
-  <ion-navbar color="danger">
+  <ion-navbar color="grey3">
     <form>
       <ion-searchbar (input)="search($event)" (search)="searchClick($event)" [(ngModel)]="searchBarModel" name="searchBarModel"></ion-searchbar>
     </form>
   </ion-navbar>
-  <ion-toolbar color="danger">
-    <ion-segment [(ngModel)]="search_group" color="light">
-      <ion-segment-button value="all" color="primary">
+  <ion-toolbar color="grey3">
+    <ion-segment [(ngModel)]="search_group" color="primary">
+      <ion-segment-button value="all" color="">
         All
       </ion-segment-button>
       <ion-segment-button value="people">

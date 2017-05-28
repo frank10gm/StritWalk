@@ -13,8 +13,8 @@ $font-path: "../assets/fonts";
 // http://ionicframework.com/docs/v2/theming/overriding-ionic-variables/
 $tabs-md-tab-min-height: 49px;
 $text-input-highlight-color-valid: #387ef5;
-// $tabs-ios-tab-icon-color-active: #387ef5 !important;
-// $tabs-md-tab-icon-color-active: #387ef5 !important;
+$tabs-ios-tab-icon-color-active: #4885ed !important;
+$tabs-md-tab-icon-color-active: #4885ed !important;
 
 
 // Named Color Variables
@@ -26,15 +26,20 @@ $text-input-highlight-color-valid: #387ef5;
 // The "primary" color is the only required color in the map.
 
 $colors: (
-  primary:    #387ef5,
+  primary:    #4885ed,
+  primary2:   #eaeaeb,
+  blue:       #387ef5,
   secondary:  #32db64,
   danger:     #f53d3d, //f53d3d
-  light:      #f4f4f4,
+  light:      #efefef,
   dark:       #222,
+  dark2:      #181818,
+  dark3:      #ccc,
+  grey4:      #f4f4f4,
   grey:       #cccccc,
   grey2:      #333,
-  grey3:      #111,
-  black:      #000,
+  grey3:      #f7f7f7, // #222326, //#444, // #282c34, // #21252b,
+  black:      #111,
   acid:       #00ff00
 );
 

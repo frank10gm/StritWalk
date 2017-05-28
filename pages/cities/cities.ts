@@ -26,6 +26,7 @@ export class CitiesPage {
   context: any;
   isFastRiff: boolean = false;
   rec: boolean = false;
+  rec2: boolean = false;
   duration: number;
   hideStart: boolean;
 
@@ -61,6 +62,7 @@ export class CitiesPage {
     // });
     this.isFastRiff = false;
     this.rec = true
+    this.rec2 = true
     this.hideStart = true
     // this.fast_rec.release();
     document.getElementById("waveform").innerHTML = "";
@@ -88,14 +90,14 @@ export class CitiesPage {
           last_left+=(elw+1)
           var node = document.createElement("div")
           node.className = "wave"
-          node.style.height = (data * 40) + 'px'
+          node.style.height = (data * 30) + 'px'
           node.style.left = left
           node.style.width = elw + 'px'
           document.getElementById('waveform').appendChild(node);
           //onda inferiore
           node = document.createElement("div")
           node.className = "wave-down"
-          node.style.height = (data * 20) + 'px'
+          node.style.height = (data * 10) + 'px'
           node.style.left = left
           node.style.width = elw + 'px'
           document.getElementById('waveform').appendChild(node);
