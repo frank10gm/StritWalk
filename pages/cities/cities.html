@@ -28,7 +28,7 @@
 <ion-content  class="content-bg">
   <div style="">
     <ion-card color="light" class="card-no-padding2 " style="padding-top:8px;">
-      <ion-item style="" id="recContainer" color="light">
+      <ion-item style="" color="light">
         <ion-avatar item-left>
           <img class="" src="./assets/images/pingu2.jpg">
         </ion-avatar>
@@ -54,8 +54,8 @@
                   Edit Profile
                 </button>
               </ion-col>
-              <ion-col col-6 class="col-center">                
-                <button color="primary" (click)="fastRec()" small block ion-button outline item-right icon-left>
+              <ion-col col-6 class="col-center">
+                <button [disabled]="rec" color="primary" (touchstart)="fastRec()" (touchend)="stopRec()" small block ion-button outline item-right icon-left>
                   <!-- <ion-icon name="ios-microphone"></ion-icon> -->
                   Rec
                 </button>
@@ -93,7 +93,7 @@
           <div [hidden]="!isFastRiff" style="margin-top:-18px;">
             <ion-item color="grey3">
               <ion-label>Title</ion-label>
-              <ion-input type="text" placeholder="My Song1"></ion-input>
+              <ion-input type="text" placeholder="My Song 1"></ion-input>
             </ion-item>
             <!-- <ion-item>
             <ion-label>Geolocate</ion-label>
@@ -112,7 +112,7 @@
               </button>
             </ion-col>
             <ion-col col-4 class="col-center stats color-white">
-              <button color="dark" ion-button clear small item-right icon-only>
+              <button color="dark" (click)="fastPlay()" ion-button clear small item-right icon-only>
                 <ion-icon name="play"></ion-icon>
                 Play
               </button>
@@ -168,13 +168,13 @@
       <ion-row>
         <ion-col>
           <button ion-button icon-left clear small color="dark">
-            <ion-icon name="thumbs-up"></ion-icon>
+            <ion-icon color="primary" name="md-thumbs-up"></ion-icon>
             <div>12 Likes</div>
           </button>
         </ion-col>
         <ion-col>
           <button ion-button icon-left clear small color="dark">
-            <ion-icon name="text"></ion-icon>
+            <ion-icon name="ios-text-outline"></ion-icon>
             <div>4 Comments</div>
           </button>
         </ion-col>

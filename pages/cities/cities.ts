@@ -29,6 +29,7 @@ export class CitiesPage {
   rec2: boolean = false;
   duration: number;
   hideStart: boolean;
+  inter: any;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -61,7 +62,7 @@ export class CitiesPage {
     //   // console.log(" aa " + file.getDuration());
     // });
     this.isFastRiff = false;
-    this.rec = true
+    this.rec = false
     this.rec2 = true
     this.hideStart = true
     // this.fast_rec.release();
@@ -77,8 +78,9 @@ export class CitiesPage {
       var waveform = document.getElementById("waveform")
       waveform.style.left = 0+'px'
       var scroll = 0;
+      this.fast_rec = file;
       //interval
-      var inter = window.setInterval(()=>{
+      this.inter = window.setInterval(()=>{
         file.getCurrentAmplitude().then((data)=>{
           if(last_left>(totalw)){
             scroll -= (elw+1)
@@ -90,14 +92,14 @@ export class CitiesPage {
           last_left+=(elw+1)
           var node = document.createElement("div")
           node.className = "wave"
-          node.style.height = (data * 30) + 'px'
+          node.style.height = (data * 35) + 'px'
           node.style.left = left
           node.style.width = elw + 'px'
           document.getElementById('waveform').appendChild(node);
           //onda inferiore
           node = document.createElement("div")
           node.className = "wave-down"
-          node.style.height = (data * 10) + 'px'
+          node.style.height = (data * 15) + 'px'
           node.style.left = left
           node.style.width = elw + 'px'
           document.getElementById('waveform').appendChild(node);
@@ -105,18 +107,31 @@ export class CitiesPage {
           //dev10n
           this.duration = i;
         })
-      },10)
+      },20)
       window.setTimeout(() => {
-        window.clearInterval(inter);
-        file.stopRecord()
-        window.setTimeout(()=>{
-          this.fast_rec = file;
-          // this.waveContext()
-          this.rec = false;
-          this.isFastRiff = true;
-        },100)
-      }, 5000); //fast riff of 5 secons
+        // window.clearInterval(inter);
+        // file.stopRecord()
+        // window.setTimeout(()=>{
+        //   this.fast_rec = file;
+        //   // this.waveContext()
+        //   this.rec = false;
+        //   this.isFastRiff = true;
+        // },100)
+        this.stopRec();
+      }, 30000); //fast riff of 5 secons
     });
+  }
+
+  stopRec(){
+    window.setTimeout(()=>{
+      window.clearInterval(this.inter);
+      this.fast_rec.stopRecord()
+      window.setTimeout(()=>{
+        // this.waveContext()
+        this.rec = false;
+        this.isFastRiff = true;
+      },100)
+    },500)
   }
 
   fastPlay(){
@@ -142,33 +157,40 @@ export class CitiesPage {
     var inter = null
 
     this.fast_rec.play()
+    this.fast_rec.seekTo(0)
     // window.setTimeout(()=>{
       inter = window.setInterval(()=>{
         this.fast_rec.getCurrentPosition().then((data)=>{
-          if(i < this.duration){
-            if(last_left>(totalw)){
-              scroll -= (1.5)
-              // console.log(scroll)
-              waveform.style.left = scroll + 'px'
-            }else{
-              scroll2 -= 1.5
-              waveform.style.left = scroll2 + 'px'
+          // console.log(data)
+          // if(i < this.duration + 50){
+            if(data >= 0){
+              if(last_left>(totalw)){
+                scroll -= (2)
+                // console.log(scroll)
+                waveform.style.left = scroll + 'px'
+              }else{
+                scroll2 -= 2
+                waveform.style.left = scroll2 + 'px'
+              }
+              var left = last_left+'px'
+              last_left+=2
+              // node.style.left = left
             }
-            var left = last_left+'px'
-            last_left+=1.5
-            // node.style.left = left
-            i++
+          // }
+          if(data < 0 && i > 50){
+            window.clearInterval(inter);
           }
         })
-      },10)
+        i++
+      },20)
     // },100)
 
 
 
     window.setTimeout(() => {
-      window.clearInterval(inter);
+
       // waveform.removeChild(node)
-    },duration); //fast riff of 5 secons
+    },10000); //fast riff of 5 secons
   }
 
   waver(){
