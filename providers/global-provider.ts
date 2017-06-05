@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
+import { Events } from 'ionic-angular';
 
 /*
   Generated class for the GlobalProvider provider.
@@ -15,8 +16,38 @@ export class GlobalProvider {
   public languages: any = [];
   public language: string = 'ww';
   public translate: any = [];
+  public color1:string;
+  public color2:string;
+  public color3:string;
+  public color4:string;
+  public color5:string;
+  public color6:string;
+  public color7:string;
+  public color_1: string;
+  public color_2: string;
+  public color_3: string;
+  public bg_color_2: string;
+  public bg_color_3: string;
+  public bg_color_4: string;
 
-  constructor(public http: Http) {
+  constructor(public http: Http,
+  public events: Events) {
+    //colori
+    this.color1 = "wh1"
+    this.color2 = "wh2"
+    this.color3 = "wh3"
+    this.color4 = "wh4"
+    this.color5 = "wh5"
+    this.color6 = "wh6"
+    this.color7 = "wh7"
+    this.color_1 = "wh-color-1";
+    this.color_2 = "wh-color-2";
+    this.color_3 = "wh-color-3";
+    this.bg_color_2 = "wh-bg-color-2";
+    this.bg_color_3 = "wh-bg-color-3";
+    this.bg_color_4 = "wh-bg-color-4";
+
+    //traduzioni
     this.translate['start-login'] = {
       '1': {
         'ww': "Log in",
@@ -92,7 +123,39 @@ export class GlobalProvider {
           this.languages[this.language][key] = this.languages['ww'][key];
       }
     }
+  }
 
+  changeTheme(){
+    if(this.color1 == "bl1"){
+      this.color1 = "wh1"
+      this.color2 = "wh2"
+      this.color3 = "wh3"
+      this.color4 = "wh4"
+      this.color5 = "wh5"
+      this.color6 = "wh6"
+      this.color7 = "wh7"
+      this.color_1 = "wh-color-1";
+      this.color_2 = "wh-color-2";
+      this.color_3 = "wh-color-3";
+      this.bg_color_2 = "wh-bg-color-2";
+      this.bg_color_3 = "wh-bg-color-3";
+      this.bg_color_4 = "wh-bg-color-4";
+    }else{
+      this.color1 = "bl1"
+      this.color2 = "bl2"
+      this.color3 = "bl3"
+      this.color4 = "bl4"
+      this.color5 = "bl5"
+      this.color6 = "bl6"
+      this.color7 = "bl7"
+      this.color_1 = "bl-color-1";
+      this.color_2 = "bl-color-2";
+      this.color_3 = "bl-color-3";
+      this.bg_color_2 = "bl-bg-color-2";
+      this.bg_color_3 = "bl-bg-color-3";
+      this.bg_color_4 = "bl-bg-color-4";
+    }
+    this.events.publish('changeTheme', Date.now());
   }
 
 }

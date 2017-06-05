@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, Platform } from 'ionic-angular';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { SettingsPage } from '../settings/settings';
 import { Insomnia } from '@ionic-native/insomnia';
@@ -7,6 +7,7 @@ import { MediaPlugin, MediaObject } from '@ionic-native/media';
 import { File } from '@ionic-native/file';
 // import WaveSurfer from 'wavesurfer.js';
 import { Dialogs } from '@ionic-native/dialogs';
+import { GlobalProvider } from '../../providers/global-provider';
 
 
 @Component({
@@ -30,14 +31,44 @@ export class CitiesPage {
   duration: number;
   hideStart: boolean;
   inter: any;
+  color1: string;
+  color2: string;
+  color3: string;
+  color4: string;
+  color5: string;
+  color6: string;
+  color7: string;
+  color_1: string;
+  color_2: string;
+  color_3: string;
+  bg_color_2: string;
+  bg_color_3: string;
+  bg_color_4: string;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
+    public platform: Platform,
     private nativeStorage: NativeStorage,
     private insomnia: Insomnia,
     private media: MediaPlugin,
     private file: File,
-    private dialogs: Dialogs) {
+    private dialogs: Dialogs,
+    public globals: GlobalProvider) {
+
+    //scelta colori
+    this.color1 = globals.color1
+    this.color2 = globals.color2
+    this.color3 = globals.color3
+    this.color4 = globals.color4
+    this.color5 = globals.color5
+    this.color6 = globals.color6
+    this.color7 = globals.color7
+    this.color_1 = globals.color_1
+    this.color_2 = globals.color_2
+    this.color_3 = globals.color_3
+    this.bg_color_2 = globals.bg_color_2
+    this.bg_color_3 = globals.bg_color_3
+    this.bg_color_4 = globals.bg_color_4
 
     this.nativeStorage.getItem('localUser').then(
       data => {
@@ -54,13 +85,6 @@ export class CitiesPage {
   }
 
   fastRec(){
-    // this.file.createFile(this.file.tempDirectory, 'my_file.m4a', true).then(() => {
-    //   let file = this.media.create(this.file.tempDirectory.replace(/^file:\/\//, '') + 'my_file.m4a');
-    //   file.startRecord();
-    //   window.setTimeout(() => file.stopRecord(), 5000);
-    //   this.fast_rec = file;
-    //   // console.log(" aa " + file.getDuration());
-    // });
     this.isFastRiff = false;
     this.rec = false
     this.rec2 = true
@@ -68,9 +92,25 @@ export class CitiesPage {
     // this.fast_rec.release();
     document.getElementById("waveform").innerHTML = "";
     // this.waveContext()
-    this.file.createFile('cdvfile://localhost/persistent/', 'record.m4a', true).then(() => {
-      let file = this.media.create('cdvfile://localhost/persistent/record.m4a');
-      file.startRecord();
+    //cdvfile://localhost/persistent/record.m4a
+    //this.file.dataDirectory + 'record.aac'
+    //dev10n
+    var url = this.file.dataDirectory
+    var name = 'record.m4a'
+    if(this.platform.is('android')){
+      url = this.file.externalDataDirectory
+      name = 'record.aac'
+    }
+    console.log(url)
+    this.file.createFile(url, name, true).then(() => {
+      this.fast_rec = this.media.create(url.replace(/^file:\/\//, '') + name,(st)=>{
+        console.log("st "+ st)
+      },(err)=>{
+          console.log("err " + err)
+      },(err2)=>{
+          console.log("err2 " + JSON.stringify(err2))
+      });
+      this.fast_rec.startRecord();
       var i = 0;
       var last_left = 0;
       var elw = (1)
@@ -78,10 +118,10 @@ export class CitiesPage {
       var waveform = document.getElementById("waveform")
       waveform.style.left = 0+'px'
       var scroll = 0;
-      this.fast_rec = file;
+
       //interval
       this.inter = window.setInterval(()=>{
-        file.getCurrentAmplitude().then((data)=>{
+        this.fast_rec.getCurrentAmplitude().then((data)=>{
           if(last_left>(totalw)){
             scroll -= (elw+1)
             // console.log(scroll)
@@ -91,14 +131,14 @@ export class CitiesPage {
           // console.log(left)
           last_left+=(elw+1)
           var node = document.createElement("div")
-          node.className = "wave"
+          node.className = "wave bl-bg-color-3"
           node.style.height = (data * 35) + 'px'
           node.style.left = left
           node.style.width = elw + 'px'
           document.getElementById('waveform').appendChild(node);
           //onda inferiore
           node = document.createElement("div")
-          node.className = "wave-down"
+          node.className = "wave-down bl-bg-color-2"
           node.style.height = (data * 15) + 'px'
           node.style.left = left
           node.style.width = elw + 'px'
@@ -157,7 +197,7 @@ export class CitiesPage {
     var inter = null
 
     this.fast_rec.play()
-    this.fast_rec.seekTo(0)
+
     // window.setTimeout(()=>{
       inter = window.setInterval(()=>{
         this.fast_rec.getCurrentPosition().then((data)=>{
@@ -403,6 +443,24 @@ export class CitiesPage {
       waveform.style.left = 0+'px'
       waveform.innerHTML = "";
       this.waveContext()
+    }
+
+    changeTheme(){
+      //scelta colori
+      this.globals.changeTheme()
+      this.color1 = this.globals.color1
+      this.color2 = this.globals.color2
+      this.color3 = this.globals.color3
+      this.color4 = this.globals.color4
+      this.color5 = this.globals.color5
+      this.color6 = this.globals.color6
+      this.color7 = this.globals.color7
+      this.color_1 = this.globals.color_1
+      this.color_2 = this.globals.color_2
+      this.color_3 = this.globals.color_3
+      this.bg_color_2 = this.globals.bg_color_2
+      this.bg_color_3 = this.globals.bg_color_3
+      this.bg_color_4 = this.globals.bg_color_4
     }
 
 }

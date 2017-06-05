@@ -1,19 +1,19 @@
 
 <ion-header>
 
-  <ion-navbar color="grey3">
+  <ion-navbar color="{{color1}}">
     <ion-buttons start>
       <!-- <button ion-button icon-only (click)="openCart()">
       <ion-icon name="cart" color="lightmary"></ion-icon>
     </button> -->
     <button ion-button icon-only (click)="openSettings()">
-      <ion-icon name="settings" color="dark"></ion-icon>
+      <ion-icon name="settings" color="{{color2}}"></ion-icon>
     </button>
   </ion-buttons>
   <ion-title><span>StritWalk</span></ion-title>
   <ion-buttons end>
     <button ion-button icon-only (click)="openMessages()">
-      <ion-icon name="md-mail-open" color="dark"></ion-icon>
+      <ion-icon name="md-mail-open" color="{{color2}}"></ion-icon>
     </button>
 
   </ion-buttons>
@@ -25,14 +25,14 @@
 
 </ion-header>
 
-<ion-content  class="content-bg">
+<ion-content  class="{{bg_color_4}}">
   <div style="">
-    <ion-card color="light" class="card-no-padding2 " style="padding-top:8px;">
-      <ion-item style="" color="light">
+    <ion-card color="{{color3}}" class="card-no-padding2 " style="padding-top:8px;">
+      <ion-item style="" color="{{color3}}">
         <ion-avatar item-left>
           <img class="" src="./assets/images/pingu2.jpg">
         </ion-avatar>
-        <h2 color="dark"><span class="color-red bold1">{{username}}</span> <span><ion-icon name="ios-checkmark" color="primary"></ion-icon></span><sup><span class="followers bold1">&nbsp;&nbsp;997</span></sup></h2>
+        <h2><span class="{{color_2}} bold1">{{username}}</span> <span><ion-icon name="ios-checkmark" color="{{color5}}"></ion-icon></span><sup><span class="followers bold1">&nbsp;&nbsp;997</span></sup></h2>
         <p style="font-size: 12px; white-space: normal;">If I could describe you I would do it. Set here your description.</p>
       </ion-item>
 
@@ -40,22 +40,22 @@
           <ion-grid>
             <ion-row>
               <!-- <ion-col col-3></ion-col> -->
-              <ion-col col-4 class="col-center stats color-white">Riffs<br><span class="color-white bold1">191</span></ion-col>
-              <ion-col col-4 class="col-center stats color-white">Friends<br><span class="color-white bold1">225</span></ion-col>
-              <ion-col col-4 class="col-center stats color-white">Likes<br><span class="color-white bold1">441</span></ion-col>
+              <ion-col col-4 class="col-center stats {{color_2}}">Riffs<br><span class="{{color_1}} bold1">191</span></ion-col>
+              <ion-col col-4 class="col-center stats {{color_2}}">Friends<br><span class="{{color_1}} bold1">225</span></ion-col>
+              <ion-col col-4 class="col-center stats {{color_2}}">Likes<br><span class="{{color_1}} bold1">441</span></ion-col>
             </ion-row>
           </ion-grid>
 
           <ion-grid>
             <ion-row>
               <ion-col col-6>
-                <button color="dark" small ion-button block outline item-left icon-left>
+                <button color="{{color4}}" (click)="changeTheme()" small ion-button block item-left icon-left>
                   <!-- <ion-icon name="ios-microphone"></ion-icon> -->
                   Edit Profile
                 </button>
               </ion-col>
               <ion-col col-6 class="col-center">
-                <button [disabled]="rec" color="primary" (touchstart)="fastRec()" (touchend)="stopRec()" small block ion-button outline item-right icon-left>
+                <button [disabled]="rec" color="{{color5}}" (touchstart)="fastRec()" (touchend)="stopRec()" small block ion-button item-right icon-left>
                   <!-- <ion-icon name="ios-microphone"></ion-icon> -->
                   Rec
                 </button>
@@ -66,18 +66,18 @@
 
       </ion-card>
 
-      <ion-card [hidden]="!rec2" class="card-no-padding" color="grey3">
+      <ion-card [hidden]="!rec2" class="card-no-padding" color="{{color6}}">
       <div style="margin-top: 0px;">
 
-          <ion-card-header color="dark">
+          <ion-card-header color="{{color4}}">
             Record Riff
             <!-- <p class="font-normal">Record a riff and share</p> -->
           </ion-card-header>
 
 
         <div style="margin-top:-18px;">
-          <ion-item id="recContainer" style="" color="grey3">
-            <button [hidden]="hideStart" color="dark" ion-button clear item-left icon-left >
+          <ion-item id="recContainer" style="" color="{{color6}}">
+            <button [hidden]="hideStart" color="{{color2}}" ion-button clear item-left icon-left >
 
             </button>
 
@@ -91,7 +91,7 @@
           </ion-item>
 
           <div [hidden]="!isFastRiff" style="margin-top:-18px;">
-            <ion-item color="grey3">
+            <ion-item color="{{color6}}">
               <ion-label>Title</ion-label>
               <ion-input type="text" placeholder="My Song 1"></ion-input>
             </ion-item>
@@ -105,14 +105,14 @@
           </ion-item> -->
           <ion-row>
 
-            <ion-col col-4 class="col-center stats color-white">
-              <button color="dark" ion-button clear small item-right icon-only>
+            <ion-col col-4 class="col-center stats {{color_1}}">
+              <button color="{{color4}}" ion-button clear small item-right icon-only>
                 <ion-icon name="md-share"></ion-icon>
                 Share
               </button>
             </ion-col>
-            <ion-col col-4 class="col-center stats color-white">
-              <button color="dark" (click)="fastPlay()" ion-button clear small item-right icon-only>
+            <ion-col col-4 class="col-center stats {{color_1}}">
+              <button color="{{color4}}" (click)="fastPlay()" ion-button clear small item-right icon-only>
                 <ion-icon name="play"></ion-icon>
                 Play
               </button>
@@ -121,8 +121,8 @@
                 Delete
               </button> -->
             </ion-col>
-            <ion-col col-4 class="col-center stats color-white">
-              <button color="primary" ion-button item-right clear small icon-left>
+            <ion-col col-4 class="col-center stats {{color_1}}">
+              <button color="{{color5}}" ion-button item-right clear small icon-left>
                 <ion-icon name="md-arrow-round-up"></ion-icon>
                 Post
               </button>
@@ -133,13 +133,13 @@
     </div>
   </ion-card>
 
-  <ion-card color="grey3" class="card-no-padding">
-    <div style="" class="color-red">
+  <ion-card color="{{color6}}" class="card-no-padding">
+    <div style="" class="{{color_2}}">
       <ion-grid>
         <ion-row>
-          <ion-col col-4 class="col-center color-primary">My</ion-col>
-          <ion-col col-4 class="col-center color-primary">Friends</ion-col>
-          <ion-col col-4 class="col-center color-primary">Likes</ion-col>
+          <ion-col col-4 class="col-center {{color_3}}">My</ion-col>
+          <ion-col col-4 class="col-center {{color_3}}">Friends</ion-col>
+          <ion-col col-4 class="col-center {{color_3}}">Likes</ion-col>
         </ion-row>
       </ion-grid>
     </div>
@@ -147,17 +147,17 @@
 
     <!-- <div style="width:100%;overflow:hidden; height:1px;"><div style="width:1000%;"> ---------------------------------------------------------------</div></div> -->
 
-    <ion-card color="grey3" class="card-no-padding bottom-padding top-padding">
-      <ion-item color="grey3">
+    <ion-card color="{{color6}}" class="card-no-padding bottom-padding top-padding">
+      <ion-item color="{{color6}}">
         <!-- <ion-avatar item-left> -->
           <!-- <img src="./assets/images/pingu2.jpg"> -->
         <!-- </ion-avatar> -->
-        <h2><span class="color-red bold1">Marty McFly</span></h2>
+        <h2><span class="{{color_3}} bold1">Marty McFly</span></h2>
         <p>November 5, 1955</p>
       </ion-item>
       <!-- <img src="./assets/images/pingu2.jpg"/> -->
       <ion-card-content>
-        <!-- <ion-card-title class="color-red" color="dark">
+        <!-- <ion-card-title class="{{color_2}}" color="dark">
           Nine Inch Nails Live
         </ion-card-title> -->
         <p>
@@ -167,19 +167,19 @@
       </ion-card-content>
       <ion-row>
         <ion-col>
-          <button ion-button icon-left clear small color="dark">
+          <button ion-button icon-left clear small color="{{color4}}">
             <ion-icon color="primary" name="md-thumbs-up"></ion-icon>
             <div>12 Likes</div>
           </button>
         </ion-col>
         <ion-col>
-          <button ion-button icon-left clear small color="dark">
+          <button ion-button icon-left clear small color="{{color4}}">
             <ion-icon name="ios-text-outline"></ion-icon>
             <div>4 Comments</div>
           </button>
         </ion-col>
         <ion-col center text-right>
-          <button ion-button icon-left clear small color="dark">
+          <button ion-button icon-left clear small color="{{color4}}">
             <!-- <ion-icon name="text"></ion-icon> -->
             <div>11 h</div>
           </button>

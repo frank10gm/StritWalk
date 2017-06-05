@@ -75,7 +75,7 @@ import { File } from '@ionic-native/file';
       platforms: {
         android: {
           activator: 'none',
-          tabsPlacement: 'top'
+          // tabsPlacement: 'top'
         }
       }
     })

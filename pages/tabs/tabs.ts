@@ -8,7 +8,10 @@ import { FavPage } from '../fav/fav';
 import { ExplorePage } from '../explore/explore';
 import { CitiesPage } from '../cities/cities';
 import { MapPage } from '../map/map'
-import { ProfilePage } from '../profile/profile';;
+import { ProfilePage } from '../profile/profile';
+import { GlobalProvider } from '../../providers/global-provider'
+import { Events } from 'ionic-angular';
+
 
 @Component({
   templateUrl: 'tabs.html'
@@ -21,8 +24,14 @@ export class TabsPage {
   tab3Root: any = FavPage;
   tab4Root: any = MapPage;
   tab5Root: any = CitiesPage;
+  color1: string;
 
-  constructor() {
-
+  constructor(public globals: GlobalProvider,
+  public events: Events) {
+    this.color1 = globals.color1
+    events.subscribe('changeTheme', (data) => {
+      this.color1 = globals.color1
+   });
   }
+
 }

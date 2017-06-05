@@ -100,8 +100,8 @@ export class MapPage {
                     }
                 )
             });
-        this.dark = "light";
-        this.moon = "md-moon";
+        this.dark = "grey6";
+        this.moon = "md-sunny";
         this.keyboard.onKeyboardHide().subscribe((e) => {
             if(!this.searchBar){
                 this.searchBarOpen();
@@ -168,7 +168,7 @@ export class MapPage {
             this.map.setMapTypeId(mapType);
 
             var stamen = "http://tile.stamen.com/toner/<zoom>/<x>/<y>@2x.png";
-            var openm = 'http://cartodb-basemaps-a.global.ssl.fastly.net/light_all/<zoom>/<x>/<y>@2x.png';
+            var openm = 'http://cartodb-basemaps-a.global.ssl.fastly.net/dark_all/<zoom>/<x>/<y>@2x.png';
 
             this.map.addTileOverlay({
                 // <x>,<y> and <zoom> are replaced with values
@@ -322,7 +322,7 @@ export class MapPage {
             this.map.addCircle({
                 center: me,
                 radius: resp.coords.accuracy,
-                fillColor: 'rgba(240, 255, 255, 0.20)', //#F0FFFF
+                fillColor: 'rgba(0, 0, 0, 0.1)', //#F0FFFF
                 strokeColor: '#387ef5',
                 strokeWidth: 1
             }).then((circle) => {
@@ -378,7 +378,7 @@ export class MapPage {
             this.moon = "md-sunny"
             this.overlay.remove();
             var openm = 'http://cartodb-basemaps-a.global.ssl.fastly.net/dark_all/<zoom>/<x>/<y>@2x.png';
-            this.dark = "light";
+            this.dark = "grey6";
         }
         this.overlay = this.map.addTileOverlay({
             // <x>,<y> and <zoom> are replaced with values
@@ -426,7 +426,7 @@ export class MapPage {
                     this.map.addCircle({
                         center: new LatLng(marker.lat, marker.lng),
                         radius: marker.accuracy,
-                        fillColor: 'rgba(84, 84, 84, 0.40)', //#F0FFFF
+                        fillColor: 'rgba(0, 0, 0, 0.10)', //#F0FFFF
                         strokeColor: '#222222',
                         strokeWidth: 1
                     }).then((circle) => {

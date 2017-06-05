@@ -11,7 +11,8 @@ $font-path: "../assets/fonts";
 // the Sass variables found in Ionic's source scss files.
 // To view all the possible Ionic variables, see:
 // http://ionicframework.com/docs/v2/theming/overriding-ionic-variables/
-$tabs-md-tab-min-height: 49px;
+$tabs-md-tab-min-height: 44px;
+$toolbar-md-height: 44px;
 $text-input-highlight-color-valid: #387ef5;
 $tabs-ios-tab-icon-color-active: #4885ed !important;
 $tabs-md-tab-icon-color-active: #4885ed !important;
@@ -31,16 +32,36 @@ $colors: (
   blue:       #387ef5,
   secondary:  #32db64,
   danger:     #f53d3d, //f53d3d
-  light:      #efefef,
-  dark:       #222,
+  light:      #111, //#efefef,
+  dark:       #111,
   dark2:      #181818,
-  dark3:      #ccc,
+  dark3:      #222,
   grey4:      #f4f4f4,
   grey:       #cccccc,
   grey2:      #333,
-  grey3:      #f7f7f7, // #222326, //#444, // #282c34, // #21252b,
+  grey3:      #333, //#f7f7f7, // #222326, //#444, // #282c34, // #21252b,
+  grey5:      #222,
+  grey6:      #ccc,
+  grey7:      #555,
   black:      #111,
-  acid:       #00ff00
+  acid:       #00ff00,
+  //white theme
+  wh1:        #f7f7f7,
+  wh2:        #222,
+  wh3:        #efefef,
+  wh4:        #222,
+  wh5:        #4885ed,
+  wh6:        #f7f7f7,
+  wh7:        #000,
+  //black theme
+  bl1:        #333,
+  bl2:        #111,
+  bl3:        #111,
+  bl4:        #ccc,
+  bl5:        #4885ed,
+  bl6:        #222,
+  bl7:        #fff
+
 );
 
 
