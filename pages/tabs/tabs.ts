@@ -11,6 +11,7 @@ import { MapPage } from '../map/map'
 import { ProfilePage } from '../profile/profile';
 import { GlobalProvider } from '../../providers/global-provider'
 import { Events } from 'ionic-angular';
+import { Brightness } from '@ionic-native/brightness';
 
 
 @Component({
@@ -27,11 +28,33 @@ export class TabsPage {
   color1: string;
 
   constructor(public globals: GlobalProvider,
-  public events: Events) {
-    this.color1 = globals.color1
+    public events: Events,
+    private brightness: Brightness
+  ) {
+    this.color1 = globals.color8
     events.subscribe('changeTheme', (data) => {
-      this.color1 = globals.color1
-   });
+      this.color1 = globals.color8
+    });
+
+    window.setTimeout(()=>{
+      // this.changeBrightness()
+      // window.setInterval(()=>{
+      //   this.changeBrightness()
+      // }, 2000)
+      // this.brightness.setBrightness(0);
+    },300)
+
+  }
+
+  changeBrightness(){
+    this.brightness.getBrightness().then((data)=>{
+      console.log("Brightness " + data);
+      if(data <= 0.3){
+        this.globals.changeTheme("bl")
+      }else{
+        this.globals.changeTheme("wh")
+      }
+    })
   }
 
 }

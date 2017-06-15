@@ -44,6 +44,7 @@ import {
 } from '@ionic-native/google-maps';
 import { MediaPlugin, MediaObject } from '@ionic-native/media';
 import { File } from '@ionic-native/file';
+import { Brightness } from '@ionic-native/brightness';
 
 @NgModule({
   declarations: [
@@ -116,7 +117,8 @@ import { File } from '@ionic-native/file';
     Geolocation,
     Keyboard,
     File,
-    MediaPlugin
+    MediaPlugin,
+    Brightness
   ]
 })
 export class AppModule {}

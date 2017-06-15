@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, NavParams, Platform } from 'ionic-angular';
+import { NavController, NavParams, Platform, Events } from 'ionic-angular';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { SettingsPage } from '../settings/settings';
 import { Insomnia } from '@ionic-native/insomnia';
@@ -8,6 +8,7 @@ import { File } from '@ionic-native/file';
 // import WaveSurfer from 'wavesurfer.js';
 import { Dialogs } from '@ionic-native/dialogs';
 import { GlobalProvider } from '../../providers/global-provider';
+import { Brightness } from '@ionic-native/brightness';
 
 
 @Component({
@@ -38,6 +39,7 @@ export class CitiesPage {
   color5: string;
   color6: string;
   color7: string;
+  color8: string;
   color_1: string;
   color_2: string;
   color_3: string;
@@ -53,7 +55,10 @@ export class CitiesPage {
     private media: MediaPlugin,
     private file: File,
     private dialogs: Dialogs,
-    public globals: GlobalProvider) {
+    public globals: GlobalProvider,
+    private events: Events,
+    private brightness: Brightness
+  ) {
 
     //scelta colori
     this.color1 = globals.color1
@@ -63,6 +68,7 @@ export class CitiesPage {
     this.color5 = globals.color5
     this.color6 = globals.color6
     this.color7 = globals.color7
+    this.color8 = globals.color8
     this.color_1 = globals.color_1
     this.color_2 = globals.color_2
     this.color_3 = globals.color_3
@@ -74,6 +80,22 @@ export class CitiesPage {
       data => {
         this.username = data.username;
       })
+
+    events.subscribe('changeTheme', (data) => {
+      this.color1 = this.globals.color1
+      this.color2 = this.globals.color2
+      this.color3 = this.globals.color3
+      this.color4 = this.globals.color4
+      this.color5 = this.globals.color5
+      this.color6 = this.globals.color6
+      this.color7 = this.globals.color7
+      this.color_1 = this.globals.color_1
+      this.color_2 = this.globals.color_2
+      this.color_3 = this.globals.color_3
+      this.bg_color_2 = this.globals.bg_color_2
+      this.bg_color_3 = this.globals.bg_color_3
+      this.bg_color_4 = this.globals.bg_color_4
+    });
   }
 
   ionViewDidLoad() {
@@ -101,7 +123,6 @@ export class CitiesPage {
       url = this.file.externalDataDirectory
       name = 'record.aac'
     }
-    console.log(url)
     this.file.createFile(url, name, true).then(() => {
       this.fast_rec = this.media.create(url.replace(/^file:\/\//, '') + name,(st)=>{
         console.log("st "+ st)
@@ -131,14 +152,14 @@ export class CitiesPage {
           // console.log(left)
           last_left+=(elw+1)
           var node = document.createElement("div")
-          node.className = "wave bl-bg-color-3"
+          node.className = "wave wh-bg-color-3"
           node.style.height = (data * 35) + 'px'
           node.style.left = left
           node.style.width = elw + 'px'
           document.getElementById('waveform').appendChild(node);
           //onda inferiore
           node = document.createElement("div")
-          node.className = "wave-down bl-bg-color-2"
+          node.className = "wave-down wh-bg-color-2"
           node.style.height = (data * 15) + 'px'
           node.style.left = left
           node.style.width = elw + 'px'
@@ -446,21 +467,7 @@ export class CitiesPage {
     }
 
     changeTheme(){
-      //scelta colori
-      this.globals.changeTheme()
-      this.color1 = this.globals.color1
-      this.color2 = this.globals.color2
-      this.color3 = this.globals.color3
-      this.color4 = this.globals.color4
-      this.color5 = this.globals.color5
-      this.color6 = this.globals.color6
-      this.color7 = this.globals.color7
-      this.color_1 = this.globals.color_1
-      this.color_2 = this.globals.color_2
-      this.color_3 = this.globals.color_3
-      this.bg_color_2 = this.globals.bg_color_2
-      this.bg_color_3 = this.globals.bg_color_3
-      this.bg_color_4 = this.globals.bg_color_4
+      this.globals.changeTheme("")
     }
 
 }

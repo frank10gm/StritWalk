@@ -23,6 +23,7 @@ export class GlobalProvider {
   public color5:string;
   public color6:string;
   public color7:string;
+  public color8:string;
   public color_1: string;
   public color_2: string;
   public color_3: string;
@@ -40,6 +41,7 @@ export class GlobalProvider {
     this.color5 = "wh5"
     this.color6 = "wh6"
     this.color7 = "wh7"
+    this.color8 = "wh8"
     this.color_1 = "wh-color-1";
     this.color_2 = "wh-color-2";
     this.color_3 = "wh-color-3";
@@ -125,7 +127,12 @@ export class GlobalProvider {
     }
   }
 
-  changeTheme(){
+  changeTheme(color){
+    if(color == "bl"){
+      this.color1 = "wh1";
+    }else if(color == "wh"){
+      this.color1 = "bl1";
+    }
     if(this.color1 == "bl1"){
       this.color1 = "wh1"
       this.color2 = "wh2"
