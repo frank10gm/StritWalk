@@ -25,7 +25,7 @@
 
 </ion-header>
 
-<ion-content  class="{{bg_color_4}}">
+<ion-content class="{{bg_color_4}}">
   <div style="">
     <ion-card color="{{color3}}" class="card-no-padding2 " style="padding-top:8px;">
       <ion-item style="" color="{{color3}}">
@@ -122,7 +122,7 @@
               </button> -->
             </ion-col>
             <ion-col col-4 class="col-center stats {{color_1}}">
-              <button color="{{color5}}" ion-button item-right clear small icon-left>
+              <button color="{{color5}}" (click)="post()" ion-button item-right clear small icon-left>
                 <ion-icon name="md-arrow-round-up"></ion-icon>
                 Post
               </button>

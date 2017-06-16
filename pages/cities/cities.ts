@@ -9,6 +9,7 @@ import { File } from '@ionic-native/file';
 import { Dialogs } from '@ionic-native/dialogs';
 import { GlobalProvider } from '../../providers/global-provider';
 import { Brightness } from '@ionic-native/brightness';
+import { Transfer, FileUploadOptions, TransferObject } from '@ionic-native/transfer';
 
 
 @Component({
@@ -57,7 +58,8 @@ export class CitiesPage {
     private dialogs: Dialogs,
     public globals: GlobalProvider,
     private events: Events,
-    private brightness: Brightness
+    private brightness: Brightness,
+    private transfer: Transfer
   ) {
 
     //scelta colori
@@ -468,6 +470,11 @@ export class CitiesPage {
 
     changeTheme(){
       this.globals.changeTheme("")
+    }
+
+    //funzione per postare
+    post(){
+      
     }
 
 }

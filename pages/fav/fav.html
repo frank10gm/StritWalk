@@ -6,26 +6,26 @@ Ionic pages and navigation.
 -->
 <ion-header>
 
-  <ion-navbar color="grey3">
+  <ion-navbar color="{{color1}}">
     <ion-title color="dark">StormLine</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content class="" class="content-bg">
+<ion-content class="" class="{{bg_color_4}}">
 
-  <ion-card color="grey5" class="card-no-padding">
-    <ion-item color="grey5">
-      <ion-avatar item-left>
-        <img src="./assets/images/pingu2.jpg">
-      </ion-avatar>
-      <h2><span class="color-primary">Marty McFly</span></h2>
+  <ion-card color="{{color6}}" class="card-no-padding bottom-padding top-padding">
+    <ion-item color="{{color6}}">
+      <!-- <ion-avatar item-left> -->
+        <!-- <img src="./assets/images/pingu2.jpg"> -->
+      <!-- </ion-avatar> -->
+      <h2><span class="{{color_3}} bold1">Marty McFly</span></h2>
       <p>November 5, 1955</p>
     </ion-item>
     <!-- <img src="./assets/images/pingu2.jpg"/> -->
     <ion-card-content>
-      <!-- <ion-card-title class="color-red" color="dark">
+      <!-- <ion-card-title class="{{color_2}}" color="dark">
         Nine Inch Nails Live
       </ion-card-title> -->
       <p>
@@ -35,21 +35,22 @@ Ionic pages and navigation.
     </ion-card-content>
     <ion-row>
       <ion-col>
-        <button ion-button icon-left clear small color="grey6">
-          <ion-icon name="thumbs-up"></ion-icon>
+        <button ion-button icon-left clear small color="{{color4}}">
+          <ion-icon color="{{color5}}" name="md-thumbs-up"></ion-icon>
           <div>12 Likes</div>
         </button>
       </ion-col>
       <ion-col>
-        <button ion-button icon-left clear small color="grey6">
-          <ion-icon name="text"></ion-icon>
+        <button ion-button icon-left clear small color="{{color4}}">
+          <ion-icon name="ios-text-outline"></ion-icon>
           <div>4 Comments</div>
         </button>
       </ion-col>
-      <ion-col center text-center>
-        <ion-note>
-          11h ago
-        </ion-note>
+      <ion-col center text-right>
+        <button ion-button icon-left clear small color="{{color4}}">
+          <!-- <ion-icon name="text"></ion-icon> -->
+          <div>11 h</div>
+        </button>
       </ion-col>
     </ion-row>
   </ion-card>

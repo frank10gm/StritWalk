@@ -43,6 +43,7 @@ import {
   Marker
 } from '@ionic-native/google-maps';
 import { MediaPlugin, MediaObject } from '@ionic-native/media';
+import { Transfer, FileUploadOptions, TransferObject } from '@ionic-native/transfer';
 import { File } from '@ionic-native/file';
 import { Brightness } from '@ionic-native/brightness';
 
@@ -116,6 +117,7 @@ import { Brightness } from '@ionic-native/brightness';
     Insomnia,
     Geolocation,
     Keyboard,
+    Transfer,
     File,
     MediaPlugin,
     Brightness

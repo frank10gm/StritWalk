@@ -1,11 +1,11 @@
 <ion-header>
-  <ion-navbar color="grey3">
+  <ion-navbar color="{{color1}}">
     <form>
       <ion-searchbar (input)="search($event)" (search)="searchClick($event)" [(ngModel)]="searchBarModel" name="searchBarModel"></ion-searchbar>
     </form>
   </ion-navbar>
-  <ion-toolbar color="grey3">
-    <ion-segment [(ngModel)]="search_group" color="primary">
+  <ion-toolbar color="{{color1}}">
+    <ion-segment [(ngModel)]="search_group" color="{{color5}}">
       <ion-segment-button value="all" color="">
         All
       </ion-segment-button>
@@ -25,7 +25,7 @@
 </ion-toolbar> -->
 
 <!-- dividere in ricerca "parents" places, teachers... -->
-<ion-content class="content-bg">
+<ion-content class="{{bg_color_4}}">
 
   <div color="">
 
