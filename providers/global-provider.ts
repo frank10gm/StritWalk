@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
-import { Events } from 'ionic-angular';
+import { Events, Platform } from 'ionic-angular';
+import { NativeStorage } from '@ionic-native/native-storage';
 
 /*
   Generated class for the GlobalProvider provider.
@@ -11,28 +12,47 @@ import { Events } from 'ionic-angular';
 @Injectable()
 export class GlobalProvider {
 
-  public api_url:string = "http://www.hackweb.it/api/stritwalk/index.php"
+  public api_url: string = "http://www.hackweb.it/api/index.php"
+  public upload_url: string = "http://www.hackweb.it/api/upload5.php"
   public user_position: any;
   public languages: any = [];
   public language: string = 'ww';
   public translate: any = [];
-  public color1:string;
-  public color2:string;
-  public color3:string;
-  public color4:string;
-  public color5:string;
-  public color6:string;
-  public color7:string;
-  public color8:string;
+  public color1: string;
+  public color2: string;
+  public color3: string;
+  public color4: string;
+  public color5: string;
+  public color6: string;
+  public color7: string;
+  public color8: string;
   public color_1: string;
   public color_2: string;
   public color_3: string;
   public bg_color_2: string;
   public bg_color_3: string;
   public bg_color_4: string;
+  public user_id: string;
+  public user_name: string;
+  public user_status: string;
 
   constructor(public http: Http,
-  public events: Events) {
+    public events: Events,
+    private storage: NativeStorage,
+    public platform: Platform
+  ) {
+
+    //username data
+    this.platform.ready().then(() => {
+      this.storage.getItem('localUser').then(
+        data => {
+          this.user_name = data.username;
+          this.user_status = data.status;
+          this.user_id = data.id;
+        }
+      )
+    })
+
     //colori
     this.color1 = "wh1"
     this.color2 = "wh2"
@@ -73,12 +93,12 @@ export class GlobalProvider {
     };
 
     for (var key in this.translate) {
-        for(var key2 in this.translate[key]){
-          console.log(this.translate[key][key2]['it']);
-          if(this.translate[key][key2]['it'] == ""){
-            this.translate[key][key2]['it'] = this.translate[key][key2]['ww'];
-          }
+      for (var key2 in this.translate[key]) {
+        console.log(this.translate[key][key2]['it']);
+        if (this.translate[key][key2]['it'] == "") {
+          this.translate[key][key2]['it'] = this.translate[key][key2]['ww'];
         }
+      }
     }
 
     this.languages['ww'] = {
@@ -121,19 +141,19 @@ export class GlobalProvider {
     };
 
     for (var key in this.languages['ww']) {
-      if(this.languages[this.language][key] == undefined){
-          this.languages[this.language][key] = this.languages['ww'][key];
+      if (this.languages[this.language][key] == undefined) {
+        this.languages[this.language][key] = this.languages['ww'][key];
       }
     }
   }
 
-  changeTheme(color){
-    if(color == "bl"){
+  changeTheme(color) {
+    if (color == "bl") {
       this.color1 = "wh1";
-    }else if(color == "wh"){
+    } else if (color == "wh") {
       this.color1 = "bl1";
     }
-    if(this.color1 == "bl1"){
+    if (this.color1 == "bl1") {
       this.color1 = "wh1"
       this.color2 = "wh2"
       this.color3 = "wh3"
@@ -147,7 +167,7 @@ export class GlobalProvider {
       this.bg_color_2 = "wh-bg-color-2";
       this.bg_color_3 = "wh-bg-color-3";
       this.bg_color_4 = "wh-bg-color-4";
-    }else{
+    } else {
       this.color1 = "bl1"
       this.color2 = "bl2"
       this.color3 = "bl3"

@@ -17,8 +17,9 @@ export class Account {
   private headers = new Headers({'Content-Type': 'application/json'});
 
   constructor(public http: Http, public globals: GlobalProvider, public loadingCtrl: LoadingController,
-  private dialogs: Dialogs,
-private nativeStorage: NativeStorage) {
+    private dialogs: Dialogs,
+    private nativeStorage: NativeStorage
+  ) {
 
   }
 
@@ -189,6 +190,14 @@ private nativeStorage: NativeStorage) {
     })
     .catch(error => {
       return(error);
+    });
+  }
+
+  post(file:string, file_name:string, post_text?:string){
+    return this.http.post(this.globals.api_url, {action: 'post', id: this.globals.user_id}, {headers: this.headers})
+    .toPromise()
+    .then(data => {
+      return data.json();
     });
   }
 
