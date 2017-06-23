@@ -11,6 +11,7 @@ import { GlobalProvider } from '../../providers/global-provider';
 import { Brightness } from '@ionic-native/brightness';
 import { Transfer, FileUploadOptions, TransferObject } from '@ionic-native/transfer';
 import { Account } from '../../providers/account';
+import { Geolocation } from '@ionic-native/geolocation';
 
 
 @Component({
@@ -51,6 +52,7 @@ export class CitiesPage {
   file_url: string;
   file_name: string;
   audio_posted: boolean = false;
+  audio_posted_finish: boolean = false;
   audio_name: string;
 
   constructor(public navCtrl: NavController,
@@ -65,7 +67,8 @@ export class CitiesPage {
     private events: Events,
     private brightness: Brightness,
     private transfer: Transfer,
-    private account: Account
+    private account: Account,
+    private geolocation: Geolocation
   ) {
 
     //scelta colori
@@ -142,14 +145,14 @@ export class CitiesPage {
 
     this.file_name = name;
     this.file_url = url;
-    
+
     this.file.createFile(url, name, true).then(() => {
       this.fast_rec = this.media.create(url.replace(/^file:\/\//, '') + name, (st) => {
-        
+
       }, (err) => {
-        
+
       }, (err2) => {
-        
+
       });
       this.fast_rec.startRecord();
       var i = 0;
@@ -204,6 +207,7 @@ export class CitiesPage {
   }
 
   stopRec() {
+    this.rec = true;
     window.setTimeout(() => {
       window.clearInterval(this.inter);
       this.fast_rec.stopRecord()
@@ -492,11 +496,20 @@ export class CitiesPage {
 
   //funzione per postare
   post() {
+    this.audio_posted = true;
+    var coor = null;
+
+    this.geolocation.getCurrentPosition().then((resp) => {
+      coor = resp.coords;
+    }).catch((error) => {
+      console.log('Error getting location', error);
+    });
+
     const fileTransfer: TransferObject = this.transfer.create();
 
-    var name = 'record-'+this.username+'-'+this.audio_name+'-'+Date.now()+'.m4a';
+    var name = 'record-' + this.username + '-' + this.audio_name + '-' + Date.now() + '.m4a';
     if (this.platform.is('android')) {
-      name = 'record-'+this.username+'-'+this.audio_name+'-'+Date.now()+'.aac';
+      name = 'record-' + this.username + '-' + this.audio_name + '-' + Date.now() + '.aac';
     }
 
     let options: FileUploadOptions = {
@@ -506,10 +519,12 @@ export class CitiesPage {
     }
 
     fileTransfer.upload(this.file_url + this.file_name, this.globals.upload_url, options)
-      .then((data) => {    
-        console.log(JSON.stringify(data))    
-        this.audio_posted = true;
-        this.account.post(name, this.audio_name);
+      .then((data) => {
+        console.log(JSON.stringify(data))
+        this.audio_posted_finish = true;
+        this.account.post(name, this.audio_name, name, coor.latitude, coor.longitude).then(data=>{
+          console.log(data)
+        });
       }, (err) => {
         console.log(JSON.stringify(err))
       })

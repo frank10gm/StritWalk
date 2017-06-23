@@ -12,13 +12,13 @@ import { Settings } from './settings';
 import { Geolocation } from '@ionic-native/geolocation';
 import { Dialogs } from '@ionic-native/dialogs';
 import {
- GoogleMaps,
- GoogleMap,
- GoogleMapsEvent,
- LatLng,
- CameraPosition,
- MarkerOptions,
- Marker
+    GoogleMaps,
+    GoogleMap,
+    GoogleMapsEvent,
+    LatLng,
+    CameraPosition,
+    MarkerOptions,
+    Marker
 } from '@ionic-native/google-maps';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { Insomnia } from '@ionic-native/insomnia';
@@ -49,6 +49,7 @@ export class MapPage {
     lat: any;
     lng: any;
     people_places_markers: any[] = [];
+    my_places_marker: any[] = [];
     interval_people_places: any;
     searchBar: boolean = true;
     searchBarModel: string = "";
@@ -99,7 +100,7 @@ export class MapPage {
         public toastCtrl: ToastController,
         private keyboard: Keyboard,
         private events: Events
-    ){
+    ) {
         this.platform.ready()
             .then(
             () => {
@@ -120,7 +121,7 @@ export class MapPage {
         this.dark = "bl8";
         this.moon = "md-moon";
         this.keyboard.onKeyboardHide().subscribe((e) => {
-            if(!this.searchBar){
+            if (!this.searchBar) {
                 this.searchBarOpen();
             }
         });
@@ -142,28 +143,28 @@ export class MapPage {
         this.bg_color_4 = globals.bg_color_4
 
         events.subscribe('changeTheme', (data) => {
-          this.color1 = this.globals.color1
-          this.color2 = this.globals.color2
-          this.color3 = this.globals.color3
-          this.color4 = this.globals.color4
-          this.color5 = this.globals.color5
-          this.color6 = this.globals.color6
-          this.color7 = this.globals.color7
-          this.color_1 = this.globals.color_1
-          this.color_2 = this.globals.color_2
-          this.color_3 = this.globals.color_3
-          this.bg_color_2 = this.globals.bg_color_2
-          this.bg_color_3 = this.globals.bg_color_3
-          this.bg_color_4 = this.globals.bg_color_4
+            this.color1 = this.globals.color1
+            this.color2 = this.globals.color2
+            this.color3 = this.globals.color3
+            this.color4 = this.globals.color4
+            this.color5 = this.globals.color5
+            this.color6 = this.globals.color6
+            this.color7 = this.globals.color7
+            this.color_1 = this.globals.color_1
+            this.color_2 = this.globals.color_2
+            this.color_3 = this.globals.color_3
+            this.bg_color_2 = this.globals.bg_color_2
+            this.bg_color_3 = this.globals.bg_color_3
+            this.bg_color_4 = this.globals.bg_color_4
         });
 
     }
 
     ngAfterViewInit() {
         console.log("view init ... loading map");
-        setTimeout(()=>{
+        setTimeout(() => {
             this.loadMap();
-        },500);
+        }, 500);
     }
 
 
@@ -172,24 +173,24 @@ export class MapPage {
     }
 
     locateMe() {
-      this.map.getCameraPosition().then(data => {
-          let position: CameraPosition = {
-              target: this.globals.user_position,
-              tilt: 0,
-              zoom: data.zoom
-          };
-          this.map.moveCamera(position);
-          this.track = !this.track;
-          if(this.track){
-              this.locate = "navigate";
-              this.locateme_color = "danger";
-          }
-          if(!this.track){
-              this.locate = "locate";
-              this.locateme_color = "primary";
-          }
-      })
-      // this.me.showInfoWindow();
+        this.map.getCameraPosition().then(data => {
+            let position: CameraPosition = {
+                target: this.globals.user_position,
+                tilt: 0,
+                zoom: data.zoom
+            };
+            this.map.moveCamera(position);
+            this.track = !this.track;
+            if (this.track) {
+                this.locate = "navigate";
+                this.locateme_color = "danger";
+            }
+            if (!this.track) {
+                this.locate = "locate";
+                this.locateme_color = "primary";
+            }
+        })
+        // this.me.showInfoWindow();
     }
 
     savePosition() {
@@ -229,54 +230,56 @@ export class MapPage {
             });
 
             //aggiunta marker già creati dall'utente
-            this.account.getUserMarkers(this.id).then(data => {
-                for (let marker of data) {
-                    // alert(JSON.stringify(marker));
-                    if (marker.name == null) {
-                        marker.name = 'Pos #' + (marker.id)
-                    }
-                    this.map.addMarker({
-                        position: new LatLng(marker.lat, marker.lng),
-                        icon: {
-                            url: './assets/images/dot-red.png',
-                            size: {
-                                width: 20,
-                                height: 31
-                            }
-                        },
-                        title: marker.name,
-                        snippet: 'click here to open'
-                    }).then((marker2: Marker) => {
-                        var arr = [];
-                        arr.push(marker);
-                        arr.push(marker2);
-                        this.my_places.push(arr);
-                        marker2.addEventListener(GoogleMapsEvent.MARKER_CLICK).subscribe((e) => {
-                            this.stopTrack();
-                            setTimeout(()=>{
-                                marker2.hideInfoWindow();
-                            }, 5000);
-                        });
-                        marker2.addEventListener(GoogleMapsEvent.INFO_CLICK).subscribe((e) => {
-                            let markerModal = this.modalCtrl.create(Marker2, { event: 'pressMarker', name: marker.name, id_user: this.id, id_marker: marker.id, data: marker });
-                            markerModal.onDidDismiss(data => {
-                                //console.log(JSON.stringify(data));
-                                if (data.action == "del") {
-                                    this.account.deleteMarker(data.id).then(data => {
-                                        marker2.remove();
-                                    });
-                                }else if(data.action == "edit"){
-                                    //console.log(data.action);
-                                    marker2.hideInfoWindow();
-                                    marker2.setTitle(data.name);
-                                    marker.name = data.name;
-                                }
-                            });
-                            markerModal.present();
-                        });
-                    });
-                }
-            });
+            // this.account.getUserMarkers(this.id).then(data => {
+            //     for (let marker of data) {
+            //         console.log(marker.id);
+            //         // alert(JSON.stringify(marker));
+            //         if (marker.name == null) {
+            //             marker.name = 'Pos #' + (marker.id)
+            //         }
+            //         this.map.addMarker({
+            //             position: new LatLng(marker.lat, marker.lng),
+            //             icon: {
+            //                 url: './assets/images/dot-red.png',
+            //                 size: {
+            //                     width: 20,
+            //                     height: 31
+            //                 }
+            //             },
+            //             title: marker.name,
+            //             snippet: 'click here to open'
+            //         }).then((marker2: Marker) => {
+            //             this.my_places_marker[marker.id] = [marker, marker2];
+            //             var arr = [];
+            //             arr.push(marker);
+            //             arr.push(marker2);
+            //             this.my_places.push(arr);
+            //             marker2.addEventListener(GoogleMapsEvent.MARKER_CLICK).subscribe((e) => {
+            //                 this.stopTrack();
+            //                 setTimeout(() => {
+            //                     marker2.hideInfoWindow();
+            //                 }, 5000);
+            //             });
+            //             marker2.addEventListener(GoogleMapsEvent.INFO_CLICK).subscribe((e) => {
+            //                 let markerModal = this.modalCtrl.create(Marker2, { event: 'pressMarker', name: marker.name, id_user: this.id, id_marker: marker.id, data: marker });
+            //                 markerModal.onDidDismiss(data => {
+            //                     //console.log(JSON.stringify(data));
+            //                     if (data.action == "del") {
+            //                         this.account.deleteMarker(data.id).then(data => {
+            //                             marker2.remove();
+            //                         });
+            //                     } else if (data.action == "edit") {
+            //                         //console.log(data.action);
+            //                         marker2.hideInfoWindow();
+            //                         marker2.setTitle(data.name);
+            //                         marker.name = data.name;
+            //                     }
+            //                 });
+            //                 markerModal.present();
+            //             });
+            //         });
+            //     }
+            // });
 
             //map position change
             this.map.on(GoogleMapsEvent.MAP_CLICK).subscribe((pos) => {
@@ -286,8 +289,8 @@ export class MapPage {
             //click on map listener
             this.map.on(GoogleMapsEvent.MAP_LONG_CLICK).subscribe((pos) => {
                 //AGGIUNTA NUOVI MARKER
-                this.map.addMarker(
-                    {
+                this.map.addMarker
+                    ({
                         position: pos,
                         icon: {
                             url: './assets/images/dot-red.png',
@@ -305,11 +308,11 @@ export class MapPage {
                         if (this.user_status) {
                             this.account.saveMarkerPosition(pos.lat, pos.lng, this.id, this.my_places.length).then(last => {
                                 marker.setTitle('Pos #' + last.toString());
-                                let markerdata :any = {};
+                                let markerdata: any = {};
                                 markerdata.name = 'Pos #' + last.toString();
                                 marker.addEventListener(GoogleMapsEvent.MARKER_CLICK).subscribe((e) => {
                                     this.stopTrack();
-                                    setTimeout(()=>{
+                                    setTimeout(() => {
                                         marker.hideInfoWindow();
                                     }, 5000);
                                 });
@@ -321,7 +324,7 @@ export class MapPage {
                                             this.account.deleteMarker(data.id).then(data => {
                                                 marker.remove();
                                             });
-                                        }else if(data.action == "edit"){
+                                        } else if (data.action == "edit") {
                                             marker.hideInfoWindow();
                                             marker.setTitle(data.name);
                                             markerdata.name = data.name;
@@ -359,7 +362,7 @@ export class MapPage {
                     // title: 'Me',
                 })
                 .then((marker: Marker) => {
-                    marker.setIconAnchor(11,11);
+                    marker.setIconAnchor(11, 11);
                     this.me2 = marker;
                     marker.addEventListener(GoogleMapsEvent.INFO_CLICK).subscribe((e) => {
                         // this.navCtrl.push(CitiesPage);
@@ -385,7 +388,6 @@ export class MapPage {
                 this.last_coords = resp.coords;
                 //my position to global
                 this.globals.user_position = me;
-                //dev10n
                 this.watchAgain();
                 this.getPeople();
                 this.getPeopleMarker();
@@ -437,7 +439,7 @@ export class MapPage {
         }).then((tileOverlay) => {
             this.overlay = tileOverlay;
         });
-        if(!this.searchBar){
+        if (!this.searchBar) {
             this.searchBarOpen();
         }
     }
@@ -449,13 +451,13 @@ export class MapPage {
 
         });
         settingsModal.present();
-        if(!this.searchBar){
+        if (!this.searchBar) {
             this.searchBarOpen();
         }
     }
 
     getPeople() {
-        if(this.track_person_val){
+        if (this.track_person_val) {
             this.map.getCameraPosition().then((data) => {
                 this.map.animateCamera({
                     target: this.person,
@@ -467,7 +469,7 @@ export class MapPage {
             });
         }
         this.account.getPeople(this.id).then(data => {
-            console.log(JSON.stringify(data));
+            // console.log(JSON.stringify(data));
             var cur_set = [];
             var cur_set_circle = [];
             for (let marker of data) {
@@ -498,14 +500,14 @@ export class MapPage {
                         this.people_markers[marker.id] = [marker, marker2];
                         this.people_markers[marker.id][0].name = this.people_markers[marker.id][0].login;
                         cur_set[marker.id] = marker2;
-                        marker2.setIconAnchor(11,11);
+                        marker2.setIconAnchor(11, 11);
                         marker2.addEventListener(GoogleMapsEvent.MARKER_CLICK).subscribe((e) => {
                             //inizializzazione del tracking
                             this.stopTrack();
                             this.person = new LatLng(marker.lat, marker.lng);
                             this.p = marker.id;
                             this.track_person = false;
-                            setTimeout(()=>{
+                            setTimeout(() => {
                                 marker2.hideInfoWindow();
                             }, 5000);
                         });
@@ -516,7 +518,7 @@ export class MapPage {
                 } else {
                     //muovo le persone già inserite nella mappa
                     //movimento track person
-                    if(this.p == marker.id){
+                    if (this.p == marker.id) {
                         this.person = new LatLng(marker.lat, marker.lng);
                     }
                     cur_set[marker.id] = this.people_markers[marker.id][1];
@@ -527,8 +529,8 @@ export class MapPage {
                     // this.people_markers[marker.id][1].setPosition(new LatLng(marker.lat, marker.lng));
                     //
                     //the smooth movement should be here
-                    let deltaLat = (marker.lat - this.people_markers[marker.id][0].lat)/100;
-                    let deltaLng = (marker.lng - this.people_markers[marker.id][0].lng)/100;
+                    let deltaLat = (marker.lat - this.people_markers[marker.id][0].lat) / 100;
+                    let deltaLng = (marker.lng - this.people_markers[marker.id][0].lng) / 100;
                     let i = 0;
                     this.peopleMoveSmooth(marker.id, this.people_markers[marker.id][0].lat, this.people_markers[marker.id][0].lng, deltaLat, deltaLng, i);
                     this.people_markers[marker.id][0].lat = marker.lat;
@@ -539,7 +541,7 @@ export class MapPage {
             //eliminiamo i morti
             for (let i in this.people_markers) {
                 if (this.people_markers[i][1] != cur_set[i]) {
-                    console.log('morto: '+i);
+                    console.log('morto: ' + i);
                     this.people_markers[i][1].remove();
                     this.people_markers[i] = undefined;
                     this.people_circles[i].remove();
@@ -551,7 +553,61 @@ export class MapPage {
         });
     }
 
-    getPeopleMarker(){
+    getPeopleMarker() {
+        //aggiunta marker già creati dall'utente
+        //dev10n
+        this.account.getUserMarkers(this.id).then(data => {
+            for (let marker of data) {
+                if (this.my_places_marker[marker.id] == undefined) {
+                    console.log(marker.id);
+                    if (marker.name == null) {
+                        marker.name = 'Pos #' + (marker.id)
+                    }
+                    this.map.addMarker({
+                        position: new LatLng(marker.lat, marker.lng),
+                        icon: {
+                            url: './assets/images/dot-red.png',
+                            size: {
+                                width: 20,
+                                height: 31
+                            }
+                        },
+                        title: marker.name,
+                        snippet: 'click here to open'
+                    }).then((marker2: Marker) => {
+                        this.my_places_marker[marker.id] = [marker, marker2];
+                        var arr = [];
+                        arr.push(marker);
+                        arr.push(marker2);
+                        this.my_places.push(arr);
+                        marker2.addEventListener(GoogleMapsEvent.MARKER_CLICK).subscribe((e) => {
+                            this.stopTrack();
+                            setTimeout(() => {
+                                marker2.hideInfoWindow();
+                            }, 5000);
+                        });
+                        marker2.addEventListener(GoogleMapsEvent.INFO_CLICK).subscribe((e) => {
+                            let markerModal = this.modalCtrl.create(Marker2, { event: 'pressMarker', name: marker.name, id_user: this.id, id_marker: marker.id, data: marker });
+                            markerModal.onDidDismiss(data => {
+                                //console.log(JSON.stringify(data));
+                                if (data.action == "del") {
+                                    this.account.deleteMarker(data.id).then(data => {
+                                        marker2.remove();
+                                    });
+                                } else if (data.action == "edit") {
+                                    //console.log(data.action);
+                                    marker2.hideInfoWindow();
+                                    marker2.setTitle(data.name);
+                                    marker.name = data.name;
+                                }
+                            });
+                            markerModal.present();
+                        });
+                    });
+                }
+            }
+        });
+
         this.account.getPeopleMarker(this.id).then(data => {
             // console.log("aggiunta nuovi marker di altre persone" + JSON.stringify(data));
             //console.log(JSON.stringify(data));
@@ -575,7 +631,7 @@ export class MapPage {
                         cur_set[marker.id] = marker2;
                         marker2.addEventListener(GoogleMapsEvent.MARKER_CLICK).subscribe((e) => {
                             this.stopTrack();
-                            setTimeout(()=>{
+                            setTimeout(() => {
                                 marker2.hideInfoWindow();
                             }, 5000);
                         });
@@ -603,23 +659,23 @@ export class MapPage {
         });
     }
 
-    searchBarOpen(){
+    searchBarOpen() {
         this.searchBar = !this.searchBar;
         this.map.setClickable(this.searchBar);
         this.searchBarModel = "";
         this.stopTrack();
 
-        if(!this.searchBar){
+        if (!this.searchBar) {
             setTimeout(() => {
                 this.searchBarId.setFocus();
                 // this.keyboard.show(); // for android
-            },500); //a least 150ms.
-        }else{
+            }, 500); //a least 150ms.
+        } else {
             this.keyboard.close();
         }
     }
 
-    search(e){
+    search(e) {
         var lat = 0;
         var lng = 0;
         var dest = 0;
@@ -628,22 +684,22 @@ export class MapPage {
         for (let i in this.my_places) {
             arr.push(this.my_places[i][0]);
         }
-        for (let i in this.people_markers){
+        for (let i in this.people_markers) {
             arr.push(this.people_markers[i][0]);
         }
-        for (let i in this.people_places_markers){
+        for (let i in this.people_places_markers) {
             arr.push(this.people_places_markers[i][0]);
         }
 
         for (let i in arr) {
-            if(arr[i].name.toLowerCase().includes(e.target.value.toLowerCase())){
+            if (arr[i].name.toLowerCase().includes(e.target.value.toLowerCase())) {
                 lat = arr[i].lat;
                 lng = arr[i].lng;
                 dest = 1;
             }
         }
 
-        if(dest == 1){
+        if (dest == 1) {
             this.map.getCameraPosition().then(data => {
                 let position: CameraPosition = {
                     target: new LatLng(lat, lng),
@@ -655,35 +711,35 @@ export class MapPage {
         }
     }
 
-    openMessages(){
+    openMessages() {
         console.log("dev11n");
     }
 
     zoomOut() {
-        if(!this.searchBar){
+        if (!this.searchBar) {
             this.searchBarOpen();
         }
         this.map.getCameraPosition().then((data) => {
-            if(data.zoom == 13){
+            if (data.zoom == 13) {
                 this.map.setZoom(16);
                 this.zoom = 16;
-            }else if(data.zoom >= 14){
+            } else if (data.zoom >= 14) {
                 this.map.setZoom(3);
                 this.zoom = 3;
-            }else{
-                this.map.setZoom(data.zoom+2);
+            } else {
+                this.map.setZoom(data.zoom + 2);
                 this.zoom = (data.zoom + 2);
             }
             let toast = this.toastCtrl.create({
-              message: 'Zoom level: ' + Math.round(this.zoom),
-              duration: 500,
-              position: 'top'
+                message: 'Zoom level: ' + Math.round(this.zoom),
+                duration: 500,
+                position: 'top'
             });
             toast.present();
         });
     }
 
-    peopleMoveSmooth(p, lat, lng, deltaLat, deltaLng, i){
+    peopleMoveSmooth(p, lat, lng, deltaLat, deltaLng, i) {
         lat = Number(lat);
         lng = Number(lng);
         lat += Number(deltaLat);
@@ -691,24 +747,24 @@ export class MapPage {
         var pos = new LatLng(lat, lng);
         this.people_markers[p][1].setPosition(pos);
         this.people_circles[p].setCenter(pos);
-        if(i!=100){
+        if (i != 100) {
             i++;
-            setTimeout(()=>{
+            setTimeout(() => {
                 this.peopleMoveSmooth(p, lat, lng, deltaLat, deltaLng, i);
-            },100);
+            }, 100);
         }
     }
 
-    stopTrack(){
+    stopTrack() {
         this.track = false;
         this.locateme_color = "primary";
         this.locate = "locate";
         this.track_person = true;
     }
 
-    trackPerson(p){
+    trackPerson(p) {
         this.track_person_val = !this.track_person_val;
-        if(this.track_person_val){
+        if (this.track_person_val) {
             this.track_person_color = "danger";
             this.map.getCameraPosition().then((data) => {
                 this.map.animateCamera({
@@ -719,14 +775,14 @@ export class MapPage {
                     bearing: data.bearing
                 });
             });
-        }else{
+        } else {
             this.track_person_color = "dark";
         }
     }
 
-    myMovement(){
+    myMovement() {
         this.moveMe(this.globals.user_position, this.last_coords);
-        if(this.track){
+        if (this.track) {
             this.map.getCameraPosition().then((data) => {
                 this.map.animateCamera({
                     target: this.globals.user_position,
@@ -737,34 +793,34 @@ export class MapPage {
                 });
             });
         }
-        setTimeout(()=>{
+        setTimeout(() => {
             this.myMovement();
         }, 1000);
     }
 
-    moveMe(me, coords){
+    moveMe(me, coords) {
         // this.me.setRadius(coords.accuracy);
         this.accuracy = coords.accuracy;
         this.i = 0;
-        this.deltaLat = (coords.latitude - this.lat)/this.delta;
-        this.deltaLng = (coords.longitude - this.lng)/this.delta;
+        this.deltaLat = (coords.latitude - this.lat) / this.delta;
+        this.deltaLng = (coords.longitude - this.lng) / this.delta;
         this.moveSmooth();
         // this.me2.setPosition(me)
         // this.me.setCenter(me);
         //dev10n
     }
 
-    moveSmooth(){
+    moveSmooth() {
         this.lat += this.deltaLat;
         this.lng += this.deltaLng;
         var me = new LatLng(this.lat, this.lng);
         this.me2.setPosition(me)
         this.me.setCenter(me);
-        if(this.i!=this.delta){
+        if (this.i != this.delta) {
             this.i++;
-            setTimeout(()=>{
+            setTimeout(() => {
                 this.moveSmooth();
-            },this.delay);
+            }, this.delay);
         }
     }
 

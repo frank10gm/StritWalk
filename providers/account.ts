@@ -193,8 +193,8 @@ export class Account {
     });
   }
 
-  post(file:string, file_name:string, post_text?:string){
-    return this.http.post(this.globals.api_url, {action: 'post', id: this.globals.user_id}, {headers: this.headers})
+  post(file:string, audio_name:string, file_name:string, lat?, lng?, post_text?:string){
+    return this.http.post(this.globals.api_url, {action: 'post', id: this.globals.user_id, name:audio_name, audio: file_name, lat:lat, lng:lng}, {headers: this.headers})
     .toPromise()
     .then(data => {
       return data.json();

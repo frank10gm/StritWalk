@@ -66,11 +66,12 @@
 
     </ion-card>
 
-    <div [hidden]="!audio_posted" class="audio_posted">        
-          <ion-icon color="secondary" style="font-size:50px; margin: 0 auto; margin-top: 25px;" name="ios-checkmark-circle-outline"></ion-icon>
-      </div>
+    <div [hidden]="!audio_posted" class="audio_posted">
+      <ion-spinner [hidden]="audio_posted_finish" name="dots" style="font-size:50px;margin:0 auto;margin-top:25px;"></ion-spinner>
+      <ion-icon [hidden]="!audio_posted_finish" color="secondary" style="font-size:50px; margin: 0 auto; margin-top: 25px;" name="ios-checkmark-circle-outline"></ion-icon>
+    </div>
 
-    <ion-card [hidden]="!rec2" class="card-no-padding" color="{{color6}}">      
+    <ion-card [hidden]="!rec2" class="card-no-padding" color="{{color6}}">
 
       <div style="margin-top: 0px;" [hidden]="audio_posted">
         <ion-card-header color="{{color4}}">
@@ -97,7 +98,7 @@
           <div [hidden]="!isFastRiff" style="margin-top:-18px;">
             <ion-item color="{{color6}}">
               <ion-label>Title</ion-label>
-              <ion-input [(ngModel)]="audio_name" name="audio_name" type="text" placeholder="My Song" ></ion-input>
+              <ion-input [(ngModel)]="audio_name" name="audio_name" type="text" placeholder="My Song"></ion-input>
             </ion-item>
             <!-- <ion-item>
             <ion-label>Geolocate</ion-label>
