@@ -520,10 +520,18 @@ export class CitiesPage {
 
     fileTransfer.upload(this.file_url + this.file_name, this.globals.upload_url, options)
       .then((data) => {
-        console.log(JSON.stringify(data))
         this.audio_posted_finish = true;
         this.account.post(name, this.audio_name, name, coor.latitude, coor.longitude).then(data=>{
-          console.log(data)
+          //dev10n
+          setTimeout(()=>{
+            this.audio_posted_finish = false
+            this.audio_posted = false
+            this.audio_posted = false
+            this.isFastRiff = false
+            this.rec = false
+            this.rec2 = false
+            this.hideStart = true
+          },3000)
         });
       }, (err) => {
         console.log(JSON.stringify(err))
