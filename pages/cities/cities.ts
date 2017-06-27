@@ -538,4 +538,8 @@ export class CitiesPage {
       })
   }
 
+  openMessages(){
+    
+  }
+
 }

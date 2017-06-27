@@ -14,6 +14,7 @@ export class GlobalProvider {
 
   public api_url: string = "http://www.hackweb.it/api/index.php"
   public upload_url: string = "http://www.hackweb.it/api/upload5.php"
+  public upload_url2: string = "http://www.hackweb.it/api/upload_img.php"
   public user_position: any;
   public languages: any = [];
   public language: string = 'ww';
