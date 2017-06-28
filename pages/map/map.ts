@@ -208,6 +208,7 @@ export class MapPage {
     }
 
     loadMap() {
+
         let element: HTMLElement = document.getElementById('map');
         // this.map = new GoogleMap(element);
         this.map = this.googleMaps.create(element);
@@ -228,58 +229,6 @@ export class MapPage {
             }).then((tileOverlay) => {
                 this.overlay = tileOverlay;
             });
-
-            //aggiunta marker già creati dall'utente
-            // this.account.getUserMarkers(this.id).then(data => {
-            //     for (let marker of data) {
-            //         console.log(marker.id);
-            //         // alert(JSON.stringify(marker));
-            //         if (marker.name == null) {
-            //             marker.name = 'Pos #' + (marker.id)
-            //         }
-            //         this.map.addMarker({
-            //             position: new LatLng(marker.lat, marker.lng),
-            //             icon: {
-            //                 url: './assets/images/dot-red.png',
-            //                 size: {
-            //                     width: 20,
-            //                     height: 31
-            //                 }
-            //             },
-            //             title: marker.name,
-            //             snippet: 'click here to open'
-            //         }).then((marker2: Marker) => {
-            //             this.my_places_marker[marker.id] = [marker, marker2];
-            //             var arr = [];
-            //             arr.push(marker);
-            //             arr.push(marker2);
-            //             this.my_places.push(arr);
-            //             marker2.addEventListener(GoogleMapsEvent.MARKER_CLICK).subscribe((e) => {
-            //                 this.stopTrack();
-            //                 setTimeout(() => {
-            //                     marker2.hideInfoWindow();
-            //                 }, 5000);
-            //             });
-            //             marker2.addEventListener(GoogleMapsEvent.INFO_CLICK).subscribe((e) => {
-            //                 let markerModal = this.modalCtrl.create(Marker2, { event: 'pressMarker', name: marker.name, id_user: this.id, id_marker: marker.id, data: marker });
-            //                 markerModal.onDidDismiss(data => {
-            //                     //console.log(JSON.stringify(data));
-            //                     if (data.action == "del") {
-            //                         this.account.deleteMarker(data.id).then(data => {
-            //                             marker2.remove();
-            //                         });
-            //                     } else if (data.action == "edit") {
-            //                         //console.log(data.action);
-            //                         marker2.hideInfoWindow();
-            //                         marker2.setTitle(data.name);
-            //                         marker.name = data.name;
-            //                     }
-            //                 });
-            //                 markerModal.present();
-            //             });
-            //         });
-            //     }
-            // });
 
             //map position change
             this.map.on(GoogleMapsEvent.MAP_CLICK).subscribe((pos) => {
@@ -388,11 +337,12 @@ export class MapPage {
                 this.last_coords = resp.coords;
                 //my position to global
                 this.globals.user_position = me;
-                this.watchAgain();
-                this.getPeople();
+                //dev10n
+                // this.watchAgain();
+                // this.getPeople();
                 this.getPeopleMarker();
-                this.savePosition();
-                this.myMovement();
+                // this.savePosition();
+                // this.myMovement();
             });
 
         }).catch((error) => {
@@ -554,7 +504,7 @@ export class MapPage {
     }
 
     getPeopleMarker() {
-        //aggiunta marker già creati dall'utente
+        //caricamento nella mappa dei marker già creati dall'utente corrente
         //dev10n
         this.account.getUserMarkers(this.id).then(data => {
             for (let marker of data) {
@@ -592,6 +542,7 @@ export class MapPage {
                                 //console.log(JSON.stringify(data));
                                 if (data.action == "del") {
                                     this.account.deleteMarker(data.id).then(data => {
+                                        //aggiungere qui la rimozione del file dal server
                                         marker2.remove();
                                     });
                                 } else if (data.action == "edit") {

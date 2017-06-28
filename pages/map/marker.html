@@ -2,21 +2,36 @@
   <ion-navbar color="wh1">
     <ion-title ><ion-label color="">{{title}}</ion-label></ion-title>
 
-    <ion-buttons end>
+    <ion-buttons start>
       <button ion-button (click)="closeModal()" color="{{color2}}">
-        Close
+        Cancel
+      </button>
+    </ion-buttons>
+
+    <ion-buttons end>
+      <button ion-button (click)="closeModal()" color="primary">
+        Post
       </button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
 
-<ion-content >
+<ion-content class="wh-bg-color-4">
   <ion-item-group no-lines>
-    <ion-item-divider color="wh1"><ion-label color="wh2">Info</ion-label></ion-item-divider>
+    <!-- <ion-item-divider color="wh1"><ion-label color="wh2"></ion-label></ion-item-divider> -->
+
+    <ion-item class="didascalia" style="border-bottom:0 !important;">
+      <ion-avatar item-left>
+        <img style="width:30px;height:30px;" class="" src="./assets/images/pingu2.jpg">
+      </ion-avatar>
+      <ion-textarea style="border-bottom:0 !important;" placeholder="Enter a description..."></ion-textarea>
+    </ion-item>
+
+    <ion-item-divider color="wh1"><ion-label color="wh2"></ion-label></ion-item-divider>
 
     <ion-item>
       <!-- <ion-icon name="md-create" item-left></ion-icon> -->
-      <ion-label color="wh2">Name</ion-label>
+      <ion-label color="wh2">Title</ion-label>
       <ion-input [(ngModel)]="marker.name" clearInput></ion-input>
       <!-- <button ion-button item-right icon-only clear (click)="clearText()"><ion-icon name="ios-close"></ion-icon></button> -->
       <!-- <ion-note item-right>Name</ion-note> -->
@@ -41,12 +56,12 @@
       <ion-toggle checked="false" [(ngModel)]="info.private"></ion-toggle>
     </ion-item>
 
-    <ion-item>
+    <ion-item class="didascalia">
       <ion-label>Show to friends only</ion-label>
       <ion-toggle [disabled]="!info.private" checked="false" [(ngModel)]="info.friends" color="danger"></ion-toggle>
     </ion-item>
 
-    <button ion-item disabled>
+    <button ion-item hidden>
       <ion-icon name="md-share" color="secondary" item-right></ion-icon>
       <ion-label>Share with someone</ion-label>
     </button>
@@ -54,7 +69,7 @@
   </ion-item-group>
 
   <ion-item-group no-lines>
-    <ion-item-divider color="wh1"><ion-label color="wh2">Settings</ion-label></ion-item-divider>
+    <ion-item-divider color="wh1"><ion-label color="wh2"></ion-label></ion-item-divider>
     <button ion-item (click)="saveMarker()" item-right><ion-icon name="md-bookmarks" color="primary" item-left></ion-icon>Save</button>
     <ion-item (click)="delete()">
       <ion-icon name="trash" color="danger" item-left></ion-icon>
