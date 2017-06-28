@@ -474,14 +474,12 @@ export class CitiesPage {
     console.log('done 231 iyi');
   }
 
-
   createCanvas(w, h) {
     var newCanvas = document.createElement('canvas');
     newCanvas.width = w;
     newCanvas.height = h;
     return newCanvas;
   }
-
 
   getWave() {
     var waveform = document.getElementById("waveform")
@@ -539,7 +537,7 @@ export class CitiesPage {
   }
 
   openMessages(){
-    
+
   }
 
 }

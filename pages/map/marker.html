@@ -9,8 +9,8 @@
     </ion-buttons>
 
     <ion-buttons end>
-      <button ion-button (click)="closeModal()" color="primary">
-        Post
+      <button ion-button (click)="saveMarker()" color="primary">
+        Save
       </button>
     </ion-buttons>
   </ion-navbar>
@@ -29,7 +29,7 @@
 
     <ion-item-divider color="wh1"><ion-label color="wh2"></ion-label></ion-item-divider>
 
-    <ion-item>
+    <ion-item class="didascalia">
       <!-- <ion-icon name="md-create" item-left></ion-icon> -->
       <ion-label color="wh2">Title</ion-label>
       <ion-input [(ngModel)]="marker.name" clearInput></ion-input>
@@ -37,9 +37,32 @@
       <!-- <ion-note item-right>Name</ion-note> -->
     </ion-item>
 
-    <ion-item>
-      <!-- <ion-icon name="md-clipboard" item-left></ion-icon> -->
-      <!-- <ion-icon name="rose" color="secondary"></ion-icon> -->
+    <ion-item-divider color="wh1"><ion-label color="wh2"></ion-label></ion-item-divider>
+
+    <ion-item class="didascalia" [hidden]="audio" id="recContainer">
+      <div id="waveform" style=""></div>
+    </ion-item>
+
+    <ion-item-divider color="wh1"><ion-label color="wh2"></ion-label></ion-item-divider>
+
+    <button ion-item class="didascalia">
+      <ion-icon name="camera" color="wh2" item-left></ion-icon>
+      Photo
+    </button>
+
+    <ion-item class="didascalia">
+      <ion-icon name="microphone" color="wh2" item-left></ion-icon>
+      Record Audio
+      <button ion-button outline item-end icon-left color="wh5">
+        Rec
+      </button>
+    </ion-item>
+
+    <ion-item-divider color="wh1"><ion-label color="wh2"></ion-label></ion-item-divider>
+
+    <!-- <ion-item>
+      <ion-icon name="md-clipboard" item-left></ion-icon>
+      <ion-icon name="rose" color="secondary"></ion-icon>
       <ion-label color="dark">Category</ion-label>
       <ion-select [(ngModel)]="info.category" (ionChange)="modify()">
       <ion-option value="None">None</ion-option>
@@ -49,7 +72,7 @@
       <ion-option value="saturn">Sega Saturn</ion-option>
       <ion-option value="snes">SNES</ion-option>
     </ion-select>
-    </ion-item>
+    </ion-item> -->
 
     <ion-item>
       <ion-label>Private</ion-label>
@@ -68,12 +91,12 @@
 
   </ion-item-group>
 
-  <ion-item-group no-lines>
+  <ion-item-group no-lines [hidden]="creation">
     <ion-item-divider color="wh1"><ion-label color="wh2"></ion-label></ion-item-divider>
-    <button ion-item (click)="saveMarker()" item-right><ion-icon name="md-bookmarks" color="primary" item-left></ion-icon>Save</button>
-    <ion-item (click)="delete()">
-      <ion-icon name="trash" color="danger" item-left></ion-icon>
-        Delete this position
+    <!-- <button ion-item (click)="saveMarker()" item-right><ion-icon name="md-bookmarks" color="primary" item-left></ion-icon>Save</button> -->
+    <ion-item (click)="delete()" >
+      <ion-icon name="trash" color="wh2" item-left></ion-icon>
+        Delete this post
     </ion-item>
   </ion-item-group>
 

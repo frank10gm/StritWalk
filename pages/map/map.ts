@@ -237,55 +237,84 @@ export class MapPage {
 
             //click on map listener
             this.map.on(GoogleMapsEvent.MAP_LONG_CLICK).subscribe((pos) => {
-                //AGGIUNTA NUOVI MARKER
-                this.map.addMarker
-                    ({
-                        position: pos,
-                        icon: {
-                            url: './assets/images/dot-red.png',
-                            size: {
-                                width: 20,
-                                height: 31
-                            }
-                        },
-                        title: 'Pos #' + (this.my_places.length + 1),
-                        snippet: 'click here to open'
-                    })
-                    .then((marker: Marker) => {
-                        this.my_places.push(marker);
-                        //save markers positions of user
-                        if (this.user_status) {
-                            this.account.saveMarkerPosition(pos.lat, pos.lng, this.id, this.my_places.length).then(last => {
-                                marker.setTitle('Pos #' + last.toString());
-                                let markerdata: any = {};
-                                markerdata.name = 'Pos #' + last.toString();
-                                marker.addEventListener(GoogleMapsEvent.MARKER_CLICK).subscribe((e) => {
-                                    this.stopTrack();
-                                    setTimeout(() => {
-                                        marker.hideInfoWindow();
-                                    }, 5000);
-                                });
-                                marker.addEventListener(GoogleMapsEvent.INFO_CLICK).subscribe((e) => {
-                                    let markerModal = this.modalCtrl.create(Marker2, { event: 'pressMarker', name: markerdata.name, id_user: this.id, id_marker: last.toString(), data: markerdata });
-                                    markerModal.onDidDismiss(data => {
-                                        //console.log(JSON.stringify(data));
-                                        if (data.action == "del") {
-                                            this.account.deleteMarker(data.id).then(data => {
-                                                marker.remove();
-                                            });
-                                        } else if (data.action == "edit") {
-                                            marker.hideInfoWindow();
-                                            marker.setTitle(data.name);
-                                            markerdata.name = data.name;
-                                        }
-                                    });
-                                    markerModal.present();
-                                });
-                            });
-                        }
-                    });
-            });
 
+                //AGGIUNTA NUOVI MARKER
+                //dev10n
+                //viene creato il marker e poi subito viene aprto il modal
+
+                var el = null;
+                let el_data: any = {};
+
+                this.map.addMarker({
+                    position: pos,
+                    icon: {
+                        url: './assets/images/dot-red.png',
+                        size: {
+                            width: 20,
+                            height: 31
+                        }
+                    },
+                    title: 'Post #' + (this.my_places.length + 1),
+                    snippet: 'click here to open'
+                })
+                .then((marker: Marker) => {
+                    el = marker
+                    this.my_places.push(marker);
+                    //save markers positions of user
+                    if (this.user_status) {
+                        this.account.saveMarkerPosition(pos.lat, pos.lng, this.id, this.my_places.length).then(last => {
+                            marker.setTitle('Post #' + last.toString());
+                            let markerdata: any = {};
+                            markerdata.name = 'Post #' + last.toString();
+                            markerdata.last = last;
+                            el_data = markerdata;
+
+                            marker.addEventListener(GoogleMapsEvent.MARKER_CLICK).subscribe((e) => {
+                                this.stopTrack();
+                                setTimeout(() => {
+                                    marker.hideInfoWindow();
+                                }, 5000);
+                            });
+
+                            marker.addEventListener(GoogleMapsEvent.INFO_CLICK).subscribe((e) => {
+                                let markerModal = this.modalCtrl.create(Marker2, { event: 'pressMarker', name: markerdata.name, id_user: this.id, id_marker: last.toString(), data: markerdata });
+                                markerModal.onDidDismiss(data => {
+                                    //console.log(JSON.stringify(data));
+                                    if (data.action == "del") {
+                                        this.account.deleteMarker(data.id).then(data => {
+                                            marker.remove();
+                                        });
+                                    } else if (data.action == "edit") {
+                                        marker.hideInfoWindow();
+                                        marker.setTitle(data.name);
+                                        markerdata.name = data.name;
+                                    }
+                                });
+                                markerModal.present();
+                            });
+
+                            el_data.creation = true;
+
+                            let markerModal = this.modalCtrl.create(Marker2, { event: 'pressMarker', name: el_data.name, id_user: this.id, id_marker: el_data.last.toString(), data: el_data });
+                            markerModal.onDidDismiss(data => {
+                                //console.log(JSON.stringify(data));
+                                if (data.action == "del") {
+                                    this.account.deleteMarker(data.id).then(data => {
+                                        el.remove();
+                                    });
+                                } else if (data.action == "edit") {
+                                    el.hideInfoWindow();
+                                    el.setTitle(data.name);
+                                    el_data.name = data.name;
+                                }
+                            });
+                            markerModal.present();
+
+                        });
+                    }
+                });
+
+            });
         });
 
         this.geolocation.getCurrentPosition().then((resp) => {
@@ -511,7 +540,7 @@ export class MapPage {
                 if (this.my_places_marker[marker.id] == undefined) {
                     console.log(marker.id);
                     if (marker.name == null) {
-                        marker.name = 'Pos #' + (marker.id)
+                        marker.name = 'Post #' + (marker.id)
                     }
                     this.map.addMarker({
                         position: new LatLng(marker.lat, marker.lng),
