@@ -114,8 +114,7 @@ export class Marker2 {
 
         //audio
         if(this.info.audio != null){
-            alert(this.info.audio)
-            this.getWave(this.info.audio);
+            this.waveContext(this.info.audio);
         }
         //audio -- end
     }
@@ -245,18 +244,18 @@ export class Marker2 {
         this.currentBuffer = null;
 
         // CANVAS
-        // console.log(document.getElementById("recContainer").offsetWidth);
-        this.canvasWidth = document.getElementById("recContainer").offsetWidth - 10
+        console.log(document.getElementById("recContainer2").offsetWidth);
+        this.canvasWidth = 250
+        // this.canvasWidth = 100
         this.canvasHeight = 50
         this.newCanvas = this.createCanvas(this.canvasWidth, this.canvasHeight);
         this.context = null;
 
         this.appendCanvas();
 
-        alert(audio);
-
-        this.loadMusic('http://hackweb.it/api/uploads/music/'+audio);
+        // this.loadMusic('http://hackweb.it/api/uploads/music/'+audio);
         // this.loadMusic('./assets/music/feno.mp3');
+        this.loadMusic('cdvfile://localhost/persistent/record.m4a');
     }
 
     createCanvas(w, h) {
@@ -267,9 +266,10 @@ export class Marker2 {
     }
 
     appendCanvas() {
+        // document.getElementById('waveform2').innerHTML = "aaa";
 
         // document.body.appendChild(this.newCanvas);
-        document.getElementById('waveform').appendChild(this.newCanvas);
+        document.getElementById('waveform2').appendChild(this.newCanvas);
         this.context = this.newCanvas.getContext('2d');
 
         var devicePixelRatio = window.devicePixelRatio || 1
