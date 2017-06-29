@@ -45,6 +45,17 @@ export class Account {
     });
   }
 
+  countMarkers(){
+    return this.http.post(this.globals.api_url, {action: 'countMarkers'}, {headers: this.headers})
+    .toPromise()
+    .then(data => {
+      return(data.text());
+    })
+    .catch(error => {
+      return("error");
+    });
+  }
+
   login(username, password){
     let loading = this.loadingCtrl.create({
       content: ''

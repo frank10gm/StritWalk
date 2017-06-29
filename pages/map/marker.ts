@@ -28,6 +28,7 @@ export class Marker2 {
     canvasHeight: any;
     newCanvas: any;
     context: any;
+    post_button: any;
 
     color1: string;
     color2: string;
@@ -58,7 +59,7 @@ export class Marker2 {
         //console.log('event: ', params.get('event'));
         this.title = params.get('name');
         this.id = params.get('id_marker');
-        document.getElementById('map').style.display = 'none';
+        // document.getElementById('map').style.display = 'none';
         this.marker.name = this.title;
         this.marker.id = this.id;
         //backbutton
@@ -112,9 +113,21 @@ export class Marker2 {
             this.bg_color_4 = this.globals.bg_color_4
         });
 
+        //pulsanti
+        if(this.info.creation){
+            this.post_button = "Post";
+        }else{
+            this.post_button = "Save";
+        }
+
+    }
+
+    ngAfterViewInit() {
         //audio
         if(this.info.audio != null){
-            this.waveContext(this.info.audio);
+            setTimeout(()=>{
+                this.waveContext(this.info.audio);
+            },10)
         }
         //audio -- end
     }
@@ -122,7 +135,6 @@ export class Marker2 {
     closeModal() {
 
         if(this.info.creation == true){
-            document.getElementById('map').style.display = 'block';
             this.marker.action = "del";
             this.viewCtrl.dismiss(this.marker);
             return 0;
@@ -139,7 +151,7 @@ export class Marker2 {
                         handler: () => {
                             console.log('Cancel clicked');
                             this.info.private = this.info_initial.private;
-                            document.getElementById('map').style.display = 'block';
+                            // document.getElementById('map').style.display = 'block';
                             this.viewCtrl.dismiss(this.marker);
                         }
                     },
@@ -147,7 +159,7 @@ export class Marker2 {
                         text: 'YES',
                         handler: () => {
                             this.saveAll().then(() => {
-                                document.getElementById('map').style.display = 'block';
+                                // document.getElementById('map').style.display = 'block';
                                 this.viewCtrl.dismiss(this.marker);
                             });
                         }
@@ -156,7 +168,7 @@ export class Marker2 {
             });
             alert.present();
         }else{
-            document.getElementById('map').style.display = 'block';
+            // document.getElementById('map').style.display = 'block';
             this.viewCtrl.dismiss(this.marker);
         }
     }
@@ -177,7 +189,7 @@ export class Marker2 {
                 {
                     text: 'YES',
                     handler: () => {
-                        document.getElementById('map').style.display = 'block';
+                        // document.getElementById('map').style.display = 'block';
                         this.marker.action = "del";
                         this.viewCtrl.dismiss(this.marker);
                     }
@@ -188,6 +200,13 @@ export class Marker2 {
     }
 
     saveMarker(){
+        //dev10n
+        if(this.info.creation == true){
+            this.viewCtrl.dismiss(this.marker);
+            this.saveAll();
+            return 0;
+        }
+
         let alert = this.alertCtrl.create({
             title: 'Save this point',
             message: 'Are you sure?',
@@ -204,6 +223,7 @@ export class Marker2 {
                     handler: () => {
                         //document.getElementById('map').style.display = 'block';
                         this.saveAll();
+                        this.viewCtrl.dismiss(this.marker);
                     }
                 }
             ]
@@ -231,12 +251,6 @@ export class Marker2 {
     }
 
     //wave
-    getWave(audio) {
-        var waveform = document.getElementById("waveform")
-        waveform.style.left = 0 + 'px'
-        waveform.innerHTML = "";
-        this.waveContext(audio)
-    }
 
     waveContext(audio) {
         // AUDIO CONTEXT
@@ -244,18 +258,19 @@ export class Marker2 {
         this.currentBuffer = null;
 
         // CANVAS
-        console.log(document.getElementById("recContainer2").offsetWidth);
-        this.canvasWidth = 250
-        // this.canvasWidth = 100
+        // console.log(document.getElementById("recContainer2").offsetWidth);
+
+        this.canvasWidth = document.getElementById("recContainer2").offsetWidth - 10
+        // this.canvasWidth = 250
         this.canvasHeight = 50
         this.newCanvas = this.createCanvas(this.canvasWidth, this.canvasHeight);
         this.context = null;
 
         this.appendCanvas();
 
-        // this.loadMusic('http://hackweb.it/api/uploads/music/'+audio);
+        this.loadMusic('http://hackweb.it/api/uploads/music/'+audio);
         // this.loadMusic('./assets/music/feno.mp3');
-        this.loadMusic('cdvfile://localhost/persistent/record.m4a');
+        // this.loadMusic('cdvfile://localhost/persistent/record.m4a');
     }
 
     createCanvas(w, h) {
@@ -266,7 +281,6 @@ export class Marker2 {
     }
 
     appendCanvas() {
-        // document.getElementById('waveform2').innerHTML = "aaa";
 
         // document.body.appendChild(this.newCanvas);
         document.getElementById('waveform2').appendChild(this.newCanvas);
@@ -410,25 +424,25 @@ export class Marker2 {
       for (var i = 0; i < this.canvasWidth; i++) {
           j = i * 6;
           // draw from positiveAvg - variance to negativeAvg - variance
-          this.context.strokeStyle = '#387ef5';
+          this.context.strokeStyle = '#333';
           this.context.beginPath();
           this.context.moveTo(i, (resampled[j] - resampled[j + 2]));
           this.context.lineTo(i, (resampled[j + 3] + resampled[j + 5]));
           this.context.stroke();
 
           // draw from positiveAvg - variance to positiveAvg + variance
-          this.context.strokeStyle = '#222';
-          this.context.beginPath();
-          this.context.moveTo(i, (resampled[j] - resampled[j + 2]));
-          this.context.lineTo(i, (resampled[j] + resampled[j + 2]));
-          this.context.stroke();
+          //   this.context.strokeStyle = '#222';
+          //   this.context.beginPath();
+          //   this.context.moveTo(i, (resampled[j] - resampled[j + 2]));
+          //   this.context.lineTo(i, (resampled[j] + resampled[j + 2]));
+          //   this.context.stroke();
 
           // draw from negativeAvg + variance to negativeAvg - variance
           // context.strokeStyle = '#222';
-          this.context.beginPath();
-          this.context.moveTo(i, (resampled[j + 3] + resampled[j + 5]));
-          this.context.lineTo(i, (resampled[j + 3] - resampled[j + 5]));
-          this.context.stroke();
+          //   this.context.beginPath();
+          //   this.context.moveTo(i, (resampled[j + 3] + resampled[j + 5]));
+          //   this.context.lineTo(i, (resampled[j + 3] - resampled[j + 5]));
+          //   this.context.stroke();
       }
       this.context.restore();
 

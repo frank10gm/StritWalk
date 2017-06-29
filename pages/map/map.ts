@@ -277,9 +277,10 @@ export class MapPage {
                             });
 
                             marker.addEventListener(GoogleMapsEvent.INFO_CLICK).subscribe((e) => {
+                                markerdata.creation = false;
                                 let markerModal = this.modalCtrl.create(Marker2, { event: 'pressMarker', name: markerdata.name, id_user: this.id, id_marker: last.toString(), data: markerdata });
                                 markerModal.onDidDismiss(data => {
-                                    //console.log(JSON.stringify(data));
+                                    this.map.setVisible(true);
                                     if (data.action == "del") {
                                         this.account.deleteMarker(data.id).then(data => {
                                             marker.remove();
@@ -291,13 +292,15 @@ export class MapPage {
                                     }
                                 });
                                 markerModal.present();
+                                this.map.setVisible(false);
                             });
 
                             el_data.creation = true;
 
                             let markerModal = this.modalCtrl.create(Marker2, { event: 'pressMarker', name: el_data.name, id_user: this.id, id_marker: el_data.last.toString(), data: el_data });
                             markerModal.onDidDismiss(data => {
-                                //console.log(JSON.stringify(data));
+                                this.map.setVisible(true);
+
                                 if (data.action == "del") {
                                     this.account.deleteMarker(data.id).then(data => {
                                         el.remove();
@@ -309,6 +312,7 @@ export class MapPage {
                                 }
                             });
                             markerModal.present();
+                            this.map.setVisible(false);
 
                         });
                     }
@@ -316,6 +320,8 @@ export class MapPage {
 
             });
         });
+
+        this.map.setVisible(true);
 
         this.geolocation.getCurrentPosition().then((resp) => {
             let me: LatLng = new LatLng(resp.coords.latitude, resp.coords.longitude);
@@ -427,7 +433,7 @@ export class MapPage {
         this.stopTrack();
         let settingsModal = this.modalCtrl.create(Settings, { event: 'pressSettings' });
         settingsModal.onDidDismiss(data => {
-
+            this.map.setVisible(true);
         });
         settingsModal.present();
         if (!this.searchBar) {
@@ -568,7 +574,7 @@ export class MapPage {
                         marker2.addEventListener(GoogleMapsEvent.INFO_CLICK).subscribe((e) => {
                             let markerModal = this.modalCtrl.create(Marker2, { event: 'pressMarker', name: marker.name, id_user: this.id, id_marker: marker.id, data: marker });
                             markerModal.onDidDismiss(data => {
-                                //console.log(JSON.stringify(data));
+                                this.map.setVisible(true);
                                 if (data.action == "del") {
                                     this.account.deleteMarker(data.id).then(data => {
                                         //aggiungere qui la rimozione del file dal server
