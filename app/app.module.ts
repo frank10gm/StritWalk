@@ -46,6 +46,7 @@ import { MediaPlugin, MediaObject } from '@ionic-native/media';
 import { Transfer, FileUploadOptions, TransferObject } from '@ionic-native/transfer';
 import { File } from '@ionic-native/file';
 import { Brightness } from '@ionic-native/brightness';
+import { MapsClusterProvider } from '../providers/maps-cluster/maps-cluster';
 
 @NgModule({
   declarations: [
@@ -120,7 +121,8 @@ import { Brightness } from '@ionic-native/brightness';
     Transfer,
     File,
     MediaPlugin,
-    Brightness
+    Brightness,
+    MapsClusterProvider
   ]
 })
 export class AppModule {}

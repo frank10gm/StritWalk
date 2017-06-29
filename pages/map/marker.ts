@@ -5,11 +5,16 @@ import { NativeStorage } from '@ionic-native/native-storage';
 import { GlobalProvider } from '../../providers/global-provider'
 import { Account } from '../../providers/account';
 import { Dialogs } from '@ionic-native/dialogs';
+import { MediaPlugin, MediaObject } from '@ionic-native/media';
+import { File } from '@ionic-native/file';
+
 
 @Component({
     selector: 'modal-marker',
     templateUrl: 'marker.html'
 })
+
+
 export class Marker2 {
 
     //variables
@@ -29,6 +34,7 @@ export class Marker2 {
     newCanvas: any;
     context: any;
     post_button: any;
+    audio: boolean = false;
 
     color1: string;
     color2: string;
@@ -54,12 +60,13 @@ export class Marker2 {
         public alertCtrl: AlertController,
         public platform: Platform,
         private events: Events,
-        private dialogs: Dialogs
+        private dialogs: Dialogs,
+        private media: MediaPlugin, private file: File
     ) {
         //console.log('event: ', params.get('event'));
         this.title = params.get('name');
         this.id = params.get('id_marker');
-        // document.getElementById('map').style.display = 'none';
+        document.getElementById('map').style.display = 'none';
         this.marker.name = this.title;
         this.marker.id = this.id;
         //backbutton
@@ -125,6 +132,7 @@ export class Marker2 {
     ngAfterViewInit() {
         //audio
         if(this.info.audio != null){
+            this.audio = true;
             setTimeout(()=>{
                 this.waveContext(this.info.audio);
             },10)
@@ -137,6 +145,7 @@ export class Marker2 {
         if(this.info.creation == true){
             this.marker.action = "del";
             this.viewCtrl.dismiss(this.marker);
+            document.getElementById('map').style.display = 'block';
             return 0;
         }
 
@@ -151,7 +160,7 @@ export class Marker2 {
                         handler: () => {
                             console.log('Cancel clicked');
                             this.info.private = this.info_initial.private;
-                            // document.getElementById('map').style.display = 'block';
+                            document.getElementById('map').style.display = 'block';
                             this.viewCtrl.dismiss(this.marker);
                         }
                     },
@@ -159,7 +168,7 @@ export class Marker2 {
                         text: 'YES',
                         handler: () => {
                             this.saveAll().then(() => {
-                                // document.getElementById('map').style.display = 'block';
+                                document.getElementById('map').style.display = 'block';
                                 this.viewCtrl.dismiss(this.marker);
                             });
                         }
@@ -168,7 +177,7 @@ export class Marker2 {
             });
             alert.present();
         }else{
-            // document.getElementById('map').style.display = 'block';
+            document.getElementById('map').style.display = 'block';
             this.viewCtrl.dismiss(this.marker);
         }
     }
@@ -189,7 +198,7 @@ export class Marker2 {
                 {
                     text: 'YES',
                     handler: () => {
-                        // document.getElementById('map').style.display = 'block';
+                        document.getElementById('map').style.display = 'block';
                         this.marker.action = "del";
                         this.viewCtrl.dismiss(this.marker);
                     }
@@ -202,6 +211,7 @@ export class Marker2 {
     saveMarker(){
         //dev10n
         if(this.info.creation == true){
+            document.getElementById('map').style.display = 'block';
             this.viewCtrl.dismiss(this.marker);
             this.saveAll();
             return 0;
@@ -221,7 +231,7 @@ export class Marker2 {
                 {
                     text: 'YES',
                     handler: () => {
-                        //document.getElementById('map').style.display = 'block';
+                        document.getElementById('map').style.display = 'block';
                         this.saveAll();
                         this.viewCtrl.dismiss(this.marker);
                     }
@@ -258,7 +268,7 @@ export class Marker2 {
         this.currentBuffer = null;
 
         // CANVAS
-        // console.log(document.getElementById("recContainer2").offsetWidth);
+        console.log(document.getElementById("recContainer2").offsetWidth);
 
         this.canvasWidth = document.getElementById("recContainer2").offsetWidth - 10
         // this.canvasWidth = 250
@@ -448,6 +458,12 @@ export class Marker2 {
 
       console.log('done 231 iyi');
   }
-    //wave -- END
+  //wave -- END
+
+  audioPlay(){
+      var file_link = 'http://hackweb.it/api/uploads/music/'+this.info.audio;
+      const file: MediaObject = this.media.create(file_link);
+      file.play();
+  }
 
 }

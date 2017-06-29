@@ -39,13 +39,29 @@
 
     <ion-item-divider color="wh1"><ion-label color="wh2"></ion-label></ion-item-divider>
 
-    <ion-item class="didascalia" [hidden]="audio" id="recContainer2">
-      <div id="waveform2">
+    <div [hidden]="!audio">
+      <ion-item class="didascalia" id="recContainer2">
+        <div id="waveform2">
 
-      </div>
-    </ion-item>
+        </div>
 
-    <ion-item-divider color="wh1"><ion-label color="wh2"></ion-label></ion-item-divider>
+
+      </ion-item>
+      <ion-row color="primary">
+        <ion-col col-4 class="col-center stats" style="color: #000; background-color:#000;">
+        </ion-col>
+        <ion-col col-4 class="col-center stats {{color_1}}">
+        </ion-col>
+        <ion-col col-4 class="col-center stats {{color_1}}">
+          <button color="{{color4}}" (click)="audioPlay()" ion-button clear small item-right icon-only>
+          <ion-icon name="play"></ion-icon>
+          Play
+        </button>
+        </ion-col>
+      </ion-row>
+
+      <ion-item-divider color="wh1"><ion-label color="wh2"></ion-label></ion-item-divider>
+    </div>
 
     <button ion-item class="didascalia">
       <ion-icon name="camera" color="wh2" item-left></ion-icon>
@@ -96,10 +112,12 @@
   <ion-item-group no-lines [hidden]="creation">
     <ion-item-divider color="wh1"><ion-label color="wh2"></ion-label></ion-item-divider>
     <!-- <button ion-item (click)="saveMarker()" item-right><ion-icon name="md-bookmarks" color="primary" item-left></ion-icon>Save</button> -->
-    <ion-item (click)="delete()" >
+    <ion-item (click)="delete()" class="didascalia">
       <ion-icon name="trash" color="wh2" item-left></ion-icon>
         Delete this post
     </ion-item>
+
+    <ion-item-divider color="wh1"><ion-label color="wh2"></ion-label></ion-item-divider>
   </ion-item-group>
 
 
