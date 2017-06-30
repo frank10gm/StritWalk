@@ -43,6 +43,7 @@ export class CitiesPage {
   color6: string;
   color7: string;
   color8: string;
+  color9: string;
   color_1: string;
   color_2: string;
   color_3: string;
@@ -81,6 +82,7 @@ export class CitiesPage {
     this.color6 = globals.color6
     this.color7 = globals.color7
     this.color8 = globals.color8
+    this.color9 = globals.color9
     this.color_1 = globals.color_1
     this.color_2 = globals.color_2
     this.color_3 = globals.color_3
@@ -102,6 +104,8 @@ export class CitiesPage {
       this.color5 = this.globals.color5
       this.color6 = this.globals.color6
       this.color7 = this.globals.color7
+      this.color8 = globals.color8
+      this.color9 = globals.color9
       this.color_1 = this.globals.color_1
       this.color_2 = this.globals.color_2
       this.color_3 = this.globals.color_3
@@ -519,11 +523,13 @@ export class CitiesPage {
       headers: {}
     }
 
+    console.log(this.file_url + this.file_name);
+
     fileTransfer.upload(this.file_url + this.file_name, this.globals.upload_url, options)
       .then((data) => {
-        this.audio_posted_finish = true;
         this.account.post(name, this.audio_name, name, coor.latitude, coor.longitude).then(data=>{
           //dev10n
+          this.audio_posted_finish = true;
           setTimeout(()=>{
             this.audio_posted_finish = false
             this.audio_posted = false
@@ -533,9 +539,13 @@ export class CitiesPage {
             this.rec2 = false
             this.hideStart = true
           },3000)
+        })
+        .catch(err => {
+          console.log("posting... "+JSON.stringify(err))
         });
-      }, (err) => {
-        console.log(JSON.stringify(err))
+      })
+      .catch(err => {
+        console.log("uploading... "+JSON.stringify(err))
       })
   }
 

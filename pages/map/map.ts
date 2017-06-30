@@ -273,7 +273,7 @@ export class MapPage {
                                 this.stopTrack();
                                 setTimeout(() => {
                                     marker.hideInfoWindow();
-                                }, 5000);
+                                }, 7000);
                             });
 
                             marker.addEventListener(GoogleMapsEvent.INFO_CLICK).subscribe((e) => {
@@ -282,8 +282,8 @@ export class MapPage {
                                 markerModal.onDidDismiss(data => {
                                     // this.map.setVisible(true);
                                     if (data.action == "del") {
-                                        this.account.deleteMarker(data.id).then(data => {
-                                            marker.remove();
+                                        marker.remove();
+                                        this.account.deleteMarker(data.id).then(data => {                                            
                                         });
                                     } else if (data.action == "edit") {
                                         marker.hideInfoWindow();
@@ -302,8 +302,8 @@ export class MapPage {
                                 // this.map.setVisible(true);
 
                                 if (data.action == "del") {
+                                    el.remove();
                                     this.account.deleteMarker(data.id).then(data => {
-                                        el.remove();
                                     });
                                 } else if (data.action == "edit") {
                                     el.hideInfoWindow();
@@ -576,9 +576,8 @@ export class MapPage {
                             markerModal.onDidDismiss(data => {
                                 // this.map.setVisible(true);
                                 if (data.action == "del") {
+                                    marker2.remove();
                                     this.account.deleteMarker(data.id).then(data => {
-                                        //aggiungere qui la rimozione del file dal server
-                                        marker2.remove();
                                     });
                                 } else if (data.action == "edit") {
                                     //console.log(data.action);

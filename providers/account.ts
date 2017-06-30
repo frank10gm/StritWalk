@@ -4,6 +4,7 @@ import { LoadingController } from 'ionic-angular';
 import { GlobalProvider} from '../providers/global-provider'
 import {NativeStorage} from '@ionic-native/native-storage';
 import {Dialogs} from '@ionic-native/dialogs';
+import { Observable } from 'rxjs/Observable';
 
 /*
 Generated class for the Account provider.
@@ -206,9 +207,14 @@ export class Account {
 
   post(file:string, audio_name:string, file_name:string, lat?, lng?, post_text?:string){
     return this.http.post(this.globals.api_url, {action: 'post', id: this.globals.user_id, name:audio_name, audio: file_name, lat:lat, lng:lng}, {headers: this.headers})
+    .timeout(1000)
     .toPromise()
     .then(data => {
       return data.json();
+    })
+    .catch(error => {
+      console.log("account posting... "+error)
+      return(error);
     });
   }
 

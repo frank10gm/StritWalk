@@ -27,6 +27,7 @@ export class GlobalProvider {
   public color6: string;
   public color7: string;
   public color8: string;
+  public color9: string;
   public color_1: string;
   public color_2: string;
   public color_3: string;
@@ -64,6 +65,7 @@ export class GlobalProvider {
     this.color6 = "wh6"
     this.color7 = "wh7"
     this.color8 = "wh8"
+    this.color9 = "wh9"
     this.color_1 = "wh-color-1";
     this.color_2 = "wh-color-2";
     this.color_3 = "wh-color-3";
@@ -164,6 +166,8 @@ export class GlobalProvider {
       this.color5 = "wh5"
       this.color6 = "wh6"
       this.color7 = "wh7"
+      this.color8 = "wh8";
+      this.color9 = "wh9";
       this.color_1 = "wh-color-1";
       this.color_2 = "wh-color-2";
       this.color_3 = "wh-color-3";
@@ -179,6 +183,8 @@ export class GlobalProvider {
       this.color5 = "bl5"
       this.color6 = "bl6"
       this.color7 = "bl7"
+      this.color8 = "bl8";
+      this.color9 = "bl9";
       this.color_1 = "bl-color-1";
       this.color_2 = "bl-color-2";
       this.color_3 = "bl-color-3";
