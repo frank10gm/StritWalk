@@ -505,48 +505,49 @@ export class CitiesPage {
     var coor = null;
 
     this.geolocation.getCurrentPosition().then((resp) => {
+
       coor = resp.coords;
+      const fileTransfer: TransferObject = this.transfer.create();
+      var name = 'record-' + this.username + '-' + this.audio_name + '-' + Date.now() + '.m4a';
+
+      if (this.platform.is('android')) {
+        name = 'record-' + this.username + '-' + this.audio_name + '-' + Date.now() + '.aac';
+      }
+
+      let options: FileUploadOptions = {
+        fileKey: 'file',
+        fileName: name,
+        headers: {}
+      }
+
+      fileTransfer.upload(this.file_url + this.file_name, this.globals.upload_url, options)
+        .then((data) => {
+          console.log("### FILE UPLOADED ###");
+          this.account.post(name, this.audio_name, name, coor.latitude, coor.longitude).then(data=>{
+            console.log(JSON.stringify(data))
+            //dev10n
+            this.audio_posted_finish = true;
+            setTimeout(()=>{
+              this.audio_posted_finish = false
+              this.audio_posted = false
+              this.audio_posted = false
+              this.isFastRiff = false
+              this.rec = false
+              this.rec2 = false
+              this.hideStart = true
+            },3000)
+          })
+          .catch(err => {
+            console.log("posting... "+JSON.stringify(err))
+          });
+        })
+        .catch(err => {
+
+        })
     }).catch((error) => {
       console.log('Error getting location', error);
     });
 
-    const fileTransfer: TransferObject = this.transfer.create();
-
-    var name = 'record-' + this.username + '-' + this.audio_name + '-' + Date.now() + '.m4a';
-    if (this.platform.is('android')) {
-      name = 'record-' + this.username + '-' + this.audio_name + '-' + Date.now() + '.aac';
-    }
-
-    let options: FileUploadOptions = {
-      fileKey: 'file',
-      fileName: name,
-      headers: {}
-    }
-
-    console.log(this.file_url + this.file_name);
-
-    fileTransfer.upload(this.file_url + this.file_name, this.globals.upload_url, options)
-      .then((data) => {
-        this.account.post(name, this.audio_name, name, coor.latitude, coor.longitude).then(data=>{
-          //dev10n
-          this.audio_posted_finish = true;
-          setTimeout(()=>{
-            this.audio_posted_finish = false
-            this.audio_posted = false
-            this.audio_posted = false
-            this.isFastRiff = false
-            this.rec = false
-            this.rec2 = false
-            this.hideStart = true
-          },3000)
-        })
-        .catch(err => {
-          console.log("posting... "+JSON.stringify(err))
-        });
-      })
-      .catch(err => {
-        console.log("uploading... "+JSON.stringify(err))
-      })
   }
 
   openMessages(){
