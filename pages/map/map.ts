@@ -287,7 +287,7 @@ export class MapPage {
                                         });
                                     } else if (data.action == "edit") {
                                         marker.hideInfoWindow();
-                                        marker.setTitle(data.name);
+                                        marker.setTitle(data.name+" ");
                                         markerdata.name = data.name;
                                     }
                                 });
@@ -307,7 +307,7 @@ export class MapPage {
                                     });
                                 } else if (data.action == "edit") {
                                     el.hideInfoWindow();
-                                    el.setTitle(data.name);
+                                    el.setTitle(data.name+" ");
                                     el_data.name = data.name;
                                 }
                             });
@@ -583,7 +583,7 @@ export class MapPage {
                                 } else if (data.action == "edit") {
                                     //console.log(data.action);
                                     marker2.hideInfoWindow();
-                                    marker2.setTitle(data.name);
+                                    marker2.setTitle(data.name+" ");
                                     marker.name = data.name;
                                 }
                             });
@@ -641,7 +641,7 @@ export class MapPage {
             }
             this.interval_people_places = setTimeout(() => {
                 this.getPeopleMarker();
-            }, 60000);
+            }, 10000);
         });
     }
 

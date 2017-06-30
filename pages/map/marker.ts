@@ -342,31 +342,6 @@ export class Marker2 {
   }
 
   // MUSIC DISPLAY
-  displayBuffer2(buff /* is an AudioBuffer */) {
-      var leftChannel = buff.getChannelData(0); // Float32Array describing left channel
-      var lineOpacity = this.canvasWidth / leftChannel.length;
-
-      this.context.save();
-      this.context.fillStyle = '#222';
-      this.context.fillRect(0, 0, this.canvasWidth, this.canvasHeight);
-      this.context.strokeStyle = '#121';
-      this.context.globalCompositeOperation = 'lighter';
-      this.context.translate(0, this.canvasHeight / 2);
-      this.context.globalAlpha = 0.06; // lineOpacity ;
-      for (var i = 0; i < leftChannel.length; i++) {
-          // on which line do we get ?
-          var x = Math.floor(this.canvasWidth * i / leftChannel.length);
-          var y = leftChannel[i] * this.canvasHeight / 2;
-          this.context.beginPath();
-          this.context.moveTo(x, 0);
-          this.context.lineTo(x + 1, y);
-          this.context.stroke();
-      }
-      this.context.restore();
-      console.log('done');
-  }
-
-  // MUSIC DISPLAY
   displayBuffer(buff /* is an AudioBuffer */) {
       var leftChannel = buff.getChannelData(0); // Float32Array describing left channel
       // we 'resample' with cumul, count, variance
@@ -423,7 +398,7 @@ export class Marker2 {
           if (resampled[j + 4]) resampled[j + 5] /= resampled[j + 4];
       }
       this.context.save();
-      this.context.fillStyle = '#fff';
+      this.context.fillStyle = '#efefef';
       this.context.fillRect(0, 0, this.canvasWidth, this.canvasHeight);
       this.context.translate(0.5, this.canvasHeight / 2);
 

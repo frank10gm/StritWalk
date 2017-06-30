@@ -18,18 +18,18 @@
 
 <ion-content class="wh-bg-color-4">
   <ion-item-group no-lines>
-    <!-- <ion-item-divider color="wh1"><ion-label color="wh2"></ion-label></ion-item-divider> -->
+    <!-- <ion-item-divider color="wh"><ion-label color="wh2"></ion-label></ion-item-divider> -->
 
     <ion-item class="didascalia" style="border-bottom:0 !important;">
       <ion-avatar item-left>
         <img style="width:30px;height:30px;" class="" src="./assets/images/pingu2.jpg">
       </ion-avatar>
-      <ion-textarea style="border-bottom:0 !important;" placeholder="Enter a description..."></ion-textarea>
+      <ion-textarea style="height: 100px;" placeholder="Enter a description..."></ion-textarea>
     </ion-item>
 
-    <ion-item-divider color="wh1"><ion-label color="wh2"></ion-label></ion-item-divider>
+    <ion-item-divider color="wh3"><ion-label color="wh2"></ion-label></ion-item-divider>
 
-    <ion-item class="didascalia">
+    <ion-item class="didascalia" id="recContainer2">
       <!-- <ion-icon name="md-create" item-left></ion-icon> -->
       <ion-label color="wh2">Title</ion-label>
       <ion-input [(ngModel)]="marker.name" clearInput></ion-input>
@@ -37,22 +37,20 @@
       <!-- <ion-note item-right>Name</ion-note> -->
     </ion-item>
 
-    <ion-item-divider color="wh1"><ion-label color="wh2"></ion-label></ion-item-divider>
+    <ion-item-divider color="wh3"><ion-label color="wh2"></ion-label></ion-item-divider>
 
     <div [hidden]="!audio">
-      <ion-item class="didascalia" id="recContainer2">
-        <div id="waveform2">
 
+        <div id="waveform2" class="wh-bg-color-4" style="padding-top:5px;">
         </div>
 
 
-      </ion-item>
       <ion-row color="primary">
-        <ion-col col-4 class="col-center stats" style="color: #000; background-color:#000;">
+        <ion-col col-4 class="col-center stats wh-bg-color-4">
         </ion-col>
-        <ion-col col-4 class="col-center stats {{color_1}}">
+        <ion-col col-4 class="col-center stats wh-bg-color-4">
         </ion-col>
-        <ion-col col-4 class="col-center stats {{color_1}}">
+        <ion-col col-4 class="col-center stats wh-bg-color-4">
           <button color="{{color4}}" (click)="audioPlay()" ion-button clear small item-right icon-only>
           <ion-icon name="play"></ion-icon>
           Play
@@ -60,10 +58,10 @@
         </ion-col>
       </ion-row>
 
-      <ion-item-divider color="wh1"><ion-label color="wh2"></ion-label></ion-item-divider>
+      <!-- <ion-item-divider color="wh3"><ion-label color="wh2"></ion-label></ion-item-divider> -->
     </div>
 
-    <button ion-item class="didascalia">
+    <button ion-item class="">
       <ion-icon name="camera" color="wh2" item-left></ion-icon>
       Photo
     </button>
@@ -76,7 +74,7 @@
       </button>
     </ion-item>
 
-    <ion-item-divider color="wh1"><ion-label color="wh2"></ion-label></ion-item-divider>
+    <ion-item-divider color="wh3"><ion-label color="wh2"></ion-label></ion-item-divider>
 
     <!-- <ion-item>
       <ion-icon name="md-clipboard" item-left></ion-icon>
@@ -110,14 +108,14 @@
   </ion-item-group>
 
   <ion-item-group no-lines [hidden]="creation">
-    <ion-item-divider color="wh1"><ion-label color="wh2"></ion-label></ion-item-divider>
+    <ion-item-divider color="wh3"><ion-label color="wh2"></ion-label></ion-item-divider>
     <!-- <button ion-item (click)="saveMarker()" item-right><ion-icon name="md-bookmarks" color="primary" item-left></ion-icon>Save</button> -->
-    <ion-item (click)="delete()" class="didascalia">
+    <button ion-item (click)="delete()" class="didascalia">
       <ion-icon name="trash" color="wh2" item-left></ion-icon>
         Delete this post
-    </ion-item>
+    </button>
 
-    <ion-item-divider color="wh1"><ion-label color="wh2"></ion-label></ion-item-divider>
+    <ion-item-divider color="wh3"><ion-label color="wh2"></ion-label></ion-item-divider>
   </ion-item-group>
 
 

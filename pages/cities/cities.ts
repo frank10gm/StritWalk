@@ -46,6 +46,7 @@ export class CitiesPage {
   color_1: string;
   color_2: string;
   color_3: string;
+  color_4: string;
   bg_color_2: string;
   bg_color_3: string;
   bg_color_4: string;
@@ -83,6 +84,7 @@ export class CitiesPage {
     this.color_1 = globals.color_1
     this.color_2 = globals.color_2
     this.color_3 = globals.color_3
+    this.color_4 = globals.color_4
     this.bg_color_2 = globals.bg_color_2
     this.bg_color_3 = globals.bg_color_3
     this.bg_color_4 = globals.bg_color_4
@@ -103,6 +105,7 @@ export class CitiesPage {
       this.color_1 = this.globals.color_1
       this.color_2 = this.globals.color_2
       this.color_3 = this.globals.color_3
+      this.color_4 = this.globals.color_4
       this.bg_color_2 = this.globals.bg_color_2
       this.bg_color_3 = this.globals.bg_color_3
       this.bg_color_4 = this.globals.bg_color_4
