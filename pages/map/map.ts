@@ -247,7 +247,6 @@ export class MapPage {
                 //save markers positions of user
                 if (this.user_status) {
                     this.account.saveMarkerPosition(pos.lat, pos.lng, this.id, this.my_places.length).then(last => {
-
                         let markerdata: any = {};
                         markerdata.name = 'Post #' + last.toString();
                         markerdata.last = last;
@@ -265,7 +264,6 @@ export class MapPage {
                             }
                         });
                         markerModal.present();
-
                     });
                 }
 
@@ -290,9 +288,9 @@ export class MapPage {
                             width: 22, //25
                             height: 22 //38
                         }
-                    }
-                    //zIndex: 99999,
-                    // title: 'Me',
+                    },
+                    zIndex: 0,
+                    title: 'Me',
                 })
                 .then((marker: Marker) => {
                     marker.setIconAnchor(11, 11);
