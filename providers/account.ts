@@ -159,11 +159,11 @@ export class Account {
     });
   }
 
-  deleteMarker(id){
-    return this.http.post(this.globals.api_url, {action: 'deleteMarker', id: id}, {headers: this.headers})
+  deleteMarker(id,audio){
+    return this.http.post(this.globals.api_url, {action: 'deleteMarker', id: id, audio: audio}, {headers: this.headers})
     .toPromise()
     .then(data => {
-
+      //
     }).catch(error => { return(error); });
   }
 

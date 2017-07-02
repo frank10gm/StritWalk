@@ -256,7 +256,7 @@ export class MapPage {
                         let markerModal = this.modalCtrl.create(Marker2, { event: 'pressMarker', name: el_data.name, id_user: this.id, id_marker: el_data.last.toString(), data: el_data });
                         markerModal.onDidDismiss(data => {
                             if (data.action == "del") {
-                                this.account.deleteMarker(data.id).then(data => {
+                                this.account.deleteMarker(data.id,data.info.audio).then(data => {
                                     console.log("deleted marker on creation");
                                 });
                             } else if (data.action == "edit") {
@@ -488,7 +488,7 @@ export class MapPage {
         markerModal.onDidDismiss(data => {
             if (data.action == "del") {
                 this.my_places_marker[id][1].remove();
-                this.account.deleteMarker(data.id).then(data => {
+                this.account.deleteMarker(data.id,data.info.audio).then(data => {
                     console.log("deleted marker getPeopleMarker");
                 });
             } else if (data.action == "edit") {
