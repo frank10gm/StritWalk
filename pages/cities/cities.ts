@@ -56,6 +56,7 @@ export class CitiesPage {
   audio_posted: boolean = false;
   audio_posted_finish: boolean = false;
   audio_name: string;
+  posts: any;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -114,6 +115,8 @@ export class CitiesPage {
       this.bg_color_3 = this.globals.bg_color_3
       this.bg_color_4 = this.globals.bg_color_4
     });
+
+    this.getPosts();
   }
 
   ionViewDidLoad() {
@@ -552,6 +555,12 @@ export class CitiesPage {
 
   openMessages(){
 
+  }
+
+  getPosts(){
+    this.account.getPosts().then(data => {
+      this.posts = data;
+    });
   }
 
 }

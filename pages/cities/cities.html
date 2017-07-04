@@ -151,7 +151,8 @@
 
     <!-- <div style="width:100%;overflow:hidden; height:1px;"><div style="width:1000%;"> ---------------------------------------------------------------</div></div> -->
 
-    <ion-card color="{{color6}}" class="card-no-padding bottom-padding top-padding bottom-dashed">
+
+    <ion-card color="{{color6}}" class="card-no-padding bottom-padding top-padding bottom-dashed" *ngFor="let post of posts">
       <ion-item color="{{color6}}">
         <!-- <ion-avatar item-left> -->
         <!-- <img src="./assets/images/pingu2.jpg"> -->

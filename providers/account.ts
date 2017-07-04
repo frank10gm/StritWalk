@@ -218,4 +218,15 @@ export class Account {
     });
   }
 
+  getPosts(){
+    return this.http.post(this.globals.api_url, {action: 'getPosts'}, {headers: this.headers})
+    .toPromise()
+    .then(data => {
+      return data.json();
+    })
+    .catch(error => {
+      return(error);
+    });
+  }
+
 }
