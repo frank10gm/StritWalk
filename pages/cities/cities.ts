@@ -558,12 +558,16 @@ export class CitiesPage {
   }
 
   refreshPage(e){
-    this.getPosts();
+    this.getPosts().then(data => {
+      console.log(JSON.stringify(data))
+      e.complete();
+    });
   }
 
   getPosts(){
-    this.account.getPosts().then(data => {
+    return this.account.getPosts().then(data => {
       this.posts = data;
+      return data;
     });
   }
 

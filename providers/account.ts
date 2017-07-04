@@ -222,7 +222,6 @@ export class Account {
     return this.http.post(this.globals.api_url, {action: 'getPosts'}, {headers: this.headers})
     .toPromise()
     .then(data => {
-      console.log(JSON.stringify(data))
       return data.json();
     })
     .catch(error => {
