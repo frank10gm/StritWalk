@@ -559,9 +559,25 @@ export class CitiesPage {
 
   refreshPage(e){
     this.getPosts().then(data => {
-      console.log(JSON.stringify(data))
       e.complete();
     });
+  }
+
+  doInfinite(e) {
+
+    this.account.getPosts().then(data => {
+      this.posts = data;
+      e.complete();
+    });
+
+    setTimeout(() => {
+      for (let i = 0; i < 30; i++) {
+        // this.items.push( this.items.length );
+      }
+
+      console.log('Async operation has ended');
+      // infiniteScroll.complete();
+    }, 500);
   }
 
   getPosts(){
