@@ -25,6 +25,12 @@
 </ion-header>
 
 <ion-content class="{{bg_color_4}}">
+
+  <ion-refresher (ionRefresh)="refreshPage($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+
   <div style="">
     <ion-card color="{{color3}}" class="card-no-padding2 " style="padding-top:8px;">
       <ion-item style="" color="{{color3}}">

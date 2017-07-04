@@ -557,6 +557,10 @@ export class CitiesPage {
 
   }
 
+  refreshPage(e){
+    this.getPosts();
+  }
+
   getPosts(){
     this.account.getPosts().then(data => {
       this.posts = data;
