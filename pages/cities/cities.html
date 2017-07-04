@@ -157,8 +157,8 @@
         <!-- <ion-avatar item-left> -->
         <!-- <img src="./assets/images/pingu2.jpg"> -->
         <!-- </ion-avatar> -->
-        <h2><span class="{{color_3}} bold1">{{post.name}}</span></h2>
-        <p>{{post.added}}</p>
+        <h2><span class="{{color_3}} bold1">{{post.creator}}</span></h2>
+        <p class="bold1">{{post.name}}</p>
       </ion-item>
       <!-- <img src="./assets/images/pingu2.jpg"/> -->
       <ion-card-content>
@@ -167,6 +167,7 @@
         </ion-card-title> -->
         <p>
           The most popular industrial group ever, and largely responsible for bringing the music to a mass audience.
+          {{post.description}}
         </p>
       </ion-card-content>
       <ion-row>
@@ -185,7 +186,7 @@
         <ion-col center text-right>
           <button ion-button icon-left clear small color="{{color4}}">
             <!-- <ion-icon name="text"></ion-icon> -->
-            <div>11 h</div>
+            <div>{{post.added}}</div>
           </button>
         </ion-col>
       </ion-row>
