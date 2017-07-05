@@ -2,13 +2,10 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, Events } from 'ionic-angular';
 import { GlobalProvider } from '../../providers/global-provider';
 import { Account } from '../../providers/account';
+import { Geolocation } from '@ionic-native/geolocation';
 
-/*
-Generated class for the Fav page.
 
-See http://ionicframework.com/docs/v2/components/#navigation for more info on
-Ionic pages and navigation.
-*/
+
 @Component({
   selector: 'page-fav',
   templateUrl: 'fav.html'
@@ -31,11 +28,14 @@ export class FavPage {
   bg_color_4: string;
   posts: any;
   infinite:number = 0;
+  lat: any;
+  lng: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private events: Events,
     public globals: GlobalProvider,
-    public account: Account
+    public account: Account,
+    private geolocation:Geolocation
   ) {
 
     //scelta colori
@@ -89,8 +89,8 @@ export class FavPage {
       e.complete();
       return 0
     }
-    this.infinite += 10;
-    this.account.getPosts(this.infinite, "rand").then(data => {
+    this.infinite += 3;
+    this.account.getPosts(this.infinite, "rand", 3, this.lat, this.lng).then(data => {
       console.log(JSON.stringify(data))
       e.complete();
       if(data != ''){
@@ -104,9 +104,15 @@ export class FavPage {
   }
 
   getPosts(){
-    return this.account.getPosts(0, "rand").then(data => {
-      this.posts = data;
-      return data;
+    return this.geolocation.getCurrentPosition().then((resp) => {
+      this.lat = resp.coords.latitude;
+      this.lng = resp.coords.longitude;
+
+      return this.account.getPosts(0, "rand", 3, this.lat, this.lng).then(data => {
+        this.posts = data;
+        alert(JSON.stringify(data));
+        return data;
+      });
     });
   }
 

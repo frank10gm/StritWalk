@@ -571,7 +571,7 @@ export class CitiesPage {
       return 0
     }
     this.infinite += 10;
-    this.account.getPosts(this.infinite).then(data => {
+    this.account.getPosts(this.infinite,"added",10).then(data => {
       console.log(JSON.stringify(data))
       e.complete();
       if(data != ''){
@@ -585,7 +585,7 @@ export class CitiesPage {
   }
 
   getPosts(){
-    return this.account.getPosts().then(data => {
+    return this.account.getPosts(0,"added",10).then(data => {
       this.posts = data;
       return data;
     });
