@@ -70,14 +70,41 @@ export class FavPage {
       this.bg_color_4 = this.globals.bg_color_4
     });
 
+    this.getPosts();
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad FavPage');
   }
 
+  refreshPage(e){
+    this.infinite = 0;
+    this.getPosts().then(data => {
+      e.complete();
+    });
+  }
+
+  doInfinite(e) {
+    if(this.infinite < 0){
+      e.complete();
+      return 0
+    }
+    this.infinite += 10;
+    this.account.getPosts(this.infinite, "rand").then(data => {
+      console.log(JSON.stringify(data))
+      e.complete();
+      if(data != ''){
+        for (let i in data) {
+          this.posts.push(data[i]);
+        }
+      }else{
+        this.infinite = -1;
+      }
+    });
+  }
+
   getPosts(){
-    return this.account.getPosts().then(data => {
+    return this.account.getPosts(0, "rand").then(data => {
       this.posts = data;
       return data;
     });
