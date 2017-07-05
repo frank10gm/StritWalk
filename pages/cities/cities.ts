@@ -57,6 +57,7 @@ export class CitiesPage {
   audio_posted_finish: boolean = false;
   audio_name: string;
   posts: any;
+  infinite:number = 0;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -558,26 +559,29 @@ export class CitiesPage {
   }
 
   refreshPage(e){
+    this.infinite = 0;
     this.getPosts().then(data => {
       e.complete();
     });
   }
 
   doInfinite(e) {
-
-    this.account.getPosts().then(data => {
-      this.posts = data;
+    if(this.infinite < 0){
       e.complete();
-    });
-
-    setTimeout(() => {
-      for (let i = 0; i < 30; i++) {
-        // this.items.push( this.items.length );
+      return 0
+    }
+    this.infinite += 3;
+    this.account.getPosts(this.infinite).then(data => {
+      console.log(JSON.stringify(data))
+      e.complete();
+      if(data != ''){
+        for (let i in data) {
+          this.posts.push(data[i]);
+        }
+      }else{
+        this.infinite = -1;
       }
-
-      console.log('Async operation has ended');
-      // infiniteScroll.complete();
-    }, 500);
+    });
   }
 
   getPosts(){
