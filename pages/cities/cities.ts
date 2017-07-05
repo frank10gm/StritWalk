@@ -570,7 +570,7 @@ export class CitiesPage {
       e.complete();
       return 0
     }
-    this.infinite += 3;
+    this.infinite += 10;
     this.account.getPosts(this.infinite).then(data => {
       console.log(JSON.stringify(data))
       e.complete();

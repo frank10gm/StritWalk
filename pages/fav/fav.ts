@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, Events } from 'ionic-angular';
-import { GlobalProvider } from '../../providers/global-provider'
+import { GlobalProvider } from '../../providers/global-provider';
+import { Account } from '../../providers/account';
 
 /*
 Generated class for the Fav page.
@@ -28,10 +29,13 @@ export class FavPage {
   bg_color_2: string;
   bg_color_3: string;
   bg_color_4: string;
+  posts: any;
+  infinite:number = 0;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private events: Events,
     public globals: GlobalProvider,
+    public account: Account
   ) {
 
     //scelta colori
@@ -70,6 +74,13 @@ export class FavPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad FavPage');
+  }
+
+  getPosts(){
+    return this.account.getPosts().then(data => {
+      this.posts = data;
+      return data;
+    });
   }
 
 }

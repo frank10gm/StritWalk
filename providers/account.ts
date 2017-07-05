@@ -218,8 +218,8 @@ export class Account {
     });
   }
 
-  getPosts(num?:number){
-    return this.http.post(this.globals.api_url, {action:'getPosts', num:num}, {headers: this.headers})
+  getPosts(num?:number, order?:string){
+    return this.http.post(this.globals.api_url, {action:'getPosts', num:num, order:order}, {headers: this.headers})
     .toPromise()
     .then(data => {
       return data.json();

@@ -15,13 +15,13 @@ Ionic pages and navigation.
 
 <ion-content class="" class="{{bg_color_4}}">
 
-  <ion-card color="{{color6}}" class="card-no-padding bottom-padding top-padding bottom-dashed">
+  <ion-card color="{{color6}}" class="card-no-padding bottom-padding top-padding bottom-dashed" *ngFor="let post of posts">
     <ion-item color="{{color6}}">
       <!-- <ion-avatar item-left> -->
-        <!-- <img src="./assets/images/pingu2.jpg"> -->
+      <!-- <img src="./assets/images/pingu2.jpg"> -->
       <!-- </ion-avatar> -->
-      <h2><span class="{{color_3}} bold1">Marty McFly</span></h2>
-      <p>November 5, 1955</p>
+      <h2><span class="{{color_3}} bold1">{{post.creator}}</span></h2>
+      <p><span class="">{{post.name}}</span></p>
     </ion-item>
     <!-- <img src="./assets/images/pingu2.jpg"/> -->
     <ion-card-content>
@@ -29,8 +29,8 @@ Ionic pages and navigation.
         Nine Inch Nails Live
       </ion-card-title> -->
       <p>
-        The most popular industrial group ever, and largely
-        responsible for bringing the music to a mass audience.
+        The most popular industrial group ever, and largely responsible for bringing the music to a mass audience.
+        {{post.description}}
       </p>
     </ion-card-content>
     <ion-row>
@@ -49,7 +49,7 @@ Ionic pages and navigation.
       <ion-col center text-right>
         <button ion-button icon-left clear small color="{{color4}}">
           <!-- <ion-icon name="text"></ion-icon> -->
-          <div>11 h</div>
+          <div>{{post.added}}</div>
         </button>
       </ion-col>
     </ion-row>
