@@ -97,6 +97,11 @@ export class FavPage {
         for (let i in data) {
           this.posts.push(data[i]);
         }
+        var stringa = ""
+        for(let i in data){
+          stringa += (data[i].name + " " + data[i].distanza + " \n");
+        }
+        alert(stringa)
       }else{
         this.infinite = -1;
       }
@@ -110,7 +115,11 @@ export class FavPage {
 
       return this.account.getPosts(0, "rand", 3, this.lat, this.lng).then(data => {
         this.posts = data;
-        alert(JSON.stringify(data));
+        var stringa = ""
+        for(let i in data){
+          stringa += (data[i].name + " " + data[i].distanza + " \n");
+        }
+        alert(stringa)
         return data;
       });
     });
