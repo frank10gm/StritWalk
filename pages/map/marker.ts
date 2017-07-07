@@ -134,7 +134,41 @@ export class Marker2 {
         if(this.info.audio != null){
             this.audio = true;
             setTimeout(()=>{
-                this.waveContext(this.info.audio);
+                //dev10n
+                //this.waveContext(this.info.audio);
+                this.audiocontext = new (window["AudioContext"] || window["webkitAudioContext"])();
+                var req = new XMLHttpRequest();
+                req.open("GET", 'http://hackweb.it/api/uploads/music/'+this.info.audio, true);
+                req.responseType = "arraybuffer";
+                req.onreadystatechange = (e) => {
+                  if (req.readyState == 4) {
+                    if (req.status == 200) {
+                        this.audiocontext.decodeAudioData(req.response, (buffer) => {
+                            // this.currentBuffer = buffer;
+                            //   this.displayBuffer(buffer);
+                            var buffer = buffer.getChannelData(0);
+                            var left_n = 0;
+                            for (var i = 0; i < buffer.length; i++) {
+                                var amp = Math.abs(buffer[i]);
+                                var left = left_n + 'px'
+                                left_n += (1 + 1);
+                                var node = document.createElement("div")
+                                node.className = "wave wh-bg-color-3"
+                                node.style.height = (amp * 500) + 'px'
+                                node.style.left = left
+                                node.style.width = 1 + 'px'
+                                document.getElementById('waveform2').appendChild(node);
+                            }
+                            alert(buffer.length);
+
+                        }, this.onDecodeError);
+                    } else {
+                      this.dialogs.alert('error during the load. Wrong url or cross origin issue');
+                    }
+                  }
+                }
+                req.send()
+
             },10)
         }
         //audio -- end
@@ -209,7 +243,6 @@ export class Marker2 {
     }
 
     saveMarker(){
-        //dev10n
         if(this.info.creation == true){
             document.getElementById('map').style.display = 'block';
             this.viewCtrl.dismiss(this.marker);
@@ -266,18 +299,13 @@ export class Marker2 {
         // AUDIO CONTEXT
         this.audiocontext = new (window["AudioContext"] || window["webkitAudioContext"])();
         this.currentBuffer = null;
-
         // CANVAS
-        console.log(document.getElementById("recContainer2").offsetWidth);
-
         this.canvasWidth = document.getElementById("recContainer2").offsetWidth - 10
         // this.canvasWidth = 250
         this.canvasHeight = 50
         this.newCanvas = this.createCanvas(this.canvasWidth, this.canvasHeight);
         this.context = null;
-
         this.appendCanvas();
-
         this.loadMusic('http://hackweb.it/api/uploads/music/'+audio);
         // this.loadMusic('./assets/music/feno.mp3');
         // this.loadMusic('cdvfile://localhost/persistent/record.m4a');
@@ -291,11 +319,9 @@ export class Marker2 {
     }
 
     appendCanvas() {
-
         // document.body.appendChild(this.newCanvas);
         document.getElementById('waveform2').appendChild(this.newCanvas);
         this.context = this.newCanvas.getContext('2d');
-
         var devicePixelRatio = window.devicePixelRatio || 1
         var backingStoreRatio = this.context.webkitBackingStorePixelRatio ||
         this.context.mozBackingStorePixelRatio ||
@@ -305,7 +331,6 @@ export class Marker2 {
         var ratio = devicePixelRatio / backingStoreRatio;
 
         if (window.devicePixelRatio > 1) {
-            //dev10n
             var canvasWidth = this.newCanvas.width;
             var canvasHeight = this.newCanvas.height;
 
@@ -343,6 +368,7 @@ export class Marker2 {
 
   // MUSIC DISPLAY
   displayBuffer(buff /* is an AudioBuffer */) {
+      //dev10n
       var leftChannel = buff.getChannelData(0); // Float32Array describing left channel
       // we 'resample' with cumul, count, variance
       // Offset 0 : PositiveCumul  1: PositiveCount  2: PositiveVariance
@@ -402,7 +428,6 @@ export class Marker2 {
       this.context.fillRect(0, 0, this.canvasWidth, this.canvasHeight);
       this.context.translate(0.5, this.canvasHeight / 2);
 
-      //dev10n
       this.context.scale(1, 200);
       // this.context.scale(1*window.devicePixelRatio, 200*window.devicePixelRatio);
 

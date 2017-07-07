@@ -11,6 +11,35 @@ ion-app._gmaps_cdv_ .nav-decor{
     height:50px;
     position: relative;
 }
+.wave{
+    width: 1px;
+    height: 1px;
+    position: absolute;
+    bottom: 18px;
+    float: left;
+    min-height: 1px;
+}
+.wave-down{
+    width: 0.5px;
+    height: 1px;
+    min-height: 1px;
+    position: absolute;
+    top: 32px;
+    float: left;
+}
+.wave-current{
+    width: 1px;
+    height: 50px;
+    min-height: 1px;
+    background-color: #222;
+    position: absolute;
+    bottom: 0px;
+}
+.audio_posted{
+    height: 100px;
+    vertical-align: middle;
+    text-align: center;
+}
 
 page-map {
   #map {

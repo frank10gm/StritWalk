@@ -58,6 +58,8 @@ export class CitiesPage {
   audio_name: string;
   posts: any;
   infinite:number = 0;
+  lat: any;
+  lng: any;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -585,9 +587,13 @@ export class CitiesPage {
   }
 
   getPosts(){
-    return this.account.getPosts(0,"added",10).then(data => {
-      this.posts = data;
-      return data;
+    return this.geolocation.getCurrentPosition().then((resp) => {
+      this.lat = resp.coords.latitude;
+      this.lng = resp.coords.longitude;
+      return this.account.getPosts(0, "added", 10, this.lat, this.lng).then(data => {
+        this.posts = data;
+        return data;
+      });
     });
   }
 

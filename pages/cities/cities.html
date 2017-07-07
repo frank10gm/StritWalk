@@ -163,7 +163,7 @@
         <!-- <img src="./assets/images/pingu2.jpg"> -->
         <!-- </ion-avatar> -->
         <h2><span class="{{color_3}} bold1">{{post.creator}}</span></h2>
-        <p><span class="">{{post.name}}</span></p>
+        <p><span class="">{{post.name}}</span><span style="font-size:10px;" *ngIf="post.distanza > 0"> ({{post.distanza}} km)</span></p>
       </ion-item>
       <!-- <img src="./assets/images/pingu2.jpg"/> -->
       <ion-card-content>
