@@ -147,19 +147,22 @@ export class Marker2 {
                             // this.currentBuffer = buffer;
                             //   this.displayBuffer(buffer);
                             var buffer = buffer.getChannelData(0);
-                            var left_n = 0;
-                            for (var i = 0; i < buffer.length; i++) {
-                                var amp = Math.abs(buffer[i]);
+                            var left_n = 10;
+                            var totalw = (document.getElementById("recContainer2").offsetWidth - 20)/2;
+                            console.log(totalw);
+                            for (var i = 0; i < totalw; i++) {
+                                console.log(Math.round(buffer.length/totalw));
+                                var amp = Math.abs(buffer[Math.round(buffer.length/totalw)]);
+                                console.log(amp);
                                 var left = left_n + 'px'
                                 left_n += (1 + 1);
                                 var node = document.createElement("div")
                                 node.className = "wave wh-bg-color-3"
-                                node.style.height = (amp * 500) + 'px'
+                                node.style.height = (amp * 1000) + 'px'
                                 node.style.left = left
                                 node.style.width = 1 + 'px'
                                 document.getElementById('waveform2').appendChild(node);
                             }
-                            alert(buffer.length);
 
                         }, this.onDecodeError);
                     } else {
