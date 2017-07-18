@@ -10,6 +10,8 @@ ion-app._gmaps_cdv_ .nav-decor{
 #waveform2{
     height:50px;
     position: relative;
+    overflow: hidden;
+    // background-color: red;
 }
 .wave{
     width: 1px;

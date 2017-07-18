@@ -102,24 +102,32 @@ export class MapPage {
         private events: Events
     ) {
         this.platform.ready()
-            .then(
-            () => {
-                this.insomnia.keepAwake()
-                    .then(
-                    () => console.log('success'),
-                    () => console.log('error')
-                    );
+        .then(() => {
+          this.insomnia.keepAwake()
+          .then(
+            () => console.log('success'),
+            () => console.log('error')
+          );
 
-                this.nativeStorage.getItem('localUser').then(
-                    data => {
-                        this.user = data.username;
-                        this.user_status = data.status;
-                        this.id = data.id;
-                    }
-                )
-            });
-        this.dark = "bl8";
-        this.moon = "md-moon";
+          this.nativeStorage.getItem('localUser').then(
+            data => {
+              this.user = data.username;
+              this.user_status = data.status;
+              this.id = data.id;
+            }
+          )
+        });
+
+        //selezione colori mappa
+        if(this.globals.color == "bl"){
+          this.dark = "wh8";
+          this.moon = "md-sunny";
+        }else{
+          this.dark = "bl8";
+          this.moon = "md-moon";
+        }
+        //selezione colori mappa -- END
+
         this.keyboard.onKeyboardHide().subscribe((e) => {
             if (!this.searchBar) {
                 this.searchBarOpen();
@@ -220,7 +228,10 @@ export class MapPage {
             this.map.setMapTypeId(mapType);
 
             var stamen = "http://tile.stamen.com/toner/<zoom>/<x>/<y>@2x.png";
-            var openm = 'http://cartodb-basemaps-a.global.ssl.fastly.net/light_all/<zoom>/<x>/<y>@2x.png';
+            // if(this.globals.color == "bl") var map_color = "dark"
+            // else map_color = "light";
+            var map_color = "light";
+            var openm = 'http://cartodb-basemaps-a.global.ssl.fastly.net/'+map_color+'_all/<zoom>/<x>/<y>@2x.png';
 
             this.map.addTileOverlay({
                 // <x>,<y> and <zoom> are replaced with values

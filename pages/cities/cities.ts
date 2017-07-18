@@ -60,6 +60,7 @@ export class CitiesPage {
   infinite:number = 0;
   lat: any;
   lng: any;
+  audio: boolean = false;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -176,19 +177,18 @@ export class CitiesPage {
       waveform.style.left = 0 + 'px'
       var scroll = 0;
 
-      //interval
+      //intervallo con apiezza suono
       this.inter = window.setInterval(() => {
         this.fast_rec.getCurrentAmplitude().then((data) => {
           if (last_left > (totalw)) {
-            scroll -= (elw + 1)
-            // console.log(scroll)
-            waveform.style.left = scroll + 'px'
+            scroll -= (elw + 1);
+            waveform.style.left = scroll + 'px';
           }
-          var left = (last_left) + 'px'
-          // console.log(left)
-          last_left += (elw + 1)
-          var node = document.createElement("div")
-          node.className = "wave wh-bg-color-3"
+          var left = (last_left) + 'px';
+          last_left += (elw + 1);
+          //onda superiore
+          var node = document.createElement("div");
+          node.className = "wave "+"wh"+"-bg-color-3"
           node.style.height = (data * 35) + 'px'
           node.style.left = left
           node.style.width = elw + 'px'
@@ -201,10 +201,9 @@ export class CitiesPage {
           node.style.width = elw + 'px'
           document.getElementById('waveform').appendChild(node);
           i++;
-          //dev10n
           this.duration = i;
         })
-      }, 20)
+      }, 50)
       window.setTimeout(() => {
         // window.clearInterval(inter);
         // file.stopRecord()
@@ -280,7 +279,7 @@ export class CitiesPage {
         }
       })
       i++
-    }, 20)
+    }, 50)
     // },100)
 
 
@@ -528,9 +527,9 @@ export class CitiesPage {
 
       fileTransfer.upload(this.file_url + this.file_name, this.globals.upload_url, options)
         .then((data) => {
-          console.log("### FILE UPLOADED ###");
+          // console.log("### FILE UPLOADED ###");
           this.account.post(name, this.audio_name, name, coor.latitude, coor.longitude).then(data=>{
-            console.log(JSON.stringify(data))
+            // console.log(JSON.stringify(data))
             //dev10n
             this.audio_posted_finish = true;
             setTimeout(()=>{
@@ -592,9 +591,80 @@ export class CitiesPage {
       this.lng = resp.coords.longitude;
       return this.account.getPosts(0, "added", 10, this.lat, this.lng).then(data => {
         this.posts = data;
+        this.getPostWave();
         return data;
       });
     });
+  }
+
+  getPostWave(){
+    //audio
+    alert(this.posts[0].audio);
+    alert(this.audio);
+    if(this.posts[0].audio != 22){
+      this.audio = true;
+      setTimeout(()=>{
+        //dev10n
+        //this.waveContext(this.info.audio);
+        this.audiocontext = new (window["AudioContext"] || window["webkitAudioContext"])();
+        var req = new XMLHttpRequest();
+        req.open("GET", 'http://hackweb.it/api/uploads/music/'+this.posts[0].audio, true);
+        req.responseType = "arraybuffer";
+        req.onreadystatechange = (e) => {
+          if (req.readyState == 4) {
+            if (req.status == 200) {
+              this.audiocontext.decodeAudioData(req.response, (buffer) => {
+                //play audio file
+                // var bufferSource = this.audiocontext.createBufferSource();
+                // bufferSource.buffer = buffer;
+                // bufferSource.connect(this.audiocontext.destination);
+                // bufferSource.start();
+                //audiocontext
+                // this.currentBuffer = buffer;
+                // this.displayBuffer(buffer);
+                var audioBuffer = buffer;
+                buffer = buffer.getChannelData(0);
+                var samplerate = audioBuffer.sampleRate; // store sample rate
+                var maxvals = [], max = 0;
+                var left_n = 10;
+                // this.findPeaks(buffer, samplerate);
+                var totalw = (document.getElementById("recContainer2").offsetWidth - 20)/2;
+                var step = Math.ceil(buffer.length/totalw)
+                var max_amp = 50;
+
+                for (var i = 0; i < totalw; i++) {
+                  var amp = Math.abs(buffer[Math.ceil(buffer.length/totalw)*i]);
+                  amp = (amp);
+                  // console.log("amp: "+amp);
+                  var left = left_n + 'px'
+                  left_n += (1 + 1);
+                  //onda superiore
+                  var node = document.createElement("div")
+                  node.className = "wave wh-bg-color-3"
+                  node.style.height = (amp * 60) + 'px'
+                  node.style.left = left
+                  node.style.width = 1 + 'px'
+                  document.getElementById('waveform2').appendChild(node);
+                  //onda inferiore
+                  node = document.createElement("div")
+                  node.className = "wave-down wh-bg-color-2"
+                  node.style.height = (amp * 25) + 'px'
+                  node.style.left = left
+                  node.style.width = 1 + 'px'
+                  document.getElementById('waveform2').appendChild(node);
+                }
+
+              }, this.onDecodeError);
+            } else {
+              this.dialogs.alert('error during the load. Wrong url or cross origin issue');
+            }
+          }
+        }
+        req.send()
+
+      },10)
+    }
+    //audio -- end
   }
 
 }

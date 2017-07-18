@@ -19,6 +19,7 @@ export class GlobalProvider {
   public languages: any = [];
   public language: string = 'ww';
   public translate: any = [];
+  public color: string;
   public color1: string;
   public color2: string;
   public color3: string;
@@ -57,6 +58,7 @@ export class GlobalProvider {
     })
 
     //colori
+    this.color = "bl";
     this.color1 = "wh1"
     this.color2 = "wh2"
     this.color3 = "wh3"
@@ -73,6 +75,9 @@ export class GlobalProvider {
     this.bg_color_2 = "wh-bg-color-2";
     this.bg_color_3 = "wh-bg-color-3";
     this.bg_color_4 = "wh-bg-color-4";
+
+    //cambia colore
+    this.changeTheme('wh');
 
     //traduzioni
     this.translate['start-login'] = {
@@ -155,8 +160,10 @@ export class GlobalProvider {
   changeTheme(color) {
     if (color == "bl") {
       this.color1 = "wh1";
+      this.color = "bl";
     } else if (color == "wh") {
       this.color1 = "bl1";
+      this.color = "wh";
     }
     if (this.color1 == "bl1") {
       this.color1 = "wh1"

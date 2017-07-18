@@ -144,21 +144,41 @@ export class Marker2 {
                   if (req.readyState == 4) {
                     if (req.status == 200) {
                         this.audiocontext.decodeAudioData(req.response, (buffer) => {
+                            //play audio file
+                            // var bufferSource = this.audiocontext.createBufferSource();
+                            // bufferSource.buffer = buffer;
+                            // bufferSource.connect(this.audiocontext.destination);
+                            // bufferSource.start();
+                            //audiocontext
                             // this.currentBuffer = buffer;
-                            //   this.displayBuffer(buffer);
-                            var buffer = buffer.getChannelData(0);
+                            // this.displayBuffer(buffer);
+                            var audioBuffer = buffer;
+                            buffer = buffer.getChannelData(0);
+                            var samplerate = audioBuffer.sampleRate; // store sample rate
+                            var maxvals = [], max = 0;
                             var left_n = 10;
+                            // this.findPeaks(buffer, samplerate);
                             var totalw = (document.getElementById("recContainer2").offsetWidth - 20)/2;
-                            console.log(totalw);
+                            var step = Math.ceil(buffer.length/totalw)
+                            var max_amp = 50;
+
                             for (var i = 0; i < totalw; i++) {
-                                console.log(Math.round(buffer.length/totalw));
-                                var amp = Math.abs(buffer[Math.round(buffer.length/totalw)]);
-                                console.log(amp);
+                                var amp = Math.abs(buffer[Math.ceil(buffer.length/totalw)*i]);
+                                amp = (amp);
+                                // console.log("amp: "+amp);
                                 var left = left_n + 'px'
                                 left_n += (1 + 1);
+                                //onda superiore
                                 var node = document.createElement("div")
                                 node.className = "wave wh-bg-color-3"
-                                node.style.height = (amp * 1000) + 'px'
+                                node.style.height = (amp * 60) + 'px'
+                                node.style.left = left
+                                node.style.width = 1 + 'px'
+                                document.getElementById('waveform2').appendChild(node);
+                                //onda inferiore
+                                node = document.createElement("div")
+                                node.className = "wave-down wh-bg-color-2"
+                                node.style.height = (amp * 25) + 'px'
                                 node.style.left = left
                                 node.style.width = 1 + 'px'
                                 document.getElementById('waveform2').appendChild(node);
@@ -176,6 +196,47 @@ export class Marker2 {
         }
         //audio -- end
     }
+
+    findPeaks(pcmdata, samplerate){
+        var interval = 0.05 * 1000, index = 0 ;
+        var step = Math.round( samplerate * (interval/1000) );
+        var max = 0 ;
+        var prevmax = 0 ;
+        var prevdiffthreshold = 0.3 ;
+
+        //loop through song in time with sample rate
+        var samplesound = setInterval(()=>{
+            if (index >= pcmdata.length) {
+                clearInterval(samplesound);
+                console.log("finished sampling sound")
+                return;
+            }
+
+            for(var i = index; i < index + step ; i++){
+                max = pcmdata[i] > max ? pcmdata[i].toFixed(1)  : max ;
+            }
+
+            // Spot a significant increase? Potential peak
+             var bars = this.getbars(max) ;
+            if(max-prevmax >= prevdiffthreshold){
+                bars = bars + " == peak == "
+            }
+
+            // Print out mini equalizer on commandline
+            // console.log(bars, max )
+            prevmax = max ; max = 0 ; index += step ;
+        }, interval,pcmdata);
+    }
+
+
+    getbars(val){
+        var bars = ""
+        for (var i = 0 ; i < val*50 + 2 ; i++){
+            bars= bars + "|";
+        }
+        return bars ;
+    }
+
 
     closeModal() {
 

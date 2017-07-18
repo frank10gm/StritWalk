@@ -101,7 +101,7 @@
           <div [hidden]="!isFastRiff" style="margin-top:-18px;">
             <ion-item color="{{color6}}">
               <ion-label>Title</ion-label>
-              <ion-input [(ngModel)]="audio_name" name="audio_name" type="text" placeholder="My Song"></ion-input>
+              <ion-input [(ngModel)]="audio_name" name="audio_name" type="text" placeholder="My Record"></ion-input>
             </ion-item>
             <!-- <ion-item>
             <ion-label>Geolocate</ion-label>
@@ -170,6 +170,28 @@
         <!-- <ion-card-title class="{{color_2}}" color="dark">
           Nine Inch Nails Live
         </ion-card-title> -->
+
+        <div [hidden]="!audio">
+
+            <div id="waveform3-{{post.id}}" class="wh-bg-color-4" style="padding-top:5px; width: 100%">
+            </div>
+
+          <ion-row color="primary">
+            <ion-col col-4 class="col-center stats wh-bg-color-4">
+            </ion-col>
+            <ion-col col-4 class="col-center stats wh-bg-color-4">
+            </ion-col>
+            <ion-col col-4 class="col-center stats wh-bg-color-4">
+              <button color="wh4" (click)="audioPlay()" ion-button clear small item-right icon-only>
+              <ion-icon name="play"></ion-icon>
+              Play
+            </button>
+            </ion-col>
+          </ion-row>
+
+          <!-- <ion-item-divider color="wh3"><ion-label color="wh2"></ion-label></ion-item-divider> -->
+        </div>
+
         <p>
           The most popular industrial group ever, and largely responsible for bringing the music to a mass audience.
           {{post.description}}
