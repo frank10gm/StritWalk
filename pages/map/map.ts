@@ -256,7 +256,7 @@ export class MapPage {
       openm = 'http://cartodb-basemaps-a.global.ssl.fastly.net/' + map_color + '_all/';
 
       this.map.addTileOverlay({
-        visible: true,
+        //dev10n
         // <x>,<y> and <zoom> are replaced with values
         //   tileUrlFormat: openm,
         getTile: (x, y, z) => {
@@ -585,7 +585,6 @@ export class MapPage {
             });
           });
         } else {
-          //dev10n
           this.my_places_marker[marker.id][1].setTitle(marker.name);
           cur_set[marker.id] = this.my_places_marker[marker.id][1];
         }
