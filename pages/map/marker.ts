@@ -5,7 +5,7 @@ import { NativeStorage } from '@ionic-native/native-storage';
 import { GlobalProvider } from '../../providers/global-provider'
 import { Account } from '../../providers/account';
 import { Dialogs } from '@ionic-native/dialogs';
-import { MediaPlugin, MediaObject } from '@ionic-native/media';
+import { Media, MediaObject } from '@ionic-native/media';
 import { File } from '@ionic-native/file';
 
 
@@ -61,7 +61,7 @@ export class Marker2 {
         public platform: Platform,
         private events: Events,
         private dialogs: Dialogs,
-        private media: MediaPlugin, private file: File
+        private media: Media, private file: File
     ) {
         //console.log('event: ', params.get('event'));
         this.title = params.get('name');

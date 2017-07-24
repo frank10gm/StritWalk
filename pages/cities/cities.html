@@ -32,7 +32,7 @@
 
   <div style="">
     <ion-card color="{{color3}}" class="card-no-padding2 " style="padding-top:8px;">
-      <ion-item style="" color="{{color3}}">
+      <ion-item style="" color="{{color3}}" id="start">
         <ion-avatar item-left>
           <img class="" src="./assets/images/pingu2.jpg">
         </ion-avatar>
@@ -171,24 +171,21 @@
           Nine Inch Nails Live
         </ion-card-title> -->
 
-        <div [hidden]="!audio">
-
-            <div id="waveform3-{{post.id}}" class="wh-bg-color-4" style="padding-top:5px; width: 100%">
+        <div [hidden]="!false">
+            <div id="waveform3-" class="wh-bg-color-4 waveform" style="padding-top:5px; width: 100%">
             </div>
-
           <ion-row color="primary">
             <ion-col col-4 class="col-center stats wh-bg-color-4">
             </ion-col>
             <ion-col col-4 class="col-center stats wh-bg-color-4">
             </ion-col>
             <ion-col col-4 class="col-center stats wh-bg-color-4">
-              <button color="wh4" (click)="audioPlay()" ion-button clear small item-right icon-only>
-              <ion-icon name="play"></ion-icon>
-              Play
-            </button>
+              <button color="wh5" (click)="audioPlay(post.audio)" ion-button clear small item-right icon-only>
+                <ion-icon name="play"></ion-icon>
+                Play
+              </button>
             </ion-col>
           </ion-row>
-
           <!-- <ion-item-divider color="wh3"><ion-label color="wh2"></ion-label></ion-item-divider> -->
         </div>
 
@@ -196,6 +193,23 @@
           The most popular industrial group ever, and largely responsible for bringing the music to a mass audience.
           {{post.description}}
         </p>
+
+        <div [hidden]="!post.isaudio">
+          <ion-row>
+            <ion-col>
+              <div id="waveform3-{{post.id}}" class="wh-bg-color-4 waveform3" style="width: 100%;">
+
+              </div>
+            </ion-col>
+            <ion-col col-4>
+              <button color="wh5" (click)="audioPlay(post)" ion-button small block item-right icon-only>
+                <ion-icon name="play"></ion-icon>
+                Play
+              </button>
+            </ion-col>
+          </ion-row>
+        </div>
+
       </ion-card-content>
       <ion-row>
         <ion-col>

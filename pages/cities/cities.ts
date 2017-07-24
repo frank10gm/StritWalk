@@ -3,13 +3,13 @@ import { NavController, NavParams, Platform, Events } from 'ionic-angular';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { SettingsPage } from '../settings/settings';
 import { Insomnia } from '@ionic-native/insomnia';
-import { MediaPlugin, MediaObject } from '@ionic-native/media';
+import { Media, MediaObject } from '@ionic-native/media';
 import { File } from '@ionic-native/file';
 // import WaveSurfer from 'wavesurfer.js';
 import { Dialogs } from '@ionic-native/dialogs';
 import { GlobalProvider } from '../../providers/global-provider';
 import { Brightness } from '@ionic-native/brightness';
-import { Transfer, FileUploadOptions, TransferObject } from '@ionic-native/transfer';
+import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
 import { Account } from '../../providers/account';
 import { Geolocation } from '@ionic-native/geolocation';
 
@@ -67,13 +67,13 @@ export class CitiesPage {
     public platform: Platform,
     private nativeStorage: NativeStorage,
     private insomnia: Insomnia,
-    private media: MediaPlugin,
+    private media: Media,
     private file: File,
     private dialogs: Dialogs,
     public globals: GlobalProvider,
     private events: Events,
     private brightness: Brightness,
-    private transfer: Transfer,
+    private transfer: FileTransfer,
     private account: Account,
     private geolocation: Geolocation
   ) {
@@ -96,10 +96,9 @@ export class CitiesPage {
     this.bg_color_3 = globals.bg_color_3
     this.bg_color_4 = globals.bg_color_4
 
-    this.nativeStorage.getItem('localUser').then(
-      data => {
-        this.username = data.username;
-      })
+    this.nativeStorage.getItem('localUser').then(data => {
+      this.username = data.username;
+    })
 
     events.subscribe('changeTheme', (data) => {
       this.color1 = this.globals.color1
@@ -161,13 +160,7 @@ export class CitiesPage {
     this.file_url = url;
 
     this.file.createFile(url, name, true).then(() => {
-      this.fast_rec = this.media.create(url.replace(/^file:\/\//, '') + name, (st) => {
-
-      }, (err) => {
-
-      }, (err2) => {
-
-      });
+      this.fast_rec = this.media.create(url.replace(/^file:\/\//, '') + name);
       this.fast_rec.startRecord();
       var i = 0;
       var last_left = 0;
@@ -324,10 +317,10 @@ export class CitiesPage {
 
     var devicePixelRatio = window.devicePixelRatio || 1
     var backingStoreRatio = this.context.webkitBackingStorePixelRatio ||
-      this.context.mozBackingStorePixelRatio ||
-      this.context.msBackingStorePixelRatio ||
-      this.context.oBackingStorePixelRatio ||
-      this.context.backingStorePixelRatio || 1
+    this.context.mozBackingStorePixelRatio ||
+    this.context.msBackingStorePixelRatio ||
+    this.context.oBackingStorePixelRatio ||
+    this.context.backingStorePixelRatio || 1
     var ratio = devicePixelRatio / backingStoreRatio;
 
     if (window.devicePixelRatio > 1) {
@@ -351,11 +344,10 @@ export class CitiesPage {
     req.onreadystatechange = (e) => {
       if (req.readyState == 4) {
         if (req.status == 200) {
-          this.audiocontext.decodeAudioData(req.response,
-            (buffer) => {
-              this.currentBuffer = buffer;
-              this.displayBuffer(buffer);
-            }, this.onDecodeError);
+          this.audiocontext.decodeAudioData(req.response,(buffer) => {
+            this.currentBuffer = buffer;
+            this.displayBuffer(buffer);
+          }, this.onDecodeError);
         } else {
           this.dialogs.alert('error during the load. Wrong url or cross origin issue');
         }
@@ -512,11 +504,11 @@ export class CitiesPage {
     this.geolocation.getCurrentPosition().then((resp) => {
 
       coor = resp.coords;
-      const fileTransfer: TransferObject = this.transfer.create();
-      var name = 'record-' + this.username + '-' + this.audio_name + '-' + Date.now() + '.m4a';
+      const fileTransfer: FileTransferObject = this.transfer.create();
+      var name = 'record-' + this.username + '-' + this.audio_name.replace(/\s/g, '') + '-' + Date.now() + '.m4a';
 
       if (this.platform.is('android')) {
-        name = 'record-' + this.username + '-' + this.audio_name + '-' + Date.now() + '.aac';
+        name = 'record-' + this.username + '-' + this.audio_name.replace(/\s/g, '') + '-' + Date.now() + '.aac';
       }
 
       let options: FileUploadOptions = {
@@ -526,29 +518,29 @@ export class CitiesPage {
       }
 
       fileTransfer.upload(this.file_url + this.file_name, this.globals.upload_url, options)
-        .then((data) => {
-          // console.log("### FILE UPLOADED ###");
-          this.account.post(name, this.audio_name, name, coor.latitude, coor.longitude).then(data=>{
-            // console.log(JSON.stringify(data))
-            //dev10n
-            this.audio_posted_finish = true;
-            setTimeout(()=>{
-              this.audio_posted_finish = false
-              this.audio_posted = false
-              this.audio_posted = false
-              this.isFastRiff = false
-              this.rec = false
-              this.rec2 = false
-              this.hideStart = true
-            },3000)
-          })
-          .catch(err => {
-            console.log("posting... "+JSON.stringify(err))
-          });
+      .then((data) => {
+        // console.log("### FILE UPLOADED ###");
+        this.account.post(name, this.audio_name, name, coor.latitude, coor.longitude).then(data=>{
+          // console.log(JSON.stringify(data))
+          //dev10n
+          this.audio_posted_finish = true;
+          setTimeout(()=>{
+            this.audio_posted_finish = false
+            this.audio_posted = false
+            this.audio_posted = false
+            this.isFastRiff = false
+            this.rec = false
+            this.rec2 = false
+            this.hideStart = true
+          },3000)
         })
         .catch(err => {
+          console.log("posting... "+JSON.stringify(err))
+        });
+      })
+      .catch(err => {
 
-        })
+      })
     }).catch((error) => {
       console.log('Error getting location', error);
     });
@@ -571,11 +563,11 @@ export class CitiesPage {
       e.complete();
       return 0
     }
-    this.infinite += 10;
-    this.account.getPosts(this.infinite,"added",10).then(data => {
-      console.log(JSON.stringify(data))
+    this.infinite += 5;
+    this.account.getPosts(this.infinite,"added",5).then(data => {
       e.complete();
       if(data != ''){
+        // this.getPostWave(data);
         for (let i in data) {
           this.posts.push(data[i]);
         }
@@ -589,82 +581,136 @@ export class CitiesPage {
     return this.geolocation.getCurrentPosition().then((resp) => {
       this.lat = resp.coords.latitude;
       this.lng = resp.coords.longitude;
-      return this.account.getPosts(0, "added", 10, this.lat, this.lng).then(data => {
+      return this.account.getPosts(0, "added", 5, this.lat, this.lng).then(data => {
+        console.log(JSON.stringify(data))
         this.posts = data;
-        this.getPostWave();
+        // this.getPostWave(data);
         return data;
       });
     });
   }
 
-  getPostWave(){
+  getPostWave(data){
     //audio
-    alert(this.posts[0].audio);
-    alert(this.audio);
-    if(this.posts[0].audio != 22){
-      this.audio = true;
-      setTimeout(()=>{
-        //dev10n
-        //this.waveContext(this.info.audio);
-        this.audiocontext = new (window["AudioContext"] || window["webkitAudioContext"])();
-        var req = new XMLHttpRequest();
-        req.open("GET", 'http://hackweb.it/api/uploads/music/'+this.posts[0].audio, true);
-        req.responseType = "arraybuffer";
-        req.onreadystatechange = (e) => {
-          if (req.readyState == 4) {
-            if (req.status == 200) {
-              this.audiocontext.decodeAudioData(req.response, (buffer) => {
-                //play audio file
-                // var bufferSource = this.audiocontext.createBufferSource();
-                // bufferSource.buffer = buffer;
-                // bufferSource.connect(this.audiocontext.destination);
-                // bufferSource.start();
-                //audiocontext
-                // this.currentBuffer = buffer;
-                // this.displayBuffer(buffer);
-                var audioBuffer = buffer;
-                buffer = buffer.getChannelData(0);
-                var samplerate = audioBuffer.sampleRate; // store sample rate
-                var maxvals = [], max = 0;
-                var left_n = 10;
-                // this.findPeaks(buffer, samplerate);
-                var totalw = (document.getElementById("recContainer2").offsetWidth - 20)/2;
-                var step = Math.ceil(buffer.length/totalw)
-                var max_amp = 50;
-
-                for (var i = 0; i < totalw; i++) {
-                  var amp = Math.abs(buffer[Math.ceil(buffer.length/totalw)*i]);
-                  amp = (amp);
-                  // console.log("amp: "+amp);
-                  var left = left_n + 'px'
-                  left_n += (1 + 1);
-                  //onda superiore
-                  var node = document.createElement("div")
-                  node.className = "wave wh-bg-color-3"
-                  node.style.height = (amp * 60) + 'px'
-                  node.style.left = left
-                  node.style.width = 1 + 'px'
-                  document.getElementById('waveform2').appendChild(node);
-                  //onda inferiore
-                  node = document.createElement("div")
-                  node.className = "wave-down wh-bg-color-2"
-                  node.style.height = (amp * 25) + 'px'
-                  node.style.left = left
-                  node.style.width = 1 + 'px'
-                  document.getElementById('waveform2').appendChild(node);
-                }
-
-              }, this.onDecodeError);
-            } else {
-              this.dialogs.alert('error during the load. Wrong url or cross origin issue');
+    for(let ii in data){
+      if(data[ii].audio != null){
+        data[ii].isaudio = true;
+        setTimeout(()=>{
+          //dev10n
+          //this.waveContext(this.info.audio);
+          this.audiocontext = new (window["AudioContext"] || window["webkitAudioContext"])();
+          var req = new XMLHttpRequest();
+          req.open("GET", 'http://hackweb.it/api/uploads/music/'+data[ii].audio, true);
+          req.responseType = "arraybuffer";
+          req.onreadystatechange = (e) => {
+            if (req.readyState == 4) {
+              if (req.status == 200) {
+                this.audiocontext.decodeAudioData(req.response, (buffer) => {
+                  var audioBuffer = buffer;
+                  buffer = buffer.getChannelData(0);
+                  var samplerate = audioBuffer.sampleRate; // store sample rate
+                  var maxvals = [], max = 0;
+                  var left_n = 10;
+                  var totalw = (document.getElementById("start").offsetWidth - 20)/2;
+                  var step = Math.ceil(buffer.length/totalw)
+                  var max_amp = 50;
+                  for (var i = 0; i < totalw; i++) {
+                    var amp = Math.abs(buffer[Math.ceil(buffer.length/totalw)*i]);
+                    amp = (amp);
+                    var left = left_n + 'px'
+                    left_n += (1 + 1);
+                    //onda superiore
+                    var node = document.createElement("div")
+                    node.className = "wave wh-bg-color-3"
+                    node.style.height = (amp * 60) + 'px'
+                    node.style.left = left
+                    node.style.width = 1 + 'px'
+                    document.getElementById('waveform3-'+data[ii].id).appendChild(node);
+                    //onda inferiore
+                    node = document.createElement("div")
+                    node.className = "wave-down wh-bg-color-2"
+                    node.style.height = (amp * 25) + 'px'
+                    node.style.left = left
+                    node.style.width = 1 + 'px'
+                    document.getElementById('waveform3-'+data[ii].id).appendChild(node);
+                  }
+                }, this.onDecodeError);
+              } else {
+                this.dialogs.alert('error during the load. Wrong url or cross origin issue');
+              }
             }
           }
-        }
-        req.send()
+          req.send()
 
-      },10)
+        },10)
+      }
     }
     //audio -- end
+  }
+
+  getSingleWave(data){
+    var x = document.getElementsByClassName("waveform3");
+    var i;
+    for (i = 0; i < x.length; i++) {
+      x[i].innerHTML = "";
+    }
+    //audio
+    setTimeout(()=>{
+      //dev10n
+      //this.waveContext(this.info.audio);
+      this.audiocontext = new (window["AudioContext"] || window["webkitAudioContext"])();
+      var req = new XMLHttpRequest();
+      req.open("GET", 'http://hackweb.it/api/uploads/music/'+data.audio, true);
+      req.responseType = "arraybuffer";
+      req.onreadystatechange = (e) => {
+        if (req.readyState == 4) {
+          if (req.status == 200) {
+            this.audiocontext.decodeAudioData(req.response, (buffer) => {
+              var audioBuffer = buffer;
+              buffer = buffer.getChannelData(0);
+              var samplerate = audioBuffer.sampleRate; // store sample rate
+              var maxvals = [], max = 0;
+              var left_n = 10;
+              var totalw = (document.getElementById('waveform3-'+data.id).offsetWidth - 20)/2;
+              var step = Math.ceil(buffer.length/totalw)
+              var max_amp = 50;
+              for (var i = 0; i < totalw; i++) {
+                var amp = Math.abs(buffer[Math.ceil(buffer.length/totalw)*i]);
+                amp = (amp);
+                var left = left_n + 'px'
+                left_n += (1 + 1);
+                //onda superiore
+                var node = document.createElement("div")
+                node.className = "wave wh-bg-color-3"
+                node.style.height = (amp * 60) + 'px'
+                node.style.left = left
+                node.style.width = 1 + 'px'
+                document.getElementById('waveform3-'+data.id).appendChild(node);
+                //onda inferiore
+                node = document.createElement("div")
+                node.className = "wave-down wh-bg-color-2"
+                node.style.height = (amp * 25) + 'px'
+                node.style.left = left
+                node.style.width = 1 + 'px'
+                document.getElementById('waveform3-'+data.id).appendChild(node);
+              }
+            }, this.onDecodeError);
+          } else {
+            this.dialogs.alert('error during the load. Wrong url or cross origin issue');
+          }
+        }
+      }
+      req.send()
+
+    },10)
+    //audio -- end
+  }
+
+  audioPlay(data){
+    this.getSingleWave(data);
+    var file_link = 'http://hackweb.it/api/uploads/music/'+data.audio;
+    const file: MediaObject = this.media.create(file_link);
+    file.play();
   }
 
 }

@@ -42,8 +42,8 @@ import {
   MarkerOptions,
   Marker
 } from '@ionic-native/google-maps';
-import { MediaPlugin, MediaObject } from '@ionic-native/media';
-import { Transfer, FileUploadOptions, TransferObject } from '@ionic-native/transfer';
+import { Media, MediaObject } from '@ionic-native/media';
+import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
 import { File } from '@ionic-native/file';
 import { Brightness } from '@ionic-native/brightness';
 import { MapsClusterProvider } from '../providers/maps-cluster/maps-cluster';
@@ -118,9 +118,9 @@ import { MapsClusterProvider } from '../providers/maps-cluster/maps-cluster';
     Insomnia,
     Geolocation,
     Keyboard,
-    Transfer,
+    FileTransfer,
     File,
-    MediaPlugin,
+    Media,
     Brightness,
     MapsClusterProvider
   ]

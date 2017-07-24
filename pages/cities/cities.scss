@@ -9,6 +9,17 @@ page-cities {
         height:50px;
         position: relative;
     }
+    .waveform3{
+        height: 30px;
+        position: relative;
+        overflow: hidden;
+    }
+    .waveform3 .wave{
+        bottom: 10px !important;
+    }
+    .waveform3 .wave-down{
+        top: 20px !important;
+    }
     .wave{
         width: 1px;
         height: 1px;
