@@ -524,8 +524,6 @@ export class CitiesPage {
       .then((data) => {
         // console.log("### FILE UPLOADED ###");
         this.account.post(name, this.audio_name, name, coor.latitude, coor.longitude).then(data=>{
-          // console.log(JSON.stringify(data))
-          //dev10n
           this.audio_posted_finish = true;
           setTimeout(()=>{
             this.audio_posted_finish = false
@@ -535,7 +533,7 @@ export class CitiesPage {
             this.rec = false
             this.rec2 = false
             this.hideStart = true
-          },3000)
+          },100);
         })
         .catch(err => {
           console.log("posting... "+JSON.stringify(err))
