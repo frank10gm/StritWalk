@@ -502,13 +502,16 @@ export class CitiesPage {
     var coor = null;
 
     this.geolocation.getCurrentPosition().then((resp) => {
-
       coor = resp.coords;
       const fileTransfer: FileTransferObject = this.transfer.create();
-      var name = 'record-' + this.username + '-' + this.audio_name.replace(/\s/g, '') + '-' + Date.now() + '.m4a';
+      if(this.audio_name != null){
+        this.audio_name = this.audio_name.replace(/\s/g, '');
+      }
+
+      var name = 'record-' + this.username + '-' + this.audio_name + '-' + Date.now() + '.m4a';
 
       if (this.platform.is('android')) {
-        name = 'record-' + this.username + '-' + this.audio_name.replace(/\s/g, '') + '-' + Date.now() + '.aac';
+        name = 'record-' + this.username + '-' + this.audio_name + '-' + Date.now() + '.aac';
       }
 
       let options: FileUploadOptions = {
