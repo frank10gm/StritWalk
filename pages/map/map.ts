@@ -302,7 +302,7 @@ export class MapPage {
         this.me2 = marker;
         marker.addEventListener(GoogleMapsEvent.INFO_CLICK).subscribe((e) => {
           // this.navCtrl.push(CitiesPage);
-          this.app.getRootNav().getActiveChildNav().select(4);
+          this.app.getRootNav().getActiveChildNav().select(0);
         });
       });
 
