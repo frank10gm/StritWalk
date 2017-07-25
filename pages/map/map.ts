@@ -252,16 +252,15 @@ export class MapPage {
       // if(this.globals.color == "bl") var map_color = "dark"
       // else map_color = "light";
       var map_color = "light";
+      // return "http://tile.openstreetmap.org/" + z + "/" + x + "/" + y + ".png";
       var openm = 'http://cartodb-basemaps-a.global.ssl.fastly.net/' + map_color + '_all/<zoom>/<x>/<y>@2x.png';
       openm = 'http://cartodb-basemaps-a.global.ssl.fastly.net/' + map_color + '_all/';
 
       this.map.addTileOverlay({
         //dev10n
-        // <x>,<y> and <zoom> are replaced with values
-        //   tileUrlFormat: openm,
+        debug: false,
         getTile: (x, y, z) => {
           return openm + z + '/' + x + '/' + y + '@2x.png';
-          // return "http://tile.openstreetmap.org/" + z + "/" + x + "/" + y + ".png";
         },
         tileSize: 512
       }).then((tileOverlay) => {
