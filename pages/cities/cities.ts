@@ -565,7 +565,7 @@ export class CitiesPage {
       return 0
     }
     this.infinite += 5;
-    this.account.getPosts(this.infinite,"added",5).then(data => {
+    this.account.getPosts(this.infinite,"added",5, this.lat, this.lng).then(data => {
       e.complete();
       if(data != ''){
         // this.getPostWave(data);
@@ -651,10 +651,17 @@ export class CitiesPage {
 
   getSingleWave(data){
     var x = document.getElementsByClassName("waveform3");
+    var y = document.getElementsByClassName("post_section");
     var i;
     for (i = 0; i < x.length; i++) {
       x[i].innerHTML = "";
+      var el = y[i] as HTMLElement;
+      el.style.marginTop = "-0px";
+      this.posts[i].isaudio2 = false;
     }
+    data.isaudio2 = true;
+    var element = document.getElementById('post_id_'+data.id).getElementsByClassName('post_section')[0] as HTMLElement;
+    element.style.marginTop = "-20px";
     //audio
     setTimeout(()=>{
       //dev10n

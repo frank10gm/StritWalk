@@ -154,84 +154,108 @@
       </div>
     </ion-card>
 
-    <!-- <div style="width:100%;overflow:hidden; height:1px;"><div style="width:1000%;"> ---------------------------------------------------------------</div></div> -->
+    <!-- <div style="width:100%;overflow:hidden; height:1px;"><div style="width:1000%;"> - - - </div></div> -->
 
-
-    <ion-card color="{{color6}}" class="card-no-padding bottom-padding top-padding bottom-dashed" *ngFor="let post of posts">
-      <ion-item color="{{color6}}">
+    <ion-card color="{{color6}}" id="post_id_{{post.id}}" class="card-no-padding bottom-padding top-padding bottom-dashed" *ngFor="let post of posts">
+      <ion-item color="{{color6}}" style="height: 5px;">
         <!-- <ion-avatar item-left> -->
         <!-- <img src="./assets/images/pingu2.jpg"> -->
         <!-- </ion-avatar> -->
-        <h2><span class="{{color_3}} bold1">{{post.creator}}</span></h2>
-        <p><span class="">{{post.name}}</span><span style="font-size:10px;" *ngIf="post.distanza > 0"> ({{post.distanza}} km)</span></p>
+        <span class="{{color_3}} bold1" style="font-size:16px;">{{post.creator}}</span><br>
+        <!-- <p style="font-size: 12px; ">If I could describe you I would do it. Set here your description.</p> -->
+        <p style="white-space: normal; font-size:10px;">
+          <span style="color: #333;" *ngIf="post.distanza > 0">{{post.added}} ago, {{post.distanza}} km away</span>
+        </p>
+        <button item-end ion-button icon-only clear small (click)="audioPlay(post)" [hidden]="!post.isaudio" style="margin-right: -5px;">
+          <ion-icon name="play" color="wh5"></ion-icon>
+        </button>
+        <button item-end ion-button icon-only clear small color="{{color4}}" style="">
+          <ion-icon name="ios-more-outline"></ion-icon>
+        </button>
       </ion-item>
       <!-- <img src="./assets/images/pingu2.jpg"/> -->
-      <ion-card-content>
+      <ion-card-content style="margin-top:0px;">
         <!-- <ion-card-title class="{{color_2}}" color="dark">
           Nine Inch Nails Live
         </ion-card-title> -->
 
-        <div [hidden]="!false">
-            <div id="waveform3-" class="wh-bg-color-4 waveform" style="padding-top:5px; width: 100%">
-            </div>
+        <!-- <div [hidden]="!false">
           <ion-row color="primary">
-            <ion-col col-4 class="col-center stats wh-bg-color-4">
-            </ion-col>
-            <ion-col col-4 class="col-center stats wh-bg-color-4">
-            </ion-col>
             <ion-col col-4 class="col-center stats wh-bg-color-4">
               <button color="wh5" (click)="audioPlay(post.audio)" ion-button clear small item-right icon-only>
                 <ion-icon name="play"></ion-icon>
                 Play
               </button>
             </ion-col>
+            <ion-col col-4 class="col-center stats wh-bg-color-4">
+            </ion-col>
+            <ion-col col-4 class="col-center stats wh-bg-color-4">
+            </ion-col>
           </ion-row>
-          <!-- <ion-item-divider color="wh3"><ion-label color="wh2"></ion-label></ion-item-divider> -->
-        </div>
+          <div id="waveform3-" class="wh-bg-color-4 waveform" style="padding-top:5px; width: 100%">
+          </div>
+          <ion-item-divider color="wh3"><ion-label color="wh2"></ion-label></ion-item-divider>
+        </div> -->
 
-        <p>
+
+        <p style="margin-top:0px;">
+          <span class="{{color_3}}">&#123;</span><strong> <span style="color: #333;">{{post.name}}</span> </strong><span class="{{color_3}}">&#125;</span>
           The most popular industrial group ever, and largely responsible for bringing the music to a mass audience.
           {{post.description}}
         </p>
 
-        <div [hidden]="!post.isaudio">
+        <div [hidden]="!post.isaudio2" style="">
           <ion-row>
             <ion-col>
               <div id="waveform3-{{post.id}}" class="wh-bg-color-4 waveform3" style="width: 100%;">
 
               </div>
             </ion-col>
-            <ion-col col-4>
+            <!-- <ion-col col-4>
               <button color="wh5" (click)="audioPlay(post)" ion-button small block item-right icon-only>
                 <ion-icon name="play"></ion-icon>
                 Play
               </button>
-            </ion-col>
+            </ion-col> -->
           </ion-row>
         </div>
-
       </ion-card-content>
-      <ion-row>
-        <ion-col>
+
+      <div class="post_section" style="margin-top:-0px;">
+        <ion-row>
+          <ion-col center>
+            <button ion-button icon-left clear small color="{{color4}}">
+              <ion-icon color="{{color5}}" name="md-thumbs-up"></ion-icon>
+              <div style="font-size: 11px;">12 Likes</div>
+            </button>
+          </ion-col>
+          <ion-col center text-center>
+            <button ion-button icon-left clear small color="{{color4}}">
+              <ion-icon name="ios-text-outline"></ion-icon>
+              <div style="font-size: 11px;">4 Comments</div>
+            </button>
+          </ion-col>
+          <ion-col text-right>
+            <button ion-button icon-only clear small color="{{color4}}">
+              <ion-icon name="ios-share-outline"></ion-icon>
+            </button>
+            <button ion-button icon-only clear small color="{{color4}}">
+              <ion-icon name="ios-bookmark-outline"></ion-icon>
+            </button>
+          </ion-col>
+          <!-- <ion-col>
           <button ion-button icon-left clear small color="{{color4}}">
-            <ion-icon color="{{color5}}" name="md-thumbs-up"></ion-icon>
-            <div>12 Likes</div>
-          </button>
-        </ion-col>
-        <ion-col>
-          <button ion-button icon-left clear small color="{{color4}}">
-            <ion-icon name="ios-text-outline"></ion-icon>
-            <div>4 Comments</div>
-          </button>
-        </ion-col>
-        <ion-col center text-right>
-          <button ion-button icon-left clear small color="{{color4}}">
-            <!-- <ion-icon name="text"></ion-icon> -->
-            <div>{{post.added}}</div>
-          </button>
-        </ion-col>
-      </ion-row>
-    </ion-card>
+          <ion-icon name="ios-bookmark-outline"></ion-icon>
+        </button>
+      </ion-col> -->
+      <!-- <ion-col center text-right>
+      <button ion-button icon-left clear small color="{{color4}}">
+      <div>{{post.added}}</div>
+    </button>
+  </ion-col> -->
+  </ion-row>
+  </div>
+  </ion-card>
 
 
   </div>
