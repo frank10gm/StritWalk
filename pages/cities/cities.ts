@@ -12,6 +12,7 @@ import { Brightness } from '@ionic-native/brightness';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
 import { Account } from '../../providers/account';
 import { Geolocation } from '@ionic-native/geolocation';
+import { ActionSheetController } from 'ionic-angular';
 
 
 @Component({
@@ -56,6 +57,7 @@ export class CitiesPage {
   audio_posted: boolean = false;
   audio_posted_finish: boolean = false;
   audio_name: string;
+  audio_description: string;
   posts: any;
   infinite:number = 0;
   lat: any;
@@ -75,7 +77,8 @@ export class CitiesPage {
     private brightness: Brightness,
     private transfer: FileTransfer,
     private account: Account,
-    private geolocation: Geolocation
+    private geolocation: Geolocation,
+    public actionSheetCtrl: ActionSheetController
   ) {
 
     //scelta colori
@@ -523,10 +526,12 @@ export class CitiesPage {
       fileTransfer.upload(this.file_url + this.file_name, this.globals.upload_url, options)
       .then((data) => {
         // console.log("### FILE UPLOADED ###");
-        this.account.post(name, this.audio_name, name, coor.latitude, coor.longitude).then(data=>{
+        this.account.post(name, this.audio_name, name, coor.latitude, coor.longitude, this.audio_description).then(data=>{
           this.audio_posted_finish = true;
           setTimeout(()=>{
-            this.audio_posted_finish = false
+            this.audio_name = "";
+            this.audio_description = "";
+            this.audio_posted_finish = false;
             this.audio_posted = false
             this.audio_posted = false
             this.isFastRiff = false
@@ -719,6 +724,39 @@ export class CitiesPage {
     var file_link = 'http://hackweb.it/api/uploads/music/'+data.audio;
     const file: MediaObject = this.media.create(file_link);
     file.play();
+  }
+
+  postSettings(data){
+    let actionSheet = this.actionSheetCtrl.create({
+      title: data.creator + " : " + data.name + " - post settings",
+      buttons: [
+        {
+          text: 'Delete',
+          role: 'destructive',
+          handler: () => {
+            //eliminazione del post funziona!
+            this.account.deleteMarker(data.id, data.audio).then(data2 => {
+              var i = this.posts.indexOf(data);
+              if(i != -1){
+                this.posts.splice(i,1);
+              }
+            });
+          }
+        },{
+          text: 'Archive',
+          handler: () => {
+            console.log('Archive clicked');
+          }
+        },{
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        }
+      ]
+    });
+    actionSheet.present();
   }
 
 }

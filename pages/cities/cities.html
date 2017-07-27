@@ -103,6 +103,9 @@
               <ion-label>Title</ion-label>
               <ion-input [(ngModel)]="audio_name" name="audio_name" type="text" placeholder="My Record"></ion-input>
             </ion-item>
+            <ion-item color="{{color6}}">
+              <ion-textarea [(ngModel)]="audio_description" name="audio_description" placeholder="Enter a description"></ion-textarea>
+            </ion-item>
             <!-- <ion-item>
             <ion-label>Geolocate</ion-label>
             <ion-checkbox color="primary" checked="true"></ion-checkbox>
@@ -169,8 +172,8 @@
         <button item-end ion-button icon-only clear small (click)="audioPlay(post)" [hidden]="!post.isaudio" style="margin-right: -5px;">
           <ion-icon name="play" color="wh5"></ion-icon>
         </button>
-        <button item-end ion-button icon-only clear small color="{{color4}}" style="">
-          <ion-icon name="ios-more-outline"></ion-icon>
+        <button item-end ion-button icon-only clear small color="{{color4}}" style="" (click)="postSettings(post)">
+          <ion-icon name="ios-more"></ion-icon>
         </button>
       </ion-item>
       <!-- <img src="./assets/images/pingu2.jpg"/> -->
