@@ -661,7 +661,7 @@ export class CitiesPage {
     for (i = 0; i < x.length; i++) {
       x[i].innerHTML = "";
       var el = y[i] as HTMLElement;
-      el.style.marginTop = "-0px";
+      el.style.marginTop = "0px";
       this.posts[i].isaudio2 = false;
     }
     data.isaudio2 = true;
@@ -743,9 +743,9 @@ export class CitiesPage {
             });
           }
         },{
-          text: 'Archive',
+          text: 'Make private',
           handler: () => {
-            console.log('Archive clicked');
+            this.account.makePrivate(data.id,1)
           }
         },{
           text: 'Cancel',

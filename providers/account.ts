@@ -206,7 +206,7 @@ export class Account {
   }
 
   post(file:string, audio_name:string, file_name:string, lat?, lng?, post_text?:string){
-    return this.http.post(this.globals.api_url, {action: 'post', id: this.globals.user_id, name:audio_name, audio: file_name, lat:lat, lng:lng}, {headers: this.headers})
+    return this.http.post(this.globals.api_url, {action: 'post', id: this.globals.user_id, name:audio_name, audio: file_name, lat:lat, lng:lng, description:post_text}, {headers: this.headers})
     .timeout(1000)
     .toPromise()
     .then(data => {
@@ -223,6 +223,22 @@ export class Account {
     .toPromise()
     .then(data => {
       return data.json();
+    })
+    .catch(error => {
+      return(error);
+    });
+  }
+
+  makePrivate(id, info){
+    if(info.private == true){
+      info.private = 1;
+    }else if(info.private == false){
+      info.private = 0;
+    }
+    return this.http.post(this.globals.api_url, {action: 'makePrivate', id: id, private: info.private}, {headers: this.headers})
+    .toPromise()
+    .then(data => {
+       return data.json();
     })
     .catch(error => {
       return(error);

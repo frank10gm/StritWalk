@@ -44,7 +44,7 @@
         <ion-grid>
           <ion-row>
             <!-- <ion-col col-3></ion-col> -->
-            <ion-col col-4 class="col-center stats {{color_2}}">Riffs<br><span class="{{color_1}} bold1">191</span></ion-col>
+            <ion-col col-4 class="col-center stats {{color_2}}">Posts<br><span class="{{color_1}} bold1">191</span></ion-col>
             <ion-col col-4 class="col-center stats {{color_2}}">Friends<br><span class="{{color_1}} bold1">225</span></ion-col>
             <ion-col col-4 class="col-center stats {{color_2}}">Likes<br><span class="{{color_1}} bold1">441</span></ion-col>
           </ion-row>
@@ -149,7 +149,7 @@
       <div style="" class="{{color_2}}">
         <ion-grid>
           <ion-row>
-            <ion-col col-4 class="col-center {{color_3}}">My</ion-col>
+            <ion-col col-4 class="col-center {{color_3}}">Posts</ion-col>
             <ion-col col-4 class="col-center {{color_3}}">Friends</ion-col>
             <ion-col col-4 class="col-center {{color_3}}">Likes</ion-col>
           </ion-row>
@@ -203,7 +203,7 @@
 
         <p style="margin-top:0px;">
           <span class="{{color_3}}">&#123;</span><strong> <span style="color: #333;">{{post.name}}</span> </strong><span class="{{color_3}}">&#125;</span>
-          The most popular industrial group ever, and largely responsible for bringing the music to a mass audience.
+          {{post.isaudio == true ? "" : ""}}
           {{post.description}}
         </p>
 
@@ -224,7 +224,7 @@
         </div>
       </ion-card-content>
 
-      <div class="post_section" style="margin-top:-0px;">
+      <div class="post_section" style="margin-top:0px;">
         <ion-row>
           <ion-col center>
             <button ion-button icon-left clear small color="{{color4}}">
