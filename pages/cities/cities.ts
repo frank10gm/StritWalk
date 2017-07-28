@@ -477,8 +477,6 @@ export class CitiesPage {
       this.context.stroke();
     }
     this.context.restore();
-
-    console.log('done 231 iyi');
   }
 
   createCanvas(w, h) {
@@ -541,7 +539,7 @@ export class CitiesPage {
           },100);
         })
         .catch(err => {
-          console.log("posting... "+JSON.stringify(err))
+          // console.log("posting... "+JSON.stringify(err))
         });
       })
       .catch(err => {
@@ -588,7 +586,6 @@ export class CitiesPage {
       this.lat = resp.coords.latitude;
       this.lng = resp.coords.longitude;
       return this.account.getPosts(0, "added", 5, this.lat, this.lng).then(data => {
-        console.log(JSON.stringify(data))
         this.posts = data;
         // this.getPostWave(data);
         return data;
@@ -661,7 +658,7 @@ export class CitiesPage {
     for (i = 0; i < x.length; i++) {
       x[i].innerHTML = "";
       var el = y[i] as HTMLElement;
-      el.style.marginTop = "0px";
+      el.style.marginTop = "-5px";
       this.posts[i].isaudio2 = false;
     }
     data.isaudio2 = true;
@@ -734,7 +731,7 @@ export class CitiesPage {
           text: 'Delete',
           role: 'destructive',
           handler: () => {
-            //eliminazione del post funziona!
+
             this.account.deleteMarker(data.id, data.audio).then(data2 => {
               var i = this.posts.indexOf(data);
               if(i != -1){
@@ -745,18 +742,37 @@ export class CitiesPage {
         },{
           text: 'Make private',
           handler: () => {
-            this.account.makePrivate(data.id,1)
+            this.account.makePrivate(data.id,1).then(data2 => {
+              var i = this.posts.indexOf(data);
+              if(i != -1){
+                this.posts.splice(i,1);
+              }
+            });
           }
         },{
           text: 'Cancel',
           role: 'cancel',
           handler: () => {
-            console.log('Cancel clicked');
+
           }
         }
       ]
     });
     actionSheet.present();
+  }
+
+  likeUnlike(data){
+    if(data.liked_me){
+      this.account.removeLikePost(data).then(data2 => {
+        data.liked_me = !data.liked_me;
+        data.likes-=1;
+      });
+    }else{
+      this.account.addLikePost(data).then(data2 => {
+        data.liked_me = !data.liked_me;
+        data.likes+=1;
+      });
+    }
   }
 
 }

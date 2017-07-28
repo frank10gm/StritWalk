@@ -219,7 +219,30 @@ export class Account {
   }
 
   getPosts(num?:number, order:string = "added", order2?:number, lat=0, lng=0){
-    return this.http.post(this.globals.api_url, {action:'getPosts', num:num, order:order, order2:order2, lat:lat, lng:lng }, {headers: this.headers})
+    return this.http.post(this.globals.api_url, {action:'getPosts', num:num, order:order, order2:order2, lat:lat, lng:lng, user_id:this.globals.user_id }, {headers: this.headers})
+    .toPromise()
+    .then(data => {
+      console.log(JSON.stringify(data.json()));
+      return data.json();
+    })
+    .catch(error => {
+      return(error);
+    });
+  }
+
+  makePrivate(id, status){
+    return this.http.post(this.globals.api_url, {action: 'makePrivate', id: id, private: status}, {headers: this.headers})
+    .toPromise()
+    .then(data => {
+       return data.json();
+    })
+    .catch(error => {
+      return(error);
+    });
+  }
+
+  addLikePost(post){
+    return this.http.post(this.globals.api_url, {action:'addLikePost', post_id:post.id, user_id:this.globals.user_id}, {headers: this.headers})
     .toPromise()
     .then(data => {
       return data.json();
@@ -229,16 +252,11 @@ export class Account {
     });
   }
 
-  makePrivate(id, info){
-    if(info.private == true){
-      info.private = 1;
-    }else if(info.private == false){
-      info.private = 0;
-    }
-    return this.http.post(this.globals.api_url, {action: 'makePrivate', id: id, private: info.private}, {headers: this.headers})
+  removeLikePost(post){
+    return this.http.post(this.globals.api_url, {action:'removeLikePost', post_id:post.id, user_id:this.globals.user_id}, {headers: this.headers})
     .toPromise()
     .then(data => {
-       return data.json();
+      return data.json();
     })
     .catch(error => {
       return(error);
