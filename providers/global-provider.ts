@@ -168,11 +168,11 @@ export class GlobalProvider {
     if (this.color1 == "bl1") {
       this.color1 = "wh1"
       this.color2 = "wh2"
-      this.color3 = "wh3"
-      this.color4 = "wh4"
-      this.color5 = "wh5"
-      this.color6 = "wh6"
-      this.color7 = "wh7"
+      this.color3 = "light"
+      this.color4 = "dark"
+      this.color5 = "primary"
+      this.color6 = "light"
+      this.color7 = "dark"
       this.color8 = "wh8";
       this.color9 = "wh9";
       this.color_1 = "wh-color-1";

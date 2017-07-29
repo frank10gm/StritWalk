@@ -28,33 +28,47 @@ $text-input-highlight-color-valid: #387ef5;
 
 $colors: (
   primary:    #4885ed,
-  primary2:   #eaeaeb,
-  blue:       #387ef5,
+  // primary2:   #eaeaeb,
+  // blue:       #387ef5,
   secondary:  #32db64,
   danger:     #f53d3d, //f53d3d
-  light:      #111, //#efefef,
-  dark:       #111,
-  dark2:      #181818,
-  dark3:      #222,
-  grey4:      #f4f4f4,
-  grey:       #cccccc,
-  grey2:      #333,
-  grey3:      #333, //#f7f7f7, // #222326, //#444, // #282c34, // #21252b,
-  grey5:      #222,
-  grey6:      #ccc,
-  grey7:      #555,
-  black:      #111,
-  acid:       #00ff00,
+  dark:       #222,
+  // dark2:      #181818,
+  // dark3:      #222,
+  // grey4:      #f4f4f4,
+  // grey:       #cccccc,
+  // grey2:      #333,
+  // grey3:      #333, //#f7f7f7, // #222326, //#444, // #282c34, // #21252b,
+  // grey5:      #222,
+  // grey6:      #ccc,
+  // grey7:      #555,
+  // black:      #111,
+  // acid:       #00ff00,
 
-  //white theme
   // wh1:        #f7f7f7,
   // wh2:        #222,
-  // wh3:        #efefef,
+  light:        #efefef,
   // wh4:        #222,
   // wh5:        #4885ed,
-  // wh6:        #f7f7f7,
+  // wh6:        #efefef,
   // wh7:        #000,
+  // wh8:        #f7f7f7,
+  // wh9:        #ffffff,
+  // wh10:       #666,
 
+  // //black theme
+  // bl1:        #f7f7f7,
+  // bl2:        #333,
+  // bl3:        #333,
+  // bl4:        #ccc,
+  // bl5:        #00ff00,
+  // bl6:        #333,
+  // bl7:        #888,
+  // bl8:        #000,
+  // bl9:        #000,
+);
+
+$colors2: (
   wh1:        #f7f7f7,
   wh2:        #222,
   wh3:        #efefef,
@@ -65,26 +79,6 @@ $colors: (
   wh8:        #f7f7f7,
   wh9:        #ffffff,
   wh10:       #666,
-
-  //black theme
-  bl1:        #f7f7f7,
-  bl2:        #333,
-  bl3:        #333,
-  bl4:        #ccc,
-  bl5:        #00ff00,
-  bl6:        #333,
-  bl7:        #888,
-  bl8:        #000,
-  bl9:        #000,
-
-  yl1:        #ffd200,
-  yl2:        #222,
-  yl3:        #ffd200,
-  yl4:        #ccc,
-  yl5:        #ffd200,
-  yl6:        #fff,
-  yl7:        #fff
-
 );
 
 

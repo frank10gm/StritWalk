@@ -4,7 +4,6 @@ import { TabsPage } from '../tabs/tabs'
 import { StartPage } from '../start/start'
 
 import { NativeStorage } from '@ionic-native/native-storage';
-import { Insomnia } from '@ionic-native/insomnia';
 
 /*
 Generated class for the Splash page.
@@ -19,17 +18,18 @@ Ionic pages and navigation.
 export class SplashPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public platform: Platform,
-  private nativeStorage: NativeStorage,
-  private insomnia: Insomnia) {
+    private nativeStorage: NativeStorage
+  ) {
     this.platform.ready()
     .then(
       () => {
-        this.insomnia.keepAwake()
-                    .then(
-                    () => console.log('insomnia online'),
-                    () => console.log('error insomnia')
-                    );
+        // this.insomnia.keepAwake()
+        //             .then(
+        //             () => console.log('insomnia online'),
+        //             () => console.log('error insomnia')
+        //             );
         // execute code here
+        console.log('constructor SplashPage');
         this.nativeStorage.getItem('localUser').then(
           data => {
             if(data.status){

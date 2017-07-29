@@ -1,4 +1,4 @@
-import { NgModule, ErrorHandler } from '@angular/core';
+import { NgModule, ErrorHandler, enableProdMode } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { AboutPage } from '../pages/about/about';
@@ -47,6 +47,8 @@ import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-nati
 import { File } from '@ionic-native/file';
 import { Brightness } from '@ionic-native/brightness';
 import { MapsClusterProvider } from '../providers/maps-cluster/maps-cluster';
+
+enableProdMode();
 
 @NgModule({
   declarations: [

@@ -121,10 +121,10 @@ export class MapPage {
 
     //selezione colori mappa
     if (this.globals.color == "bl") {
-      this.dark = "wh8";
+      this.dark = "light";
       this.moon = "md-sunny";
     } else {
-      this.dark = "bl8";
+      this.dark = "dark";
       this.moon = "md-moon";
     }
     //selezione colori mappa -- END
@@ -391,24 +391,28 @@ export class MapPage {
     if (this.moon == "md-sunny") {
       this.moon = "md-moon"
       this.overlay.remove();
-      var openm = 'http://cartodb-basemaps-a.global.ssl.fastly.net/light_all/<zoom>/<x>/<y>@2x.png';
+      // var openm = 'http://cartodb-basemaps-a.global.ssl.fastly.net/light_all/<zoom>/<x>/<y>@2x.png';
+      var openm = 'http://cartodb-basemaps-a.global.ssl.fastly.net/light_all/';
       this.dark = "dark";
     } else {
       this.moon = "md-sunny"
       this.overlay.remove();
-      var openm = 'http://cartodb-basemaps-a.global.ssl.fastly.net/dark_all/<zoom>/<x>/<y>@2x.png';
-      this.dark = "grey6";
+      // var openm = 'http://cartodb-basemaps-a.global.ssl.fastly.net/dark_all/<zoom>/<x>/<y>@2x.png';
+      var openm = 'http://cartodb-basemaps-a.global.ssl.fastly.net/dark_all/';
+      this.dark = "light";
     }
-    this.overlay = this.map.addTileOverlay({
-      // <x>,<y> and <zoom> are replaced with values
-      // tileUrlFormat: openm,
-      getTile: (x, y, z) => {
-        return openm;
-      },
-      tileSize: 512
-    }).then((tileOverlay) => {
-      this.overlay = tileOverlay;
-    });
+
+    // this.overlay = this.map.addTileOverlay({
+    //   // <x>,<y> and <zoom> are replaced with values
+    //   // tileUrlFormat: openm,
+    //   getTile: (x, y, z) => {
+    //     return openm + z + '/' + x + '/' + y + '@2x.png';
+    //   },
+    //   tileSize: 512
+    // }).then((tileOverlay) => {
+    //   this.overlay = tileOverlay;
+    // });
+
     if (!this.searchBar) {
       this.searchBarOpen();
     }

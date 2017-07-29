@@ -81,6 +81,11 @@ export class CitiesPage {
     public actionSheetCtrl: ActionSheetController
   ) {
 
+    this.insomnia.keepAwake().then(
+      () => console.log('insomnia online'),
+      () => console.log('error insomnia')
+    );
+
     //scelta colori
     this.color1 = globals.color1
     this.color2 = globals.color2
