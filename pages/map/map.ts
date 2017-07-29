@@ -258,15 +258,17 @@ export class MapPage {
 
       this.map.addTileOverlay({
         //dev10n
-        debug: false,
+        // debug: false,
         getTile: (x, y, z) => {
           return openm + z + '/' + x + '/' + y + '@2x.png';
-        },
-        tileSize: 512
-      }).then((tileOverlay) => {
+        }
+      }).then(tileOverlay => {
+        //dev10n
         this.overlay = tileOverlay;
+        // alert(JSON.stringify(tileOverlay._map._objectInstance.OVERLAYS[0]));
+        // alert(JSON.stringify(this.overlay.getTileSize()));
       }).catch(e => {
-        console.log(e)
+        console.log("tile error: " + e)
       });
 
       //map position change
@@ -390,28 +392,27 @@ export class MapPage {
   darkMap() {
     if (this.moon == "md-sunny") {
       this.moon = "md-moon"
+      console.log("tile: " + JSON.stringify(this.overlay));
       this.overlay.remove();
       // var openm = 'http://cartodb-basemaps-a.global.ssl.fastly.net/light_all/<zoom>/<x>/<y>@2x.png';
       var openm = 'http://cartodb-basemaps-a.global.ssl.fastly.net/light_all/';
       this.dark = "dark";
     } else {
       this.moon = "md-sunny"
+      console.log("tile: " + JSON.stringify(this.overlay));
       this.overlay.remove();
       // var openm = 'http://cartodb-basemaps-a.global.ssl.fastly.net/dark_all/<zoom>/<x>/<y>@2x.png';
       var openm = 'http://cartodb-basemaps-a.global.ssl.fastly.net/dark_all/';
       this.dark = "light";
     }
 
-    // this.overlay = this.map.addTileOverlay({
-    //   // <x>,<y> and <zoom> are replaced with values
-    //   // tileUrlFormat: openm,
-    //   getTile: (x, y, z) => {
-    //     return openm + z + '/' + x + '/' + y + '@2x.png';
-    //   },
-    //   tileSize: 512
-    // }).then((tileOverlay) => {
-    //   this.overlay = tileOverlay;
-    // });
+    this.map.addTileOverlay({
+      getTile: (x, y, z) => {
+        return openm + z + '/' + x + '/' + y + '@2x.png';
+      }
+    }).then((tileOverlay) => {
+      this.overlay = tileOverlay;
+    });
 
     if (!this.searchBar) {
       this.searchBarOpen();
