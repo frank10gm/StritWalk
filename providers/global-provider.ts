@@ -59,15 +59,15 @@ export class GlobalProvider {
 
     //colori
     this.color = "bl";
-    this.color1 = "wh1"
-    this.color2 = "wh2"
-    this.color3 = "wh3"
-    this.color4 = "wh4"
-    this.color5 = "wh5"
-    this.color6 = "wh6"
-    this.color7 = "wh7"
-    this.color8 = "wh8"
-    this.color9 = "wh9"
+    this.color1 = "white"
+    this.color2 = "dark"
+    this.color3 = "light"
+    this.color4 = "dark"
+    this.color5 = "primary"
+    this.color6 = "light"
+    this.color7 = "dark"
+    this.color8 = "white"
+    this.color9 = "white"
     this.color_1 = "wh-color-1";
     this.color_2 = "wh-color-2";
     this.color_3 = "wh-color-3";
@@ -166,15 +166,15 @@ export class GlobalProvider {
       this.color = "wh";
     }
     if (this.color1 == "bl1") {
-      this.color1 = "wh1"
-      this.color2 = "wh2"
+      this.color1 = "white"
+      this.color2 = "dark"
       this.color3 = "light"
       this.color4 = "dark"
       this.color5 = "primary"
       this.color6 = "light"
       this.color7 = "dark"
-      this.color8 = "wh8";
-      this.color9 = "wh9";
+      this.color8 = "white";
+      this.color9 = "white";
       this.color_1 = "wh-color-1";
       this.color_2 = "wh-color-2";
       this.color_3 = "wh-color-3";

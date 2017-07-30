@@ -43,7 +43,6 @@
       <div style="margin-top: 0px;">
         <ion-grid>
           <ion-row>
-            <!-- <ion-col col-3></ion-col> -->
             <ion-col col-4 class="col-center stats {{color_2}}">Posts<br><span class="{{color_1}} bold1">191</span></ion-col>
             <ion-col col-4 class="col-center stats {{color_2}}">Friends<br><span class="{{color_1}} bold1">225</span></ion-col>
             <ion-col col-4 class="col-center stats {{color_2}}">Likes<br><span class="{{color_1}} bold1">441</span></ion-col>
@@ -234,8 +233,8 @@
           </ion-col>
           <ion-col center text-center>
             <button ion-button icon-left clear small color="{{color4}}">
-              <ion-icon name="ios-text-outline"></ion-icon>
-              <div style="font-size: 11px;">4 Comments</div>
+              <ion-icon color="{{post.commented_me == true ? color5 : ''}}" name="ios-text-outline"></ion-icon>
+              <div style="font-size: 11px;">{{post.comments_count}} Comments</div>
             </button>
           </ion-col>
           <ion-col text-right>
