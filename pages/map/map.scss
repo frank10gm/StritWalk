@@ -1,6 +1,6 @@
 ion-app._gmaps_cdv_ .nav-decor{
-  // background-color: transparent!important;
-  // display:none!important;
+  background-color: transparent!important;
+  display:none!important;
 }
 
 .didascalia .item-inner{
@@ -11,7 +11,6 @@ ion-app._gmaps_cdv_ .nav-decor{
     height:50px;
     position: relative;
     overflow: hidden;
-    // background-color: red;
 }
 .wave{
     width: 1px;
@@ -47,11 +46,11 @@ page-map {
   #map {
       height: 100%;
       width: 100%;
-      // z-index: 100 !important;
+      z-index: 100 !important;
   }
   #map-over{
-    // height: 100%;
-    // background-color: rgba(0,0,0,0.4);
-    // z-index: 999999;
+    height: 100%;
+    background-color: rgba(0,0,0,0.4);
+    z-index: 999999;
   }
 }

@@ -1,19 +1,13 @@
  <ion-header>
   <ion-navbar color="{{color1}}">
-    <!-- <ion-searchbar #searchBarId [hidden]="searchBar"  (input)="search($event)" (search)="searchBarOpen()" [(ngModel)]="searchBarModel"></ion-searchbar> -->
     <form>
       <ion-searchbar #searchBarId [hidden]="searchBar" (input)="search($event)" (search)="searchBarOpen()" [(ngModel)]="searchBarModel" name="searchBarModel"></ion-searchbar>
     </form>
+    <ion-title [hidden]="!searchBar">Map</ion-title>
     <ion-buttons end>
       <button [hidden]="false" ion-button icon-only (click)="searchBarOpen()">
         <ion-icon name="md-search" color="{{color2}}"></ion-icon>
       </button>
-    </ion-buttons>
-    <ion-title [hidden]="!searchBar">Map</ion-title>
-    <ion-buttons end>
-      <!-- <button ion-button icon-only (click)="openMessages()">
-        <ion-icon name="md-mail-open" color="light"></ion-icon>
-      </button> -->
     </ion-buttons>
   </ion-navbar>
 </ion-header>
@@ -21,17 +15,13 @@
 <ion-content>
   <div #map id="map">
     <div id="map-over" [hidden]="searchBar"></div>
-    <!-- <button (click)="locateMe()" ion-button icon-only style="position: fixed; bottom: 120px; right: 10px; z-index: 99999999999 !important;" round>
-    <ion-icon name="locate"></ion-icon>
-    </button> -->
 
     <ion-fab right bottom style="bottom: 60px;" [hidden]="!searchBar">
-      <button (click)="locateMe()" ion-fab mini color="{{locateme_color}}" ><ion-icon name="md-{{locate}}"></ion-icon></button><!-- md-locate navigate -->
+      <button (click)="locateMe()" ion-fab mini color="{{locateme_color}}" ><ion-icon name="md-{{locate}}"></ion-icon></button>
     </ion-fab>
     <ion-fab right bottom style="bottom: 110px;" [hidden]="track_person">
       <button (click)="trackPerson(p)" ion-fab mini color="{{track_person_color}}" ><ion-icon name="md-locate"></ion-icon></button>
     </ion-fab>
-
     <ion-fab right top style="top: 60px;" [hidden]="!searchBar">
       <button (click)="settings()" ion-fab mini color="primary" ><ion-icon name="ios-cog"></ion-icon></button>
     </ion-fab>
@@ -41,17 +31,27 @@
     <ion-fab right top style="top: 160px;" [hidden]="!searchBar">
       <button (click)="zoomOut()" ion-fab mini color="danger" ><ion-icon name="md-globe"></ion-icon></button>
     </ion-fab>
-
-    <!-- <ion-fab right top>
-       <button ion-fab mini color="primary"><ion-icon name="ios-cog"></ion-icon></button>
-       <ion-fab-list side="left" style="z-indez: 9999999999;">
-         <button ion-fab (click)="zoomOut()" style="z-indez: 9999999999;"><ion-icon name="md-globe"></ion-icon></button>
-         <button ion-fab (click)="zoomIn()"><ion-icon name="md-home"></ion-icon></button>
-         <button ion-fab (click)="darkMap()" style="z-indez: 9999999999;"><ion-icon name="md-moon"></ion-icon></button>
-       </ion-fab-list>
-     </ion-fab> -->
-
   </div>
-  <!-- <div id="over-map" style="background-color: red; height: 100%;">
-  </div> -->
 </ion-content>
+
+<!-- <ion-searchbar #searchBarId [hidden]="searchBar"  (input)="search($event)" (search)="searchBarOpen()" [(ngModel)]="searchBarModel"></ion-searchbar> -->
+
+<!-- <button ion-button icon-only (click)="openMessages()">
+  <ion-icon name="md-mail-open" color="light"></ion-icon>
+</button> -->
+
+<!-- <div id="over-map" style="background-color: red; height: 100%;">
+</div> -->
+
+<!-- <ion-fab right top>
+   <button ion-fab mini color="primary"><ion-icon name="ios-cog"></ion-icon></button>
+   <ion-fab-list side="left" style="z-indez: 9999999999;">
+     <button ion-fab (click)="zoomOut()" style="z-indez: 9999999999;"><ion-icon name="md-globe"></ion-icon></button>
+     <button ion-fab (click)="zoomIn()"><ion-icon name="md-home"></ion-icon></button>
+     <button ion-fab (click)="darkMap()" style="z-indez: 9999999999;"><ion-icon name="md-moon"></ion-icon></button>
+   </ion-fab-list>
+ </ion-fab> -->
+
+<!-- <button (click)="locateMe()" ion-button icon-only style="position: fixed; bottom: 120px; right: 10px; z-index: 99999999999 !important;" round>
+<ion-icon name="locate"></ion-icon>
+</button> -->
