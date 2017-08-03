@@ -12,7 +12,7 @@ import { Brightness } from '@ionic-native/brightness';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
 import { Account } from '../../providers/account';
 import { Geolocation } from '@ionic-native/geolocation';
-import { ActionSheetController } from 'ionic-angular';
+import { Content, ActionSheetController } from 'ionic-angular';
 
 
 @Component({
@@ -20,6 +20,7 @@ import { ActionSheetController } from 'ionic-angular';
   templateUrl: 'cities.html'
 })
 export class CitiesPage {
+  @ViewChild(Content) content: Content;
 
   username: string = "";
   fast_rec: any;
@@ -63,6 +64,7 @@ export class CitiesPage {
   lat: any;
   lng: any;
   audio: boolean = false;
+  first_loading: boolean = true;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -593,6 +595,7 @@ export class CitiesPage {
       return this.account.getPosts(0, "added", 5, this.lat, this.lng).then(data => {
         this.posts = data;
         // this.getPostWave(data);
+        if(this.first_loading) this.first_loading = false;
         return data;
       });
     });
@@ -777,6 +780,28 @@ export class CitiesPage {
         data.liked_me = !data.liked_me;
         data.likes+=1;
       });
+    }
+  }
+
+  startComment(data){
+    for (let i = 0; i < this.posts.length; i++) {
+      this.posts[i].start_comment = false;
+    }
+    data.start_comment = true;
+    data.new_comment = "";
+  }
+
+  scrollToElement(data){
+    let yOffset = document.getElementById("post_id_"+data.id).offsetTop;
+    this.events.publish('openKeyboard');
+    if (this.platform.is('android')) {
+      window.setTimeout(()=>{
+        this.content.scrollTo(0, yOffset, 200);
+      },600);
+    }else{
+      window.setTimeout(()=>{
+        this.content.scrollTo(0, yOffset, 200);
+      },600);
     }
   }
 

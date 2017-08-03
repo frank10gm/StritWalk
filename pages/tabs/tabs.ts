@@ -35,6 +35,9 @@ export class TabsPage {
     events.subscribe('changeTheme', (data) => {
       this.color1 = globals.color8
     });
+    events.subscribe('openKeyboard', () => {
+      console.log("openKeyboard");
+    });
 
     window.setTimeout(()=>{
       // this.changeBrightness()

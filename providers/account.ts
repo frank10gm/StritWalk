@@ -222,7 +222,7 @@ export class Account {
     return this.http.post(this.globals.api_url, {action:'getPosts', num:num, order:order, order2:order2, lat:lat, lng:lng, user_id:this.globals.user_id }, {headers: this.headers})
     .toPromise()
     .then(data => {
-      console.log(JSON.stringify(data));
+      // console.log(JSON.stringify(data));
       return data.json();
     })
     .catch(error => {
@@ -244,7 +244,7 @@ export class Account {
   addLikePost(post){
     return this.http.post(this.globals.api_url, {action:'addLikePost', post_id:post.id, user_id:this.globals.user_id}, {headers: this.headers})
     .toPromise()
-    .then(data => {    
+    .then(data => {
       return data.json();
     })
     .catch(error => {

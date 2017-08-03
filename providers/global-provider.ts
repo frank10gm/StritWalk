@@ -12,7 +12,8 @@ import { NativeStorage } from '@ionic-native/native-storage';
 @Injectable()
 export class GlobalProvider {
 
-  public api_url: string = "http://www.hackweb.it/api/index.php"
+  // public api_url: string = "http://www.hackweb.it/api/index.php"
+  public api_url: string = "/api"
   public upload_url: string = "http://www.hackweb.it/api/upload5.php"
   public upload_url2: string = "http://www.hackweb.it/api/upload_img.php"
   public user_position: any;
@@ -104,7 +105,7 @@ export class GlobalProvider {
 
     for (var key in this.translate) {
       for (var key2 in this.translate[key]) {
-        console.log(this.translate[key][key2]['it']);
+        // console.log(this.translate[key][key2]['it']);
         if (this.translate[key][key2]['it'] == "") {
           this.translate[key][key2]['it'] = this.translate[key][key2]['ww'];
         }
