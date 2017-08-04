@@ -356,7 +356,7 @@ export class MapPage {
           markerModal.onDidDismiss(data => {
             if (data.action == "del") {
               this.account.deleteMarker(data.id, data.info.audio).then(data => {
-                console.log("deleted marker on creation");
+                // console.log("deleted marker on creation");
               });
             } else if (data.action == "edit") {
               el_data.name = data.name;

@@ -232,7 +232,10 @@ export class CitiesPage {
         //   this.rec = false;
         //   this.isFastRiff = true;
         // },100)
-        this.stopRec();
+        if(!this.rec)
+        {
+          this.stopRec();  
+        }
       }, 30000); //fast riff of 5 secons
     });
   }
