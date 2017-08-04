@@ -551,7 +551,7 @@ export class CitiesPage {
         this.account.post(name, this.audio_name, name, coor.latitude, coor.longitude, this.audio_description).then(data=>{
           this.audio_posted_finish = true;
           setTimeout(()=>{
-            this.audio_name = "";
+            this.audio_name = null;
             this.audio_description = "";
             this.audio_posted_finish = false;
             this.audio_posted = false

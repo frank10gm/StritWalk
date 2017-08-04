@@ -66,7 +66,7 @@ export class Marker2 {
         //console.log('event: ', params.get('event'));
         this.title = params.get('name');
         this.id = params.get('id_marker');
-        document.getElementById('map').style.display = 'none';
+        // document.getElementById('map').style.display = 'none';
         this.marker.name = this.title;
         this.marker.id = this.id;
         //backbutton
@@ -243,7 +243,7 @@ export class Marker2 {
         if(this.info.creation == true){
             this.marker.action = "del";
             this.viewCtrl.dismiss(this.marker);
-            document.getElementById('map').style.display = 'block';
+            // document.getElementById('map').style.display = 'block';
             return 0;
         }
 
@@ -258,7 +258,7 @@ export class Marker2 {
                         handler: () => {
                             console.log('Cancel clicked');
                             this.info.private = this.info_initial.private;
-                            document.getElementById('map').style.display = 'block';
+                            // document.getElementById('map').style.display = 'block';
                             this.viewCtrl.dismiss(this.marker);
                         }
                     },
@@ -266,7 +266,7 @@ export class Marker2 {
                         text: 'YES',
                         handler: () => {
                             this.saveAll().then(() => {
-                                document.getElementById('map').style.display = 'block';
+                                // document.getElementById('map').style.display = 'block';
                                 this.viewCtrl.dismiss(this.marker);
                             });
                         }
@@ -275,7 +275,7 @@ export class Marker2 {
             });
             alert.present();
         }else{
-            document.getElementById('map').style.display = 'block';
+            // document.getElementById('map').style.display = 'block';
             this.viewCtrl.dismiss(this.marker);
         }
     }
@@ -296,7 +296,7 @@ export class Marker2 {
                 {
                     text: 'YES',
                     handler: () => {
-                        document.getElementById('map').style.display = 'block';
+                        // document.getElementById('map').style.display = 'block';
                         this.marker.action = "del";
                         this.viewCtrl.dismiss(this.marker);
                     }
@@ -308,7 +308,7 @@ export class Marker2 {
 
     saveMarker(){
         if(this.info.creation == true){
-            document.getElementById('map').style.display = 'block';
+            // document.getElementById('map').style.display = 'block';
             this.viewCtrl.dismiss(this.marker);
             this.saveAll();
             return 0;
@@ -328,7 +328,7 @@ export class Marker2 {
                 {
                     text: 'YES',
                     handler: () => {
-                        document.getElementById('map').style.display = 'block';
+                        // document.getElementById('map').style.display = 'block';
                         this.saveAll();
                         this.viewCtrl.dismiss(this.marker);
                     }
