@@ -226,12 +226,12 @@
 
   </ion-card>
 
-  <ion-infinite-scroll (ionInfinite)="doInfinite($event)" threshold="300px">
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)" threshold="400px">
     <ion-infinite-scroll-content></ion-infinite-scroll-content>
   </ion-infinite-scroll>
 
-  <div *ngIf="infinite < 0 ? true : true" style="height:150px;" >
-    &nbsp;
+  <div style="height:150px;vertical-align: middle;text-align: center;" >
+    <ion-icon *ngIf="infinite < 0 ? true : false" color="secondary" style="font-size:50px; margin: 0 auto; margin-top: 25px;" name="ios-checkmark-circle"></ion-icon>
   </div>
 
 </ion-content>

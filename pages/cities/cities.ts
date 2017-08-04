@@ -596,7 +596,6 @@ export class CitiesPage {
     }
     this.infinite += 5;
     this.account.getPosts(this.infinite,"added",5, this.lat, this.lng).then(data => {
-      console.log("lat " + this.lat)
       e.complete();
       if(data != ''){
         // this.getPostWave(data);
