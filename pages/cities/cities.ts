@@ -13,6 +13,7 @@ import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-nati
 import { Account } from '../../providers/account';
 import { Geolocation } from '@ionic-native/geolocation';
 import { Content, ActionSheetController } from 'ionic-angular';
+import { Keyboard } from '@ionic-native/keyboard';
 
 
 @Component({
@@ -65,6 +66,8 @@ export class CitiesPage {
   lng: any;
   audio: boolean = false;
   first_loading: boolean = true;
+  keyon: boolean = false;
+  scrolling: boolean = false;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -80,7 +83,8 @@ export class CitiesPage {
     private transfer: FileTransfer,
     private account: Account,
     private geolocation: Geolocation,
-    public actionSheetCtrl: ActionSheetController
+    public actionSheetCtrl: ActionSheetController,
+    private keyboard: Keyboard
   ) {
 
     this.insomnia.keepAwake().then(
@@ -129,7 +133,19 @@ export class CitiesPage {
       this.bg_color_4 = this.globals.bg_color_4
     });
 
+    //inizializzazione post
     this.getPosts();
+    //setting della tastiera
+    keyboard.disableScroll(true);
+    keyboard.hideKeyboardAccessoryBar(true);
+    keyboard.onKeyboardHide().subscribe(e => {
+      this.keyon = false;
+      this.events.publish('closeKeyboard');
+    });
+    keyboard.onKeyboardShow().subscribe(e => {
+      this.keyon = true;
+      this.events.publish('openKeyboard');
+    });
   }
 
   ionViewDidLoad() {
@@ -230,6 +246,7 @@ export class CitiesPage {
         // this.waveContext()
         this.rec = false;
         this.isFastRiff = true;
+        this.scrollToRec();
       }, 100)
     }, 500)
   }
@@ -245,7 +262,7 @@ export class CitiesPage {
     var waveform = document.getElementById("waveform")
     var totalw = document.getElementById("waveform").offsetWidth
     waveform.style.left = totalw + 'px'
-    let duration = (this.duration * 10) + 2000
+    // let duration = (this.duration * 10) + 2000
     // var node = document.createElement("div")
     // node.className = "wave-current"
     // node.style.left = 0 + 'px'
@@ -543,6 +560,9 @@ export class CitiesPage {
             this.rec = false
             this.rec2 = false
             this.hideStart = true
+            this.getPosts().then(data => {
+              this.infinite = 0;
+            });
           },100);
         })
         .catch(err => {
@@ -576,6 +596,7 @@ export class CitiesPage {
     }
     this.infinite += 5;
     this.account.getPosts(this.infinite,"added",5, this.lat, this.lng).then(data => {
+      console.log("lat " + this.lat)
       e.complete();
       if(data != ''){
         // this.getPostWave(data);
@@ -619,12 +640,12 @@ export class CitiesPage {
                 this.audiocontext.decodeAudioData(req.response, (buffer) => {
                   var audioBuffer = buffer;
                   buffer = buffer.getChannelData(0);
-                  var samplerate = audioBuffer.sampleRate; // store sample rate
-                  var maxvals = [], max = 0;
+                  // var samplerate = audioBuffer.sampleRate; // store sample rate
+                  var maxvals = [];
                   var left_n = 10;
                   var totalw = (document.getElementById("start").offsetWidth - 20)/2;
-                  var step = Math.ceil(buffer.length/totalw)
-                  var max_amp = 50;
+                  // var step = Math.ceil(buffer.length/totalw)
+                  // var max_amp = 50;
                   for (var i = 0; i < totalw; i++) {
                     var amp = Math.abs(buffer[Math.ceil(buffer.length/totalw)*i]);
                     amp = (amp);
@@ -686,12 +707,12 @@ export class CitiesPage {
             this.audiocontext.decodeAudioData(req.response, (buffer) => {
               var audioBuffer = buffer;
               buffer = buffer.getChannelData(0);
-              var samplerate = audioBuffer.sampleRate; // store sample rate
-              var maxvals = [], max = 0;
+              // var samplerate = audioBuffer.sampleRate; // store sample rate
+              var maxvals = [];
               var left_n = 10;
               var totalw = (document.getElementById('waveform3-'+data.id).offsetWidth - 20)/2;
-              var step = Math.ceil(buffer.length/totalw)
-              var max_amp = 50;
+              // var step = Math.ceil(buffer.length/totalw)
+              // var max_amp = 50;
               for (var i = 0; i < totalw; i++) {
                 var amp = Math.abs(buffer[Math.ceil(buffer.length/totalw)*i]);
                 amp = (amp);
@@ -789,20 +810,40 @@ export class CitiesPage {
     }
     data.start_comment = true;
     data.new_comment = "";
+    this.scrollToElement(data);
   }
 
   scrollToElement(data){
-    let yOffset = document.getElementById("post_id_"+data.id).offsetTop;
-    this.events.publish('openKeyboard');
-    if (this.platform.is('android')) {
+    this.scrolling = true;
+    let el = document.getElementById("post_id_input_"+data.id);
+    let el2 = document.getElementById("post_id_input_local_"+data.id);
+    let yOffset = el.offsetTop;
+    this.content.scrollTo(0, yOffset, 200).then(()=>{
       window.setTimeout(()=>{
-        this.content.scrollTo(0, yOffset, 200);
-      },600);
-    }else{
+        // el2.focus();
+        this.scrolling = false;
+      },200);
+    });
+  }
+
+  scrollToRec(){
+    this.scrolling = true;
+    let el = document.getElementById("recContainer");
+    let yOffset = el.offsetTop;
+    this.content.scrollTo(0, yOffset, 200).then(()=>{
       window.setTimeout(()=>{
-        this.content.scrollTo(0, yOffset, 200);
-      },600);
-    }
+        this.scrolling = false;
+      },200);
+    });
+  }
+
+  onScroll(e){
+    if(this.keyon && !this.scrolling) this.keyboard.close();
+  }
+
+  stopComment(data){
+    data.start_comment = false;
+    //dev10n aggiungere qui animazione di inserimento commento
   }
 
 }

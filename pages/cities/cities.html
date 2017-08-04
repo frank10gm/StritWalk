@@ -17,65 +17,57 @@
 
     </ion-buttons>
   </ion-navbar>
-
-  <!-- <ion-toolbar color="">
-<ion-searchbar (input)="search($event)"></ion-searchbar>
-</ion-toolbar> -->
-
 </ion-header>
 
-<ion-content class="{{bg_color_4}}">
+<ion-content class="{{bg_color_4}}" (ionScrollStart)="onScroll($event)">
 
   <ion-refresher (ionRefresh)="refreshPage($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
-    <ion-card color="{{color3}}" class="card-no-padding2 " style="padding-top:8px;">
-      <ion-item style="" color="{{color3}}" id="start">
-        <ion-avatar item-left>
-          <img class="" src="./assets/images/pingu2.jpg">
-        </ion-avatar>
-        <h2><span class="{{color_2}} bold1">{{username}}</span> <span><ion-icon name="ios-checkmark" color="{{color5}}"></ion-icon></span><sup><span class="followers bold1">&nbsp;&nbsp;997</span></sup></h2>
-        <p style="font-size: 12px; white-space: normal;">If I could describe you I would do it. Set here your description.</p>
-      </ion-item>
+  <ion-card color="{{color3}}" class="card-no-padding2 " style="padding-top:8px;">
+    <ion-item style="" color="{{color3}}" id="start">
+      <ion-avatar item-left>
+        <img class="" src="./assets/images/pingu2.jpg">
+      </ion-avatar>
+      <h2><span class="{{color_2}} bold1">{{username}}</span> <span><ion-icon name="ios-checkmark" color="{{color5}}"></ion-icon></span><sup><span class="followers bold1">&nbsp;&nbsp;997</span></sup></h2>
+      <p style="font-size: 12px; white-space: normal;">If I could describe you I would do it. Set here your description.</p>
+    </ion-item>
 
-      <div style="margin-top: 0px;">
-        <ion-grid>
-          <ion-row>
-            <ion-col col-4 class="col-center stats {{color_2}}">Posts<br><span class="{{color_1}} bold1">191</span></ion-col>
-            <ion-col col-4 class="col-center stats {{color_2}}">Friends<br><span class="{{color_1}} bold1">225</span></ion-col>
-            <ion-col col-4 class="col-center stats {{color_2}}">Likes<br><span class="{{color_1}} bold1">441</span></ion-col>
-          </ion-row>
-        </ion-grid>
-
-        <ion-grid>
-          <ion-row>
-            <ion-col col-6>
-              <button color="{{color4}}" small ion-button block item-left icon-left>
-                  <!-- <ion-icon name="ios-microphone"></ion-icon> -->
-                  Edit Profile
-                </button>
-            </ion-col>
-            <ion-col col-6 class="col-center">
-              <button [disabled]="rec" color="{{color5}}" (touchstart)="fastRec()" (touchend)="stopRec()" small block ion-button item-right
-                icon-left>
-                  <!-- <ion-icon name="ios-microphone"></ion-icon> -->
-                  Rec
-                </button>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-      </div>
-
-    </ion-card>
-
-    <div [hidden]="!audio_posted" class="audio_posted">
-      <ion-spinner [hidden]="audio_posted_finish" name="dots" style="font-size:50px;margin:0 auto;margin-top:25px;"></ion-spinner>
-      <ion-icon [hidden]="!audio_posted_finish" color="secondary" style="font-size:50px; margin: 0 auto; margin-top: 25px;" name="ios-checkmark-circle"></ion-icon>
+    <div style="margin-top: 0px;">
+      <ion-grid>
+        <ion-row>
+          <ion-col col-4 class="col-center stats {{color_2}}">Posts<br><span class="{{color_1}} bold1">191</span></ion-col>
+          <ion-col col-4 class="col-center stats {{color_2}}">Friends<br><span class="{{color_1}} bold1">225</span></ion-col>
+          <ion-col col-4 class="col-center stats {{color_2}}">Likes<br><span class="{{color_1}} bold1">441</span></ion-col>
+        </ion-row>
+      </ion-grid>
+      <ion-grid>
+        <ion-row>
+          <ion-col col-6>
+            <button color="{{color4}}" small ion-button block item-left icon-left>
+                <!-- <ion-icon name="ios-microphone"></ion-icon> -->
+                Edit Profile
+              </button>
+          </ion-col>
+          <ion-col col-6 class="col-center">
+            <button [disabled]="rec" color="{{color5}}" (touchstart)="fastRec()" (touchend)="stopRec()" small block ion-button item-right
+              icon-left>
+                <!-- <ion-icon name="ios-microphone"></ion-icon> -->
+                Rec
+              </button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </div>
+  </ion-card>
 
-    <ion-card [hidden]="!rec2" class="card-no-padding2 " color="{{color6}}">
+  <div [hidden]="!audio_posted" class="audio_posted">
+    <ion-spinner [hidden]="audio_posted_finish" name="dots" style="font-size:50px;margin:0 auto;margin-top:25px;"></ion-spinner>
+    <ion-icon [hidden]="!audio_posted_finish" color="secondary" style="font-size:50px; margin: 0 auto; margin-top: 25px;" name="ios-checkmark-circle"></ion-icon>
+  </div>
 
+  <ion-card [hidden]="!rec2" class="card-no-padding2 " color="{{color6}}">
       <div style="margin-top: 0px;" [hidden]="audio_posted">
         <ion-card-header color="{{color4}}">
           Record Riff
@@ -86,208 +78,160 @@
           <ion-item id="recContainer" style="" color="{{color6}}">
             <button [hidden]="hideStart" color="{{color2}}" ion-button clear item-left icon-left>
             </button>
-
-            <!-- <ion-icon name="md-microphone" item-left color="primary"></ion-icon> -->
-            <!-- <button [hidden]="!isFastRiff" (click)="fastPlay()" color="primary" ion-button  item-right outline icon-left>
-              <ion-icon name="play"></ion-icon>
-              Play
-            </button> -->
-
             <div id="waveform" style=""></div>
           </ion-item>
 
           <div [hidden]="!isFastRiff" style="margin-top:-18px;">
             <ion-item color="{{color6}}">
               <!-- <ion-label>Title</ion-label> -->
-              <input [(ngModel)]="audio_name" name="audio_name" type="text" placeholder="Title" />
+              <!-- <div style="padding-left:10px; padding-right:10px;">   -->
+              <input [(ngModel)]="audio_name" name="audio_name" type="text" placeholder="Title" style="margin-left:-2px;" (focus)="scrollToRec()"/>
+              <!-- <ion-input [(ngModel)]="audio_name" name="audio_name" type="text" placeholder="Title" style="margin-left:-2px;"> </ion-input> -->
               <br>
-              <textarea rows="2" [(ngModel)]="audio_description" name="audio_description" placeholder="Enter a description"></textarea>
+              <textarea rows="2" [(ngModel)]="audio_description" name="audio_description" placeholder="Enter a description" (focus)="scrollToRec()"></textarea>
+              <!-- </div> -->
             </ion-item>
-            <!-- <ion-item>
-            <ion-label>Geolocate</ion-label>
-            <ion-checkbox color="primary" checked="true"></ion-checkbox>
-          </ion-item> -->
-            <!-- <ion-item color="grey3">
+            <div style="margin-top:-18px;">
+              <ion-row>
+                <ion-col col-4 class="col-center stats {{color_1}}">
+                  <button color="{{color4}}" ion-button clear small item-right icon-only>
+                    <ion-icon name="md-share"></ion-icon>
+                    Share
+                  </button>
+                </ion-col>
+                <ion-col col-4 class="col-center stats {{color_1}}">
+                  <button color="{{color4}}" (click)="fastPlay()" ion-button clear small item-right icon-only>
+                    <ion-icon name="play"></ion-icon>
+                    Play
+                  </button>
 
-
-          </ion-item> -->
-            <ion-row>
-
-              <ion-col col-4 class="col-center stats {{color_1}}">
-                <button color="{{color4}}" ion-button clear small item-right icon-only>
-                <ion-icon name="md-share"></ion-icon>
-                Share
-              </button>
-              </ion-col>
-              <ion-col col-4 class="col-center stats {{color_1}}">
-                <button color="{{color4}}" (click)="fastPlay()" ion-button clear small item-right icon-only>
-                <ion-icon name="play"></ion-icon>
-                Play
-              </button>
-                <!-- <button color="danger" ion-button clear small item-left icon-only>
-                <ion-icon name="md-trash"></ion-icon>
-                Delete
-              </button> -->
-              </ion-col>
-              <ion-col col-4 class="col-center stats {{color_1}}">
-                <button color="{{color5}}" (click)="post()" ion-button item-right clear small icon-left>
-                <ion-icon name="md-arrow-round-up"></ion-icon>
-                Post
-              </button>
-              </ion-col>
-            </ion-row>
+                </ion-col>
+                <ion-col col-4 class="col-center stats {{color_1}}">
+                  <button color="{{color5}}" (click)="post()" ion-button item-right clear small icon-left>
+                    <ion-icon name="md-arrow-round-up"></ion-icon>
+                    Post
+                  </button>
+                </ion-col>
+              </ion-row>
+            </div>
           </div>
         </div>
       </div>
     </ion-card>
 
 
-    <ion-card color="{{color9}}" class="card-no-padding">
-      <div style="" class="{{color_2}}">
-        <ion-grid>
-          <ion-row>
-            <ion-col col-4 class="col-center {{color_3}}">Posts</ion-col>
-            <ion-col col-4 class="col-center {{color_3}}">Friends</ion-col>
-            <ion-col col-4 class="col-center {{color_3}}">Likes</ion-col>
-          </ion-row>
-        </ion-grid>
-      </div>
-    </ion-card>
-
-    <!-- <div style="width:100%;overflow:hidden; height:1px;"><div style="width:1000%;"> - - - </div></div> -->
-
-    <div *ngIf="first_loading" class="audio_posted">
-      <ion-spinner name="dots" style="font-size:50px;margin:0 auto;margin-top:25px;"></ion-spinner>
-    </div>
-
-    <ion-card color="{{color6}}" id="post_id_{{post.id}}" class="card-no-padding bottom-padding top-padding bottom-dashed" *ngFor="let post of posts">
-      <ion-item color="{{color6}}" style="height: 5px;">
-        <!-- <ion-avatar item-left> -->
-        <!-- <img src="./assets/images/pingu2.jpg"> -->
-        <!-- </ion-avatar> -->
-        <span class="{{color_3}} bold1" style="font-size:16px;">{{post.creator}}</span><br>
-        <!-- <p style="font-size: 12px; ">If I could describe you I would do it. Set here your description.</p> -->
-        <p style="white-space: normal; font-size:10px;">
-          <span style="color: #333;" *ngIf="post.distanza > 0">{{post.added}} ago, {{post.distanza}} km away</span>
-        </p>
-        <button item-end ion-button icon-only clear small (click)="audioPlay(post)" [hidden]="!post.isaudio" [style.marginRight]='post.is_me == true ? "-0px" : ""'>
-          <ion-icon name="play" color="wh5"></ion-icon>
-        </button>
-        <button item-end ion-button icon-only clear small color="{{color4}}" style="" (click)="postSettings(post)" style="margin-right: -0px;"> <!-- [hidden]="!post.is_me" -->
-          <ion-icon name="ios-more"></ion-icon>
-        </button>
-      </ion-item>
-      <!-- <img src="./assets/images/pingu2.jpg"/> -->
-      <ion-card-content style="margin-top:0px;">
-        <!-- <ion-card-title class="{{color_2}}" color="dark">
-          Nine Inch Nails Live
-        </ion-card-title> -->
-
-        <!-- <div [hidden]="!false">
-          <ion-row color="primary">
-            <ion-col col-4 class="col-center stats wh-bg-color-4">
-              <button color="wh5" (click)="audioPlay(post.audio)" ion-button clear small item-right icon-only>
-                <ion-icon name="play"></ion-icon>
-                Play
-              </button>
-            </ion-col>
-            <ion-col col-4 class="col-center stats wh-bg-color-4">
-            </ion-col>
-            <ion-col col-4 class="col-center stats wh-bg-color-4">
-            </ion-col>
-          </ion-row>
-          <div id="waveform3-" class="wh-bg-color-4 waveform" style="padding-top:5px; width: 100%">
-          </div>
-          <ion-item-divider color="wh3"><ion-label color="wh2"></ion-label></ion-item-divider>
-        </div> -->
-
-
-        <p style="margin-top:0px;">
-          <span class="{{color_3}}">&#123;</span><strong> <span style="color: #333;">{{post.name}}</span> </strong><span class="{{color_3}}">&#125;</span>
-          {{post.isaudio == true ? "" : ""}}
-          {{post.description}}
-        </p>
-
-        <div [hidden]="!post.isaudio2" style="">
-          <ion-row>
-            <ion-col>
-              <div id="waveform3-{{post.id}}" class="wh-bg-color-4 waveform3" style="width: 100%;">
-
-              </div>
-            </ion-col>
-            <!-- <ion-col col-4>
-              <button color="wh5" (click)="audioPlay(post)" ion-button small block item-right icon-only>
-                <ion-icon name="play"></ion-icon>
-                Play
-              </button>
-            </ion-col> -->
-          </ion-row>
-        </div>
-      </ion-card-content>
-
-      <div class="post_section" style="margin-top:-5px;">
+  <ion-card color="{{color9}}" class="card-no-padding">
+    <div style="" class="{{color_2}}">
+      <ion-grid>
         <ion-row>
-          <ion-col center>
-            <button ion-button icon-left clear small color="{{color4}}" (click)="likeUnlike(post)">
-              <ion-icon color="{{post.liked_me == true ? color5 : ''}}" name="md-thumbs-up"></ion-icon>
-              <div style="font-size: 11px;">{{post.likes}} Likes</div>
-            </button>
-          </ion-col>
-          <ion-col center text-center>
-            <button ion-button icon-left clear small color="{{color4}}" (click)="startComment(post)">
-              <ion-icon color="{{post.commented_me == true ? '' : ''}}" name="ios-text-outline"></ion-icon>
-              <div style="font-size: 11px;">{{post.comments_count}} Comments</div>
-            </button>
-          </ion-col>
-          <ion-col text-right>
-            <button ion-button icon-only clear small color="{{color4}}">
-              <ion-icon name="ios-share-outline"></ion-icon>
-            </button>
-            <button ion-button icon-only clear small color="{{color4}}">
-              <ion-icon name="ios-bookmark-outline"></ion-icon>
-            </button>
-          </ion-col>
-          <!-- <ion-col>
-          <button ion-button icon-left clear small color="{{color4}}">
-          <ion-icon name="ios-bookmark-outline"></ion-icon>
-        </button>
-      </ion-col> -->
-      <!-- <ion-col center text-right>
-      <button ion-button icon-left clear small color="{{color4}}">
-      <div>{{post.added}}</div>
-    </button>
-  </ion-col> -->
-  </ion-row>
+          <ion-col col-4 class="col-center {{color_3}}">Posts</ion-col>
+          <ion-col col-4 class="col-center {{color_3}}">Friends</ion-col>
+          <ion-col col-4 class="col-center {{color_3}}">Likes</ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </ion-card>
+
+  <!-- <div style="width:100%;overflow:hidden; height:1px;"><div style="width:1000%;"> - - - </div></div> -->
+
+  <div *ngIf="first_loading" class="audio_posted">
+    <ion-spinner name="dots" style="font-size:50px;margin:0 auto;margin-top:25px;"></ion-spinner>
   </div>
 
-  <ion-card-content>
-    <div style="margin-top:-10px; font-size:13px;">
-      <div style="font-size:10px; color:#333; margin-top:0px; margin-bottom:3px;" *ngIf="post.comments_count > 2">
-        View all {{post.comments_count}} comments
+  <ion-card color="{{color6}}" id="post_id_{{post.id}}" class="card-no-padding bottom-padding top-padding bottom-dashed" *ngFor="let post of posts">
+    <ion-item color="{{color6}}" style="height: 5px;">
+      <!-- <ion-avatar item-left> -->
+      <!-- <img src="./assets/images/pingu2.jpg"> -->
+      <!-- </ion-avatar> -->
+      <span class="{{color_3}} bold1" style="font-size:16px;">{{post.creator}}</span><br>
+      <!-- <p style="font-size: 12px; ">If I could describe you I would do it. Set here your description.</p> -->
+      <p style="white-space: normal; font-size:10px;">
+        <span style="color: #333;" *ngIf="post.distanza > 0">{{post.added}} ago, {{post.distanza}} km away</span>
+      </p>
+      <button item-end ion-button icon-only clear small (click)="audioPlay(post)" [hidden]="!post.isaudio" [style.marginRight]='post.is_me == true ? "-0px" : ""'>
+        <ion-icon name="play" color="wh5"></ion-icon>
+      </button>
+      <button item-end ion-button icon-only clear small color="{{color4}}" style="" (click)="postSettings(post)" style="margin-right: -0px;"> <!-- [hidden]="!post.is_me" -->
+        <ion-icon name="ios-more"></ion-icon>
+      </button>
+    </ion-item>
+
+    <ion-card-content style="margin-top:0px;">
+
+      <p style="margin-top:0px;">
+        <span class="{{color_3}}">&#123;</span><strong> <span style="color: #333;">{{post.name}}</span> </strong><span class="{{color_3}}">&#125;</span>
+        {{post.isaudio == true ? "" : ""}}
+        {{post.description}}
+      </p>
+
+      <div [hidden]="!post.isaudio2" style="">
+        <ion-row>
+          <ion-col>
+            <div id="waveform3-{{post.id}}" class="wh-bg-color-4 waveform3" style="width: 100%;">
+            </div>
+          </ion-col>
+        </ion-row>
       </div>
-      <div *ngFor="let comment of post.comments | slice:0:2">
-        <strong>{{comment.user_name}}</strong> {{comment.comment}}
-      </div>
-    </div>
-    <div style=";margin-bottom:-20px;" *ngIf="post.start_comment">
-      <!-- <ion-textarea [(ngModel)]="audio_description" name="audio_description" placeholder="Enter a description"></ion-textarea> -->
+
+    </ion-card-content>
+
+    <div class="post_section" style="margin-top:-5px;" id="post_id_input_{{post.id}}">
       <ion-row>
-        <ion-col style="position: initial;">
-          <form>
-            <input [(ngModel)]="post.new_comment" name="post.new_comment" type="text" placeholder="Write your comment here." style="margin-top:0px;" (ionFocus)="scrollToElement(post)" />
-          </form>
+        <ion-col center>
+          <button ion-button icon-left clear small color="{{color4}}" (click)="likeUnlike(post)">
+            <ion-icon color="{{post.liked_me == true ? color5 : ''}}" name="md-thumbs-up"></ion-icon>
+            <div style="font-size: 11px;">{{post.likes}} Likes</div>
+          </button>
         </ion-col>
-        <ion-col col-3>
-          <button ion-button small>Send</button>
+        <ion-col center text-center>
+          <button ion-button icon-left clear small color="{{color4}}" (click)="startComment(post)">
+            <ion-icon color="{{post.commented_me == true ? '' : ''}}" name="ios-text-outline"></ion-icon>
+            <div style="font-size: 11px;">{{post.comments_count}} Comments</div>
+          </button>
+        </ion-col>
+        <ion-col text-right>
+          <button ion-button icon-only clear small color="{{color4}}">
+            <ion-icon name="ios-share-outline"></ion-icon>
+          </button>
+          <button ion-button icon-only clear small color="{{color4}}">
+            <ion-icon name="ios-bookmark-outline"></ion-icon>
+          </button>
         </ion-col>
       </ion-row>
     </div>
-  </ion-card-content>
 
-</ion-card>
+    <ion-card-content>
+      <div style="margin-top:-10px; font-size:13px;">
+        <div style="font-size:10px; color:#333; margin-top:0px; margin-bottom:3px;" *ngIf="post.comments_count > 2">
+          View all {{post.comments_count}} comments
+        </div>
+        <div *ngFor="let comment of post.comments | slice:0:2">
+          <strong>{{comment.user_name}}</strong> {{comment.comment}}
+        </div>
+      </div>
+      <div style=";margin-bottom:-20px;" [hidden]="!post.start_comment">
+        <!-- <ion-textarea [(ngModel)]="audio_description" name="audio_description" placeholder="Enter a description"></ion-textarea> -->
+        <ion-row>
+          <ion-col>
+            <form>
+              <input id="post_id_input_local_{{post.id}}" [(ngModel)]="post.new_comment" name="post.new_comment" type="text" placeholder="Write your comment here." style="margin-top:3px;" (blur)="stopComment(post)" (focus)="scrollToElement(post)" />
+            </form>
+          </ion-col>
+          <ion-col col-3>
+            <button ion-button small>Send</button>
+          </ion-col>
+        </ion-row>
+      </div>
+    </ion-card-content>
 
-  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+  </ion-card>
+
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)" threshold="300px">
     <ion-infinite-scroll-content></ion-infinite-scroll-content>
   </ion-infinite-scroll>
+
+  <div *ngIf="infinite < 0 ? true : true" style="height:150px;" >
+    &nbsp;
+  </div>
 
 </ion-content>

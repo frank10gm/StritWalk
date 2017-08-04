@@ -82,6 +82,7 @@ enableProdMode();
           activator: 'none',
           // tabsPlacement: 'top'
         }
+        //, ios: { scrollAssist: false, autoFocusAssist: false } 
       }
     })
   ],
