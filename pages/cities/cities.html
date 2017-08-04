@@ -200,7 +200,7 @@
       </ion-row>
     </div>
 
-    <ion-card-content>
+    <ion-card-content *ngIf="post.comments_count > 0">
       <div style="margin-top:-10px; font-size:13px;">
         <div style="font-size:10px; color:#333; margin-top:0px; margin-bottom:3px;" *ngIf="post.comments_count > 2">
           View all {{post.comments_count}} comments
