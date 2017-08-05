@@ -234,7 +234,7 @@ export class CitiesPage {
         // },100)
         if(!this.rec)
         {
-          this.stopRec();  
+          this.stopRec();
         }
       }, 30000); //fast riff of 5 secons
     });
@@ -820,7 +820,7 @@ export class CitiesPage {
     let el = document.getElementById("post_id_input_"+data.id);
     let el2 = document.getElementById("post_id_input_local_"+data.id);
     let yOffset = el.offsetTop;
-    this.content.scrollTo(0, yOffset, 200).then(()=>{
+    this.content.scrollTo(0, yOffset - 50, 200).then(()=>{
       window.setTimeout(()=>{
         // el2.focus();
         this.scrolling = false;
